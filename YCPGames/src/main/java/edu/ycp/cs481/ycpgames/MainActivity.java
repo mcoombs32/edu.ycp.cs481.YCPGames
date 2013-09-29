@@ -10,15 +10,22 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
     //declare instance of buttons
-    private ImageButton TicTacToeButton;
-    private ImageButton DotsButton;
+    protected ImageButton TicTacToeButton;
+    protected ImageButton DotsButton;
+    protected ImageButton CheckersButton;
+    protected ImageButton SettingsButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //Get reference to TicTacToeButton
+
+        //Get references to main menu buttons
         TicTacToeButton = (ImageButton)findViewById(R.id.TicTacToeButton);
-        //Set listener for TicTacToeButton
+        DotsButton = (ImageButton)findViewById(R.id.DotsButton);
+        CheckersButton = (ImageButton)findViewById(R.id.CheckersButton);
+        SettingsButton = (ImageButton)findViewById(R.id.SettingsButton);
+
+        //Set listeners for main menu buttons
         TicTacToeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -27,9 +34,6 @@ public class MainActivity extends Activity {
                 Toast.makeText(MainActivity.this, R.string.TicTacToe, Toast.LENGTH_SHORT).show();
             }
         });
-        //Get reference to DotsButton
-        DotsButton = (ImageButton)findViewById(R.id.DotsButton);
-        //Set listener for DotsButton
         DotsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -38,6 +42,24 @@ public class MainActivity extends Activity {
                 Toast.makeText(MainActivity.this, R.string.Dots, Toast.LENGTH_SHORT).show();
             }
         });
+        CheckersButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //When Checkers button is pressed:
+                //Placeholder "Toast" till Checkers is implemented
+                Toast.makeText(MainActivity.this, R.string.Checkers, Toast.LENGTH_SHORT).show();
+            }
+        });
+        SettingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //When Checkers button is pressed:
+                //Placeholder "Toast" till Checkers is implemented
+                Toast.makeText(MainActivity.this, R.string.Settings, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
     }
 
 
