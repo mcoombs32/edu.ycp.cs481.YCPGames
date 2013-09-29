@@ -32,6 +32,7 @@ public class MainActivity extends Activity {
                 //When TicTacToe button is pressed:
                 //Placeholder "Toast" till TicTacToe is implemented
                 Toast.makeText(MainActivity.this, R.string.TicTacToe, Toast.LENGTH_SHORT).show();
+                //TODO: link to TicTacToe
             }
         });
         DotsButton.setOnClickListener(new View.OnClickListener() {
@@ -40,6 +41,7 @@ public class MainActivity extends Activity {
                 //When dots button is pressed:
                 //Placeholder "Toast" till Dots is implemented
                 Toast.makeText(MainActivity.this, R.string.Dots, Toast.LENGTH_SHORT).show();
+                //TODO: link to Dots
             }
         });
         CheckersButton.setOnClickListener(new View.OnClickListener() {
@@ -48,6 +50,7 @@ public class MainActivity extends Activity {
                 //When Checkers button is pressed:
                 //Placeholder "Toast" till Checkers is implemented
                 Toast.makeText(MainActivity.this, R.string.Checkers, Toast.LENGTH_SHORT).show();
+                //TODO: link to Checkers
             }
         });
         SettingsButton.setOnClickListener(new View.OnClickListener() {
@@ -56,6 +59,7 @@ public class MainActivity extends Activity {
                 //When Checkers button is pressed:
                 //Placeholder "Toast" till Checkers is implemented
                 Toast.makeText(MainActivity.this, R.string.Settings, Toast.LENGTH_SHORT).show();
+                //TODO: link to settings
             }
         });
 
