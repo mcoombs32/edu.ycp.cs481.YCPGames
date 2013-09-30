@@ -3,6 +3,10 @@
 
     <string name="app_name">YCP Games</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="TicTacToe">TODO: TicTacToe</string>
+    <string name="Dots">TODO: Dots</string>
+    <string name="Checkers">TODO: Checkers</string>
+    <string name="Settings">TODO: Settings</string>
+    <string name="YCP_Games">YCP Games</string>
 
 </resources>
