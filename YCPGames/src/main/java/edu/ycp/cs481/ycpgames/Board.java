@@ -22,8 +22,8 @@ public class Board {
 
         return true;
     }
-    public boolean isGameOver(){
-        return false;
+    public int isGameOver(){
+        return 0;
     }
     public boolean playerOneWin(){
         return true;

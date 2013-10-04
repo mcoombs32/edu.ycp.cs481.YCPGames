@@ -4,6 +4,7 @@ package edu.ycp.cs481.ycpgames;
  * Created by waffles on 10/4/13.
  */
 public class TicTacToeBoard extends Board {
+
     //playerOne/TwoPieces will be used to count how many pieces each player has placed
     //this will help make isGameOver() faster in the early game
     int playerOnePieces, playerTwoPieces;
@@ -56,20 +57,94 @@ public class TicTacToeBoard extends Board {
     }
     /*
      * overrides the isGameOver method, recursively checks game board for victory
-     * might be better to move these from board to game
-     * i put them here since this was where grid was but now im not so sure
-     * going to need to think about this for a few days to find the best way to do this
+     * returns 0 for game still in progress, otherwise player number of victor
      */
     @Override
-    public boolean isGameOver(){
+    public int isGameOver(){
+        int player;
         if((playerOnePieces<3)&&(playerTwoPieces<3)){
-            return false;
+            return 0;
+        }
+        //look for verticle victories
+        for(int x = 0; x < 3; x++){
+            player = recurse("up", x, 0);
+            if (player != 0){
+                return player;
+            }
+        }
+        //look for horizontal victories
+        for(int y = 0; y <3; y++){
+            player = recurse("right", y, 0);
+            if (player != 0){
+                return player;
+            }
+        }
+        //look for diagonal victories
+        player = recurse("dUP",0,0);
+        if(player != 0){
+            return player;
+        }
+        player = recurse("dDOWN",0,2);
+        if(player != 0){
+            return player;
         }
         //check this recursively
-        return false;
+        return 0;
     }
     @Override
     public boolean playerOneWin(){
         return true;
+    }
+
+    private int recurse(String flag, int x, int y){
+        int player;
+        if(flag == "up"){
+            if(y == 2){
+                return grid[x][y];
+            }else{
+                player = recurse(flag, x, y+1);
+                if(player == grid[x][y]){
+                    return player;
+                }else{
+                    return 0;
+                }
+            }
+        }
+        if(flag == "right"){
+            if (x==2){
+                return grid[x][y];
+            }else{
+                player = recurse(flag, x+1, y);
+                if(player == grid[x][y]){
+                    return player;
+                }else{
+                    return 0;
+                }
+            }
+        }
+        if(flag == "dUP"){
+            if (x==2){
+                return grid[x][y];
+            }else{
+                player = recurse(flag, x+1, y+1);
+                if(player == grid[x][y]){
+                    return player;
+                }else{
+                    return 0;
+                }
+            }
+        }if (flag== "dDOWN"){
+            if (x==2){
+                return grid[x][y];
+            }else{
+                player = recurse(flag, x+1,y-1);
+                if(player == grid[x][y]){
+                    return player;
+                }else{
+                    return 0;
+                }
+            }
+        }
+        return 0;
     }
 }
