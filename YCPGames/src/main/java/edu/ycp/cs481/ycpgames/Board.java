@@ -22,6 +22,9 @@ public class Board {
 
         return true;
     }
+    public int getPieceAt(int x, int y){
+        return 0;
+    }
     public int isGameOver(){
         return 0;
     }
