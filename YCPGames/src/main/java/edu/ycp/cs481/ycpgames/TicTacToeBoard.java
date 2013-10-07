@@ -30,6 +30,21 @@ public class TicTacToeBoard extends Board {
         playerTwoPieces = 0;
     }
     /*
+     *This resets the board
+     * ...obvious right?
+     */
+    @Override
+    public void reset(){
+        for(int x = 0; x<3; x++){
+            for(int y = 0; y<3; y++){
+                grid[x][y] = 0;
+            }
+        }
+        playerOnePieces = 0;
+        playerTwoPieces = 0;
+    }
+
+    /*
      * overrides the placePiece method, takes a location and an int representing the player
      *
      */
@@ -55,15 +70,22 @@ public class TicTacToeBoard extends Board {
     }
     /*
      * overrides the isGameOver method, recursively checks game board for victory
-     * returns 0 for game still in progress, otherwise player number of victor
+     * returns 0 for game still in progress, -1 if draw, otherwise player number of victor
      */
     @Override
     public int isGameOver(){
         int player;
         if((playerOnePieces<3)&&(playerTwoPieces<3)){
+            //if there aren't enough pieces for a victory then return 0
             return 0;
         }
-        //look for verticle victories
+
+        if((playerOnePieces + playerTwoPieces) >=9){
+            //if game is a draw return -1
+            return -1;
+        }
+
+        //look for vertical victories
         for(int x = 0; x < 3; x++){
             player = checkForWin("up", x, 0);
             if (player != 0){
@@ -86,7 +108,7 @@ public class TicTacToeBoard extends Board {
         if(player != 0){
             return player;
         }
-        //check this recursively
+
         return 0;
     }
 
@@ -95,11 +117,11 @@ public class TicTacToeBoard extends Board {
         return grid[x][y];
     }
 
-    @Override
-    public boolean playerOneWin(){
-        return true;
-    }
-
+    /*
+     * This method will recursively check a row/column/diagonal for a win
+     * direction checked is dependent on flag
+     * valid flags are "up" "right" "dUP" and "dDOWN"
+     */
     private int checkForWin(String flag, int x, int y){
         int player;
         if(flag.equals("up")){

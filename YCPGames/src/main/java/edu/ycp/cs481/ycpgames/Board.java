@@ -6,17 +6,17 @@ package edu.ycp.cs481.ycpgames;
 public class Board {
     int [][] grid;
     public Board(){
-        return;
+
     }
     public void makeMove(int startX, int startY, int endX, int endY){
-        return;
+
     }
     public boolean checkMove(int startX, int startY, int endX, int endY){
 
         return true;
     }
     public void placePiece(int x, int y, int player){
-        return;
+
     }
     public boolean checkSpace(int x, int y){
 
@@ -30,5 +30,8 @@ public class Board {
     }
     public boolean playerOneWin(){
         return true;
+    }
+    public void reset(){
+
     }
 }
