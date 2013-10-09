@@ -5,9 +5,9 @@ package edu.ycp.cs481.ycpgames;
  */
 public class Settings {
 
-    Boolean singlePlayer = true;
-    int difficulty = 0;
-    int girdSize = 3;
+    private Boolean singlePlayer = true;
+    private int difficulty = 0;
+    private int girdSize = 3;
     /*
     singleton is cool
     and seems useful here

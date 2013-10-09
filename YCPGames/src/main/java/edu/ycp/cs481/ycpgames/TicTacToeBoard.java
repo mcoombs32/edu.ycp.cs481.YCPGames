@@ -1,13 +1,13 @@
 package edu.ycp.cs481.ycpgames;
 
 /**
- * Created by waffles on 10/4/13.
+ * Created by brian on 10/4/13.
  */
 public class TicTacToeBoard extends Board {
 
     //playerOne/TwoPieces will be used to count how many pieces each player has placed
     //this will help make isGameOver() faster in the early game
-    int playerOnePieces, playerTwoPieces;
+    private int playerOnePieces, playerTwoPieces;
     public TicTacToeBoard(){
         /*
          * im going to standardize the board layout here

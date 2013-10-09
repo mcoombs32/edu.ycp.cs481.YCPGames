@@ -1,7 +1,7 @@
 package edu.ycp.cs481.ycpgames;
 
 /**
- * Created by waffles on 10/4/13.
+ * Created by brian on 10/4/13.
  */
 public class Board {
     int [][] grid;
@@ -16,7 +16,7 @@ public class Board {
         return true;
     }
     public void placePiece(int x, int y, int player){
-
+        grid[x][y] = player;
     }
     public boolean checkSpace(int x, int y){
 
@@ -28,10 +28,14 @@ public class Board {
     public int isGameOver(){
         return 0;
     }
-    public boolean playerOneWin(){
-        return true;
-    }
     public void reset(){
 
+    }
+    /*
+     * returns the grid
+     * primary purpose is passing grid to AI
+     */
+    public int[][] getGrid(){
+        return grid;
     }
 }

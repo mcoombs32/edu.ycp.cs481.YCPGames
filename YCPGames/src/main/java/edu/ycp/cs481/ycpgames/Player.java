@@ -1,10 +1,23 @@
 package edu.ycp.cs481.ycpgames;
 
 /**
- * Created by waffles on 10/4/13.
+ * Created by brian on 10/4/13.
  */
 public class Player {
-    public Player(){
-
+    private int playerNum;
+    private boolean myTurn;
+    Settings settings;
+    public Player(int num){
+        playerNum = num;
+        if(playerNum == 1){
+            myTurn = true;
+        }else{
+            myTurn = false;
+        }
+        settings = Settings.getInstance();
     }
+    public boolean isPlayersTurn(){
+        return myTurn;
+    }
+
 }
