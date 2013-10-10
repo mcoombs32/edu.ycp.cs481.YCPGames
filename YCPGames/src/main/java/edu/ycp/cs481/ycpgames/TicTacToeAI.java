@@ -17,12 +17,15 @@ public class TicTacToeAI extends Player {
 
         switch (difficulty){
             case 0://difficulty low
+
                 break;
             case 1://difficulty medium
                 break;
             case 2://difficulty high
                 break;
             default://error
+                move[0] = -1;
+                move[1] = -1;
                 break;
         }
 

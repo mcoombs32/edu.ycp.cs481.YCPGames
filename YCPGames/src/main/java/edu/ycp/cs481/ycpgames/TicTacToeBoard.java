@@ -50,6 +50,12 @@ public class TicTacToeBoard extends Board {
      */
     @Override
     public void placePiece(int x, int y, int player){
+        if((x<0)||(x>2)){
+            return;
+        }
+        if((y<0)||(y>2)){
+            return;
+        }
         grid[x][y] = player;
         if(player == 1){
             playerOnePieces++;
@@ -62,6 +68,12 @@ public class TicTacToeBoard extends Board {
      */
     @Override
     public boolean checkSpace(int x, int y){
+        if((x<0)||(x>2)){
+            return false;
+        }
+        if((y<0)||(y>2)){
+            return false;
+        }
         if(grid[x][y] == 0){
             return true;
         }else{
@@ -114,6 +126,12 @@ public class TicTacToeBoard extends Board {
 
     @Override
     public int getPieceAt(int x, int y){
+        if((x<0)||(x>2)){
+            return -1;
+        }
+        if((y<0)||(y>2)){
+            return -1;
+        }
         return grid[x][y];
     }
 
