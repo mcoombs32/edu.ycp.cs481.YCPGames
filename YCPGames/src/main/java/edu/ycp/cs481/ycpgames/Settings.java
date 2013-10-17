@@ -4,7 +4,7 @@ package edu.ycp.cs481.ycpgames;
  * Created by waffles on 10/4/13.
  */
 public class Settings {
-
+	private static final String TAG = "YCPGamesSettings";
     private Boolean singlePlayer = true;
     private int difficulty = 0;
     private int girdSize = 3;

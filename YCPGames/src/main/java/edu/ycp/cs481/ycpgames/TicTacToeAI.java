@@ -10,6 +10,7 @@ import java.util.Set;
  * http://www3.ntu.edu.sg/home/ehchua/programming/java/JavaGame_TicTacToe_AI.html
  */
 public class TicTacToeAI extends Player {
+	private static final String TAG = "YCPGamesTicTacToeAI";
     private int difficulty;
     Random rand;
     int[][] grid;
@@ -25,8 +26,9 @@ public class TicTacToeAI extends Player {
         super(num);
         difficulty = settings.getDifficulty();//get difficulty from settings
         rand  = new Random();
+		setHumanPlayer(false);
     }
-
+	@Override
     public int[] makeMove(int [][] g){
         int[] move = {0,0};
         grid = g;

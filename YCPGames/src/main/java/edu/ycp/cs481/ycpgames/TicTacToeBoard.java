@@ -8,6 +8,7 @@ public class TicTacToeBoard extends Board {
     //playerOne/TwoPieces will be used to count how many pieces each player has placed
     //this will help make isGameOver() faster in the early game
     private int playerOnePieces, playerTwoPieces;
+	private static final String TAG = "YCPGamesTicTacToeBoard";
     public TicTacToeBoard(){
         /*
          * im going to standardize the board layout here
@@ -44,9 +45,10 @@ public class TicTacToeBoard extends Board {
         playerTwoPieces = 0;
     }
 
-    /*
+    /**
      * overrides the placePiece method, takes a location and an int representing the player
-     *
+     * @param x  x location of move
+	 * @param y  y location of move
      */
     @Override
     public void placePiece(int x, int y, int player){
@@ -63,8 +65,11 @@ public class TicTacToeBoard extends Board {
             playerTwoPieces++;
         }
     }
-    /*
+    /**
+	 * @param x  x location of move
+	 * @param y  y location of move
      * overrides the checkSpace method, takes a location and returns true if it is a valid move
+     * @return true if valid move, false if not
      */
     @Override
     public boolean checkSpace(int x, int y){
@@ -80,9 +85,9 @@ public class TicTacToeBoard extends Board {
             return false;
         }
     }
-    /*
+    /**
      * overrides the isGameOver method, recursively checks game board for victory
-     * returns 0 for game still in progress, -1 if draw, otherwise player number of victor
+     * @return 0 for game still in progress, -1 if draw, otherwise player number of victor
      */
     @Override
     public int isGameOver(){
@@ -124,6 +129,12 @@ public class TicTacToeBoard extends Board {
         return 0;
     }
 
+	/**
+	 *
+	 * @param x x location of move
+	 * @param y y location of move
+	 * @return piece at xy location
+	 */
     @Override
     public int getPieceAt(int x, int y){
         if((x<0)||(x>2)){

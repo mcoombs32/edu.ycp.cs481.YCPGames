@@ -4,6 +4,7 @@ package edu.ycp.cs481.ycpgames;
  * Created by brian on 10/4/13.
  */
 public class Board {
+	private static final String TAG = "YCPGamesBoard";
     int [][] grid;
     public Board(){
 
