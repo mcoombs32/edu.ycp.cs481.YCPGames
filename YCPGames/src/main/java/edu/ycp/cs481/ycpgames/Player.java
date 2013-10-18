@@ -1,5 +1,7 @@
 package edu.ycp.cs481.ycpgames;
 
+import android.util.Log;
+
 /**
  * Created by brian on 10/4/13.
  */
@@ -23,6 +25,7 @@ public class Player {
             myTurn = false;
         }
         settings = Settings.getInstance();
+		Log.d(TAG, "Player " + " created");
     }
 
 	/**
@@ -63,6 +66,7 @@ public class Player {
 	 * instances of TicTacToeAI declared as Player
 	 */
 	public  int[] makeMove(int[][] g){
+		Log.d(TAG,"Make move is not implemented here");
 		return null;
 	}
 }

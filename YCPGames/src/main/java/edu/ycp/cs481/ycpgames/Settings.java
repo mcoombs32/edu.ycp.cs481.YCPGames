@@ -1,5 +1,7 @@
 package edu.ycp.cs481.ycpgames;
 
+import android.util.Log;
+
 /**
  * Created by waffles on 10/4/13.
  */
@@ -19,7 +21,7 @@ public class Settings {
     }
 
     private Settings() {
-
+		Log.d(TAG, "Settings singleton object created");
     }
     /*
      *method to see if it is a single player or multiplayer game

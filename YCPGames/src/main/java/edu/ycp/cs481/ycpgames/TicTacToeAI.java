@@ -1,5 +1,7 @@
 package edu.ycp.cs481.ycpgames;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -41,7 +43,9 @@ public class TicTacToeAI extends Player {
                 move = lookupTable();
                 break;
             case 2://difficulty high
-                //TODO: Implement this
+                int[] result = minimax(4, playerNum);
+				move[0] = result [1];
+				move[1] = result [2];
                 break;
             default://error
                 move[0] = -1;
@@ -88,30 +92,95 @@ public class TicTacToeAI extends Player {
     }
 
 
-    /*
-     *TODO: figure out what is going on and implement
-     *
-     */
+	/**
+	 * Recursive  minimax method for finding best move
+	 * @param depth     level in the tree
+	 * @param player    active player
+	 * @return array of best score, best x position, best y position
+	 */
     private int[]minimax(int depth, int player){
+		//Generate all possible moves
+		List<int[]> moves = generateMoves();
+		//set goal
+		int bestScore;
+		if (player == playerNum){
+			bestScore = Integer.MIN_VALUE;
+		}
+		else{
+			bestScore = Integer.MAX_VALUE;
+		}
+		int currentScore;
+		int bestX = -1;
+		int bestY = -1;
 
-        return null;
+		if(moves.isEmpty() || depth == 0){
+			//either gameover, or depth reached
+			bestScore = evaluate();
+		}else {
+			//evaluate branches
+			for(int[] move : moves){
+				//try move
+				grid[move[0]][move[1]] = player;
+				if(player == playerNum){
+					//here is the part where i wished i had implemented player number better...
+					//recursive call
+					if(player == 1){
+						currentScore = minimax(depth-1, 2)[0];
+					}else{
+						currentScore = minimax(depth-1, 1)[0];
+					}
+					//if these has a better score then use it
+					if(currentScore > bestScore){
+						bestScore = currentScore;
+						bestX = move[0];
+						bestY = move[1];
+					}
+				}else{
+					//recursive call
+					if(player == 1){
+						currentScore = minimax(depth-1, 2)[0];
+					}else{
+						currentScore = minimax(depth-1, 1)[0];
+					}
+					//if these has a better score then use it
+					if(currentScore < bestScore){
+						bestScore = currentScore;
+						bestX = move[0];
+						bestY = move[1];
+					}
+				}
+				//undo move
+				grid[move[0]][move[1]] = 0;
+			}
+		}
+
+
+		return new int[] {bestScore, bestX, bestY};
     }
-    /*
-     * generate valid moves
-     * TODO: implement
-     */
-    private int[][] generateMoves(){
 
+	/**
+	 *
+	 * @return list of availble moves
+	 */
+    private List<int[]> generateMoves(){
+		List<int[]> moves = new ArrayList<int[]>();
 
-        return null;
+		//find empty cells and add to list
+		for(int x = 0; x <= 2; x++){
+			for(int y = 0; y <=2; y++){
+				if(grid[x][y] == 0){
+					moves.add(new int[]{x,y});
+				}
+			}
+		}
+		return moves;
     }
 
-    /*
+    /**
      * heuristic eval function for the current board state
-     * returns:
-     * +100, +10, +1 for EACH 3-, 2-, 1-in-a-line for computer.
-     * -100, -10, -1 for EACH 3-, 2-, 1-in-a-line for opponent.
-     * 0 otherwise
+     * @returns:	+100, +10, +1 for EACH 3-, 2-, 1-in-a-line for computer.
+     * 				-100, -10, -1 for EACH 3-, 2-, 1-in-a-line for opponent.
+     * 				0 otherwise
      */
     private int evaluate(){
         int score = 0;
@@ -134,18 +203,18 @@ public class TicTacToeAI extends Player {
      * -100, -10, -1 for 3-, 2-, 1-in-a-line for opponent.
      * 0 otherwise
      */
-    private int evaluateLine(int row1, int col1, int row2, int col2, int row3, int col3){
+    private int evaluateLine(int x1, int y1, int x2, int y2, int x3, int y3){
         int score = 0;
 
         // checking first cell
-        if(grid[row1][col1] == playerNum){ //if piece is mine
+        if(grid[ x1][y1] == playerNum){ //if piece is mine
             score = 1;
-        }else if(grid[row1][col1] != 0){ //if piece is opponent
+        }else if(grid[ x1][y1] != 0){ //if piece is opponent
             score = -1;
         }
 
         //checking second cell
-        if(grid[row2][col2] == playerNum){ //if piece is mine
+        if(grid[x2][y2] == playerNum){ //if piece is mine
             if (score == 1){ //first cell is my piece
                 score = 10;
             } else if (score == -1){ // first cell is player 1 piece
@@ -153,7 +222,7 @@ public class TicTacToeAI extends Player {
             } else{ //first cell is empty;
                 score = 1;
             }
-        }else if (grid[row2][col2] != 0){ //if piece is opponent
+        }else if (grid[x2][y2] != 0){ //if piece is opponent
             if (score == -1){//first cell is player 1
                 score = -10;
             } else if (score ==1){ //first cell is my piece
@@ -164,7 +233,7 @@ public class TicTacToeAI extends Player {
         }
 
         //checking third cell
-        if(grid[row3][col3] == playerNum){ //if piece is mine
+        if(grid[x3][y3] == playerNum){ //if piece is mine
             if(score > 0){//cell 1 and/or 2 are my piece
                 return (score*10);
             }else if(score < 0){ //cell 1 and/or 2 are player 1
@@ -172,7 +241,7 @@ public class TicTacToeAI extends Player {
             } else{ //cells 1/2 are empty
                 return 1;
             }
-        }else if (grid[row3][col3] != 0){ // if piece is oppenent
+        }else if (grid[x3][y3] != 0){ // if piece is oppenent
             if(score < 0){ //cell 1 and/or 2 are player 1
                 return (score *10);
             }else if (score > 1){ //cell 1 and/or 2 are my pieces

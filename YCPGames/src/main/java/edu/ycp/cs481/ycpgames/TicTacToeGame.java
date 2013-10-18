@@ -55,7 +55,8 @@ public class TicTacToeGame extends Game{
 	 * @param y  y location of move
 	 * this method figure out which players turn it is and performs a move
 	 * if it is a single player game it also calls the AI
-	 * @return game state. -2 if invalid move. 0 for game in progress, -1 for draw, otherwise palyer number of winner
+	 * @return 				game state. -3 for invalid AI move, -2 if invalid move,
+	 * 						0 for game in progress, -1 for draw, otherwise palyer number of winner
 	 */
 	public int move(int x, int y){
 		if(board.checkSpace(x,y)){
@@ -66,13 +67,13 @@ public class TicTacToeGame extends Game{
 				//call AI if singleplayer game and game is still in progress
 				int[] location = playerTwo.makeMove(board.getGrid());
 				if((location[0] == -1) || (location[1] == -1)){
-					//TODO: AI made invalid move, crash
+					return -2;
 				}else if(board.checkSpace(location[0], location[1])){
 					//if location checks out place piece and end turn
 					board.placePiece(location[0], location[1], whosTurn());
 					endTurn();
 				}else{
-					//TODO: AI made invalid move, crash
+					return -2;
 				}
 			}
 		}else{
