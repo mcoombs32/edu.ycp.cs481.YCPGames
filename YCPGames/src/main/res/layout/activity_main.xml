@@ -32,12 +32,12 @@
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/CheckersButton" />
+            android:id="@+id/CheckersButton"/>
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/SettingsButton" />
+            android:id="@+id/SettingsButton"/>
     </LinearLayout>
 
 </LinearLayout>
