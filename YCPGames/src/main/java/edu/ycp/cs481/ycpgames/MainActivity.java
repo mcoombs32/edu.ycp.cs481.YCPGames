@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
+import android.content.Intent;
 
 
 public class MainActivity extends Activity {
@@ -32,15 +33,13 @@ public class MainActivity extends Activity {
 
 		//Set listeners for main menu buttons
 		TicTacToeButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				Log.d(TAG, "TicTacToeButton Pressed");
-				//When TicTacToe button is pressed:
-				//Placeholder "Toast" till TicTacToe is implemented
-				Toast.makeText(MainActivity.this, R.string.TicTacToe, Toast.LENGTH_SHORT).show();
-				//TODO: link to TicTacToe
-			}
-		});
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, TicTacToeActivity.class);
+                startActivity(intent);
+            }
+        });
 		DotsButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {

@@ -2,13 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc"
+    android:background="#05bc2f"
     tools:context=".TicTacToeActivity">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc. -->
-    <TextView android:id="@+id/fullscreen_content"
+    <ImageView android:id="@+id/fullscreen_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:keepScreenOn="true"
@@ -16,7 +16,7 @@
         android:textStyle="bold"
         android:textSize="50sp"
         android:gravity="center"
-        android:text="@string/dummy_content" />
+        android:background="@drawable/tictactoebackground" />
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
@@ -33,14 +33,82 @@
             android:orientation="horizontal"
             tools:ignore="UselessParent">
 
-            <Button android:id="@+id/dummy_button"
-                style="?buttonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/dummy_button" />
-
         </LinearLayout>
+
+        <ImageButton
+            android:layout_width="117dp"
+            android:layout_height="124dp"
+            android:id="@+id/topLeftButton"
+            android:layout_gravity="left|top"
+            android:layout_marginTop="22dp"
+            android:layout_marginLeft="2dp"
+            android:background="@drawable/transbutton" />
+
+        <ImageButton
+            android:layout_width="125dp"
+            android:layout_height="123dp"
+            android:id="@+id/topCenterButton"
+            android:layout_gravity="center_horizontal|top"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/transbutton" />
+
+        <ImageButton
+            android:layout_width="125dp"
+            android:layout_height="127dp"
+            android:id="@+id/topRightButton"
+            android:layout_gravity="right|top"
+            android:layout_marginTop="23dp"
+            android:background="@drawable/transbutton" />
+
+        <ImageButton
+            android:layout_width="123dp"
+            android:layout_height="134dp"
+            android:id="@+id/centerLeftButton"
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginTop="-18dp"
+            android:background="@drawable/transbutton" />
+
+        <ImageButton
+            android:layout_width="131dp"
+            android:layout_height="138dp"
+            android:id="@+id/centerButton"
+            android:layout_gravity="center"
+            android:layout_marginTop="-16dp"
+            android:layout_marginRight="1dp"
+            android:background="@drawable/transbutton" />
+
+        <ImageButton
+            android:layout_width="125dp"
+            android:layout_height="138dp"
+            android:id="@+id/centerRightButton"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginTop="-19dp"
+            android:background="@drawable/transbutton" />
+
+        <ImageButton
+            android:layout_width="122dp"
+            android:layout_height="137dp"
+            android:id="@+id/bottomLeftButton"
+            android:layout_gravity="left|bottom"
+            android:layout_marginBottom="41dp"
+            android:background="@drawable/transbutton" />
+
+        <ImageButton
+            android:layout_width="128dp"
+            android:layout_height="137dp"
+            android:id="@+id/bottomCenterButton"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="39dp"
+            android:background="@drawable/transbutton" />
+
+        <ImageButton
+            android:layout_width="128dp"
+            android:layout_height="133dp"
+            android:id="@+id/bottomRightButton"
+            android:layout_gravity="right|bottom"
+            android:layout_marginRight="-3dp"
+            android:layout_marginBottom="42dp"
+            android:background="@drawable/transbutton" />
     </FrameLayout>
 
 </FrameLayout>
