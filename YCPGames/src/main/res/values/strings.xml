@@ -8,5 +8,8 @@
     <string name="Checkers">TODO: Checkers</string>
     <string name="Settings">TODO: Settings</string>
     <string name="YCP_Games">YCP Games</string>
+    <string name="title_activity_tic_tac_toe">TicTacToeActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 
 </resources>
