@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -47,9 +48,9 @@ public class TicTacToeActivity extends Activity {
     private SystemUiHider mSystemUiHider;
     private TicTacToeGame game;
 
-    protected ImageButton upLeftButton;
-    protected ImageButton upCenterButton;
-    protected ImageButton upRightButton;
+    protected ImageButton topLeftButton;
+    protected ImageButton topCenterButton;
+    protected ImageButton topRightButton;
     protected ImageButton centerLeftButton;
     protected ImageButton centerButton;
     protected ImageButton centerRightButton;
@@ -65,6 +66,16 @@ public class TicTacToeActivity extends Activity {
         game =  new TicTacToeGame();
         final View controlsView = findViewById(R.id.fullscreen_content_controls);
         final View contentView = findViewById(R.id.fullscreen_content);
+
+        topLeftButton = (ImageButton) findViewById(R.id.topLeftButton);
+        topCenterButton = (ImageButton) findViewById(R.id.topCenterButton);
+        topRightButton = (ImageButton) findViewById(R.id.topRightButton);
+        centerLeftButton = (ImageButton) findViewById(R.id.centerLeftButton);
+        centerButton = (ImageButton) findViewById(R.id.centerButton);
+        centerRightButton = (ImageButton) findViewById(R.id.centerRightButton);
+        bottomLeftButton = (ImageButton) findViewById(R.id.bottomLeftButton);
+        bottomCenterButton = (ImageButton) findViewById(R.id.bottomCenterButton);
+        bottomRightButton = (ImageButton) findViewById(R.id.bottomRightButton);
 
         // Set up an instance of SystemUiHider to control the system UI for
         // this activity.
@@ -91,9 +102,9 @@ public class TicTacToeActivity extends Activity {
                                 mShortAnimTime = getResources().getInteger(
                                         android.R.integer.config_shortAnimTime);
                             }
-                            //controlsView.animate()
-                              //      .translationY(visible ? 0 : mControlsHeight)
-                                //    .setDuration(mShortAnimTime);
+                            controlsView.animate()
+                                    .translationY(visible ? 0 : mControlsHeight)
+                                    .setDuration(mShortAnimTime);
                         } else {
                             // If the ViewPropertyAnimator APIs aren't
                             // available, simply show or hide the in-layout UI
@@ -117,6 +128,69 @@ public class TicTacToeActivity extends Activity {
                 } else {
                     mSystemUiHider.show();
                 }
+            }
+        });
+
+        topLeftButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(TicTacToeActivity.this, R.string.top_left, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        topCenterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        topRightButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        centerLeftButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        centerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        centerRightButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        bottomLeftButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        bottomCenterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        bottomRightButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
 
@@ -159,6 +233,10 @@ public class TicTacToeActivity extends Activity {
             mSystemUiHider.hide();
         }
     };
+
+    private void mUpdateView(){
+
+    }
 
     /**
      * Schedules a call to hide() in [delay] milliseconds, canceling any
