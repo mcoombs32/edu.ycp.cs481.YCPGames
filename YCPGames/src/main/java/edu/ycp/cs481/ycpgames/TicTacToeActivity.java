@@ -313,10 +313,13 @@ public class TicTacToeActivity extends Activity {
             switch(gameOver){
                 case -1:
                     Toast.makeText(TicTacToeActivity.this, "It's a Draw!",Toast.LENGTH_SHORT).show();
+                    break;
                 case 1:
                     Toast.makeText(TicTacToeActivity.this, "You Win!",Toast.LENGTH_SHORT).show();
+                    break;
                 case 2:
                     Toast.makeText(TicTacToeActivity.this, "Computer wins!",Toast.LENGTH_SHORT).show();
+                    break;
             }
         }
     }

@@ -1,5 +1,7 @@
 package edu.ycp.cs481.ycpgames;
 
+import android.util.Log;
+
 /**
  * Created by brian on 10/4/13.
  */
@@ -62,6 +64,11 @@ public class TicTacToeBoard extends Board {
 			return;
 		}
 		grid[x][y] = player;
+        for (int i =0; i <3; i++){
+            for (int j = 0; j < 3; j++){
+               // Log.d(TAG,"Grid"+i+""+j+" = "+grid[i][j]);
+            }
+        }
 		if (player == 1) {
 			playerOnePieces++;
 		} else {
@@ -77,16 +84,19 @@ public class TicTacToeBoard extends Board {
 	 */
 	@Override
 	public boolean checkSpace(int x, int y) {
-		if ((x < 0) || (x > 2)) {
+		Log.d(TAG,"GRID"+x+","+y+" = "+grid[x][y]);
+
+
+        if ((x < 0) || (x > 2)) {
 			return false;
 		}
 		if ((y < 0) || (y > 2)) {
 			return false;
 		}
-		if (grid[x][y] == 0) {
-			return true;
-		} else {
+		if (grid[x][y] != 0) {
 			return false;
+		} else {
+			return true;
 		}
 	}
 

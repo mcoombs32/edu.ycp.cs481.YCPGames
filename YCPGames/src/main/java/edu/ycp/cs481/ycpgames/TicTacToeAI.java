@@ -1,5 +1,7 @@
 package edu.ycp.cs481.ycpgames;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -16,7 +18,7 @@ public class TicTacToeAI extends Player {
 	Random rand;
 	int[][] grid;
 	/*
-	 * lookup table of prefered moves
+	 * lookup table of preferred moves
 	 */
 	private int[][] preferredMoves = {
 			{1, 1}, {0, 2}, {0, 0},
@@ -25,7 +27,7 @@ public class TicTacToeAI extends Player {
 
 	public TicTacToeAI(int num) {
 		super(num);
-		difficulty = settings.getDifficulty();//get difficulty from settings
+		difficulty = 0;//settings.getDifficulty();//get difficulty from settings
 		rand = new Random();
 		setHumanPlayer(false);
 	}
@@ -37,7 +39,8 @@ public class TicTacToeAI extends Player {
 		switch (difficulty) {
 			case 0://difficulty low (very very low)
 				move = randMove();
-				break;
+                Log.d(TAG,"randMove() = "+move[0]+ " "+move[1]);
+                break;
 			case 1://difficulty medium (prefers some moves over others, but will make no attempt to
 				// block player 1 win
 				move = lookupTable();
@@ -118,7 +121,7 @@ public class TicTacToeAI extends Player {
 		int bestY = -1;
 
 		if (moves.isEmpty() || depth == 0) {
-			//either gameover, or depth reached
+			//either game over, or depth reached
 			bestScore = evaluate();
 		} else {
 			//evaluate branches

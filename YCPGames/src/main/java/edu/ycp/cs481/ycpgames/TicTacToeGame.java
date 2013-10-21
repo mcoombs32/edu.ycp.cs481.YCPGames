@@ -3,6 +3,7 @@ package edu.ycp.cs481.ycpgames;
 /**
  * Created by brian on 10/4/13.
  */
+import android.util.Log;
 public class TicTacToeGame extends Game {
 	private static final String TAG = "YCPGamesTicTacToeGame";
 
@@ -67,12 +68,18 @@ public class TicTacToeGame extends Game {
 			//if is valid move then place piece
 			board.placePiece(x, y, whosTurn());
 			endTurn();
-			if (settings.isSinglePlayer() && (board.isGameOver() == 0) && (this.whosTurn() == 2)) {
+
+            if (settings.isSinglePlayer() && (board.isGameOver() == 0)) {
 				//call AI if single-player game and game is still in progress
-				int[] location = playerTwo.makeMove(board.getGrid());
-				if ((location[0] == -1) || (location[1] == -1)) {
+				int[] location = {0,0};
+                location = playerTwo.makeMove(board.getGrid());
+
+                Log.d(TAG, "AI move = "+ location[0]+" "+location[1]);
+
+                if ((location[0] == -1) || (location[1] == -1)) {
 					return -2;
 				} else if (board.checkSpace(location[0], location[1])) {
+                    Log.d(TAG, ""+board.checkSpace(location[0], location[1]));
 					//if location checks out place piece and end turn
 					board.placePiece(location[0], location[1], whosTurn());
 					endTurn();
