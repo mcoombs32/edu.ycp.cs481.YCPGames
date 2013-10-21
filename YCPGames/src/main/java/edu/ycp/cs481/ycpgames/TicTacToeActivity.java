@@ -159,7 +159,7 @@ public class TicTacToeActivity extends Activity {
                     game.move(2,0);
                     mUpdateView();
                 }
-                mUpdateView();
+
             }
         });
 
@@ -170,7 +170,7 @@ public class TicTacToeActivity extends Activity {
                     game.move(2,1);
                     mUpdateView();
                 }
-                mUpdateView();
+
             }
         });
 
@@ -181,7 +181,7 @@ public class TicTacToeActivity extends Activity {
                     game.move(2,2);
                     mUpdateView();
                 }
-                mUpdateView();
+
             }
         });
 
@@ -192,7 +192,7 @@ public class TicTacToeActivity extends Activity {
                     game.move(1,0);
                     mUpdateView();
                 }
-                mUpdateView();
+
             }
         });
 
@@ -201,8 +201,9 @@ public class TicTacToeActivity extends Activity {
             public void onClick(View view) {
                 if (game.whosTurn() == 1){
                     game.move(1,1);
+                    mUpdateView();
                 }
-                mUpdateView();
+
             }
         });
 
@@ -211,8 +212,9 @@ public class TicTacToeActivity extends Activity {
             public void onClick(View view) {
                 if (game.whosTurn() == 1){
                     game.move(1,2);
+                    mUpdateView();
                 }
-                mUpdateView();
+
             }
         });
 
@@ -221,8 +223,9 @@ public class TicTacToeActivity extends Activity {
             public void onClick(View view) {
                 if (game.whosTurn() == 1){
                     game.move(0,0);
+                    mUpdateView();
                 }
-                mUpdateView();
+
             }
         });
 
@@ -231,8 +234,8 @@ public class TicTacToeActivity extends Activity {
             public void onClick(View view) {
                 if (game.whosTurn() == 1){
                     game.move(0,1);
+                    mUpdateView();
                 }
-                mUpdateView();
             }
         });
 
@@ -241,8 +244,8 @@ public class TicTacToeActivity extends Activity {
             public void onClick(View view) {
                 if (game.whosTurn() == 1){
                     game.move(0,2);
+                    mUpdateView();
                 }
-                mUpdateView();
             }
         });
 
@@ -283,6 +286,7 @@ public class TicTacToeActivity extends Activity {
         @Override
         public void run() {
             mSystemUiHider.hide();
+            mUpdateView();
         }
     };
 
@@ -291,12 +295,15 @@ public class TicTacToeActivity extends Activity {
             for(int j = 0; j< game.board.getGridWidth(); j++){
                 tempGrid[i][j] = game.board.getPieceAt(i,j);
                 switch(tempGrid[i][j]){
-                    case X:
+                    case 1:
                         buttons[Integer.parseInt(Integer.toString(i) + Integer.toString(j))].setBackgroundResource(R.drawable.xbutton);
-                    case O:
+                        break;
+                    case 2:
                         buttons[Integer.parseInt(Integer.toString(i) + Integer.toString(j))].setBackgroundResource(R.drawable.obutton);
+                        break;
                     default:
                         buttons[Integer.parseInt(Integer.toString(i) + Integer.toString(j))].setBackgroundResource(R.drawable.transbutton);
+                        break;
                 }
             }
         }
