@@ -33,7 +33,7 @@ public class TicTacToeAI extends Player {
 	@Override
 	public int[] makeMove(int[][] g) {
 		int[] move = {0, 0};
-		grid = g;
+		this.grid = g;
 		switch (difficulty) {
 			case 0://difficulty low (very very low)
 				move = randMove();
@@ -62,10 +62,13 @@ public class TicTacToeAI extends Player {
 	 * used for lowest difficulty setting
 	 */
 	private int[] randMove() {
-		int[] move = {0, 0};
+		int[] move = new int[2];
 		do {
 			move[0] = rand.nextInt(3);
+
 			move[1] = rand.nextInt(3);
+            System.out.print(move[0]);
+            System.out.print(move[1]);
 		} while (isMoveInvalid(move));
 
 		return move;
@@ -159,7 +162,7 @@ public class TicTacToeAI extends Player {
 	}
 
 	/**
-	 * @return list of availble moves
+	 * @return list of available moves
 	 */
 	private List<int[]> generateMoves() {
 		List<int[]> moves = new ArrayList<int[]>();
@@ -241,7 +244,7 @@ public class TicTacToeAI extends Player {
 			} else { //cells 1/2 are empty
 				return 1;
 			}
-		} else if (grid[x3][y3] != 0) { // if piece is oppenent
+		} else if (grid[x3][y3] != 0) { // if piece is opponent
 			if (score < 0) { //cell 1 and/or 2 are player 1
 				return (score * 10);
 			} else if (score > 1) { //cell 1 and/or 2 are my pieces

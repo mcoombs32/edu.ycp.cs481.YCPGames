@@ -4,6 +4,7 @@ import edu.ycp.cs481.ycpgames.util.SystemUiHider;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -45,9 +46,14 @@ public class TicTacToeActivity extends Activity {
     /**
      * The instance of the {@link SystemUiHider} for this activity.
      */
+
+    private static final int X = 1;
+    private static final int O = 2;
     private SystemUiHider mSystemUiHider;
     private TicTacToeGame game;
-
+    private ImageButton[] buttons = new ImageButton[23];
+    private int[][] tempGrid;
+    private int currentTurn;
     protected ImageButton topLeftButton;
     protected ImageButton topCenterButton;
     protected ImageButton topRightButton;
@@ -66,7 +72,12 @@ public class TicTacToeActivity extends Activity {
         game =  new TicTacToeGame();
         final View controlsView = findViewById(R.id.fullscreen_content_controls);
         final View contentView = findViewById(R.id.fullscreen_content);
-
+        tempGrid = new int[3][3];
+        for (int i = 0; i < 3; i++){
+            for (int j = 0; j < 3; j++){
+                tempGrid[i][j] = 0;
+            }
+        }
         topLeftButton = (ImageButton) findViewById(R.id.topLeftButton);
         topCenterButton = (ImageButton) findViewById(R.id.topCenterButton);
         topRightButton = (ImageButton) findViewById(R.id.topRightButton);
@@ -76,6 +87,16 @@ public class TicTacToeActivity extends Activity {
         bottomLeftButton = (ImageButton) findViewById(R.id.bottomLeftButton);
         bottomCenterButton = (ImageButton) findViewById(R.id.bottomCenterButton);
         bottomRightButton = (ImageButton) findViewById(R.id.bottomRightButton);
+
+        buttons[00] = bottomLeftButton;
+        buttons[01] = bottomCenterButton;
+        buttons[02] = bottomRightButton;
+        buttons[10] = centerLeftButton;
+        buttons[11] = centerButton;
+        buttons[12] = centerRightButton;
+        buttons[20] = topLeftButton;
+        buttons[21] = topCenterButton;
+        buttons[22] = topRightButton;
 
         // Set up an instance of SystemUiHider to control the system UI for
         // this activity.
@@ -134,63 +155,94 @@ public class TicTacToeActivity extends Activity {
         topLeftButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(TicTacToeActivity.this, R.string.top_left, Toast.LENGTH_SHORT).show();
+                if (game.whosTurn() == 1){
+                    game.move(2,0);
+                    mUpdateView();
+                }
+                mUpdateView();
             }
         });
 
         topCenterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (game.whosTurn() == 1){
+                    game.move(2,1);
+                    mUpdateView();
+                }
+                mUpdateView();
             }
         });
 
         topRightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (game.whosTurn() == 1){
+                    game.move(2,2);
+                    mUpdateView();
+                }
+                mUpdateView();
             }
         });
 
         centerLeftButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (game.whosTurn() == 1){
+                    game.move(1,0);
+                    mUpdateView();
+                }
+                mUpdateView();
             }
         });
 
         centerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (game.whosTurn() == 1){
+                    game.move(1,1);
+                }
+                mUpdateView();
             }
         });
 
         centerRightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (game.whosTurn() == 1){
+                    game.move(1,2);
+                }
+                mUpdateView();
             }
         });
 
         bottomLeftButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (game.whosTurn() == 1){
+                    game.move(0,0);
+                }
+                mUpdateView();
             }
         });
 
         bottomCenterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (game.whosTurn() == 1){
+                    game.move(0,1);
+                }
+                mUpdateView();
             }
         });
 
         bottomRightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (game.whosTurn() == 1){
+                    game.move(0,2);
+                }
+                mUpdateView();
             }
         });
 
@@ -235,7 +287,19 @@ public class TicTacToeActivity extends Activity {
     };
 
     private void mUpdateView(){
-
+        for (int i = 0; i< game.board.getGridHeight();i++){
+            for(int j = 0; j< game.board.getGridWidth(); j++){
+                tempGrid[i][j] = game.board.getPieceAt(i,j);
+                switch(tempGrid[i][j]){
+                    case X:
+                        buttons[Integer.parseInt(Integer.toString(i) + Integer.toString(j))].setBackgroundResource(R.drawable.xbutton);
+                    case O:
+                        buttons[Integer.parseInt(Integer.toString(i) + Integer.toString(j))].setBackgroundResource(R.drawable.obutton);
+                    default:
+                        buttons[Integer.parseInt(Integer.toString(i) + Integer.toString(j))].setBackgroundResource(R.drawable.transbutton);
+                }
+            }
+        }
     }
 
     /**

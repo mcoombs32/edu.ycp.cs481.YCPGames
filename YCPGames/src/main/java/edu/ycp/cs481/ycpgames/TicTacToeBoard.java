@@ -9,7 +9,7 @@ public class TicTacToeBoard extends Board {
 	//this will help make isGameOver() faster in the early game
 	private int playerOnePieces, playerTwoPieces;
 	private static final String TAG = "YCPGamesTicTacToeBoard";
-
+    private int grid[][] = new int[3][3];
 	public TicTacToeBoard() {
 		/*
          * im going to standardize the board layout here
@@ -150,6 +150,16 @@ public class TicTacToeBoard extends Board {
 		}
 		return grid[x][y];
 	}
+
+    @Override
+    public int getGridHeight(){
+        return grid.length;
+    }
+
+    @Override
+    public int getGridWidth(){
+        return grid[0].length;
+    }
 
 	/*
 	 * This method will recursively check a row/column/diagonal for a win

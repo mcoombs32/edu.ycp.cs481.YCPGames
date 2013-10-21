@@ -3,9 +3,9 @@ package edu.ycp.cs481.ycpgames;
 /**
  * Created by brian on 10/4/13.
  */
-public class Board {
+public abstract class Board {
 	private static final String TAG = "YCPGamesBoard";
-	int[][] grid;
+	int[][] grid = new int[3][3];
 
 	public Board() {
 
@@ -47,5 +47,9 @@ public class Board {
 	 */
 	public int[][] getGrid() {
 		return grid;
-	}
+    }
+
+    public abstract int getGridHeight();
+
+    public abstract int getGridWidth();
 }

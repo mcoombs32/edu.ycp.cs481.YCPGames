@@ -16,7 +16,7 @@ public class TicTacToeGame extends Game {
 			playerTwo = new TicTacToePlayer(2);
 		}
 
-		board = new Board();
+		board = new TicTacToeBoard();
 	}
 
 	/*
@@ -60,7 +60,7 @@ public class TicTacToeGame extends Game {
 	 *          this method figure out which players turn it is and performs a move
 	 *          if it is a single player game it also calls the AI
 	 * @return game state. -3 for invalid AI move, -2 if invalid move,
-	 * 0 for game in progress, -1 for draw, otherwise palyer number of winner
+	 * 0 for game in progress, -1 for draw, otherwise player number of winner
 	 */
 	public int move(int x, int y) {
 		if (board.checkSpace(x, y)) {
@@ -68,7 +68,7 @@ public class TicTacToeGame extends Game {
 			board.placePiece(x, y, whosTurn());
 			endTurn();
 			if (settings.isSinglePlayer() && (board.isGameOver() == 0)) {
-				//call AI if singleplayer game and game is still in progress
+				//call AI if single-player game and game is still in progress
 				int[] location = playerTwo.makeMove(board.getGrid());
 				if ((location[0] == -1) || (location[1] == -1)) {
 					return -2;
@@ -89,7 +89,7 @@ public class TicTacToeGame extends Game {
 	}
 
 	/*
-	 * Switches whos turn it is
+	 * Switches who's turn it is
 	 */
 	private void endTurn() {
 		playerOne.setMyTurn(!playerOne.isPlayersTurn());
