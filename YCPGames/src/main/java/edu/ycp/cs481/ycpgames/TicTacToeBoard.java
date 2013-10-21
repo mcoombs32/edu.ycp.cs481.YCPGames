@@ -102,12 +102,6 @@ public class TicTacToeBoard extends Board {
 			//if there aren't enough pieces for a victory then return 0
 			return 0;
 		}
-
-		if ((playerOnePieces + playerTwoPieces) >= 9) {
-			//if game is a draw return -1
-			return -1;
-		}
-
 		//look for vertical victories
 		for (int x = 0; x < 3; x++) {
 			player = checkForWin("up", x, 0);
@@ -131,6 +125,11 @@ public class TicTacToeBoard extends Board {
 		if (player != 0) {
 			return player;
 		}
+
+        if ((playerOnePieces + playerTwoPieces) >= 9) {
+            //if game is a draw return -1
+            return -1;
+        }
 
 		return 0;
 	}
