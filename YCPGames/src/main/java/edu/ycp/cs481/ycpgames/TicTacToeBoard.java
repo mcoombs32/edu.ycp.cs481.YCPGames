@@ -84,7 +84,7 @@ public class TicTacToeBoard extends Board {
 	 */
 	@Override
 	public boolean checkSpace(int x, int y) {
-		Log.d(TAG,"GRID"+x+","+y+" = "+grid[x][y]);
+		//Log.d(TAG,"GRID"+x+","+y+" = "+grid[x][y]);
 
 
         if ((x < 0) || (x > 2)) {
@@ -93,11 +93,8 @@ public class TicTacToeBoard extends Board {
 		if ((y < 0) || (y > 2)) {
 			return false;
 		}
-		if (grid[x][y] != 0) {
-			return false;
-		} else {
-			return true;
-		}
+        if (grid[x][y] == 0) return true;
+        else return false;
 	}
 
 	/**
