@@ -67,7 +67,7 @@ public class TicTacToeGame extends Game {
 			//if is valid move then place piece
 			board.placePiece(x, y, whosTurn());
 			endTurn();
-			if (settings.isSinglePlayer() && (board.isGameOver() == 0)) {
+			if (settings.isSinglePlayer() && (board.isGameOver() == 0) && (this.whosTurn() == 2)) {
 				//call AI if single-player game and game is still in progress
 				int[] location = playerTwo.makeMove(board.getGrid());
 				if ((location[0] == -1) || (location[1] == -1)) {

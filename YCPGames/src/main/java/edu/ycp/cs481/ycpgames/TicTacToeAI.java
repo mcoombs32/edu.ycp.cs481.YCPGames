@@ -62,8 +62,9 @@ public class TicTacToeAI extends Player {
 	 * used for lowest difficulty setting
 	 */
 	private int[] randMove() {
-		int[] move = new int[2];
-		do {
+		int[] move;
+        move = new int[]{-1, -1};
+        do {
 			move[0] = rand.nextInt(3);
 
 			move[1] = rand.nextInt(3);

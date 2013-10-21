@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
@@ -63,7 +64,7 @@ public class TicTacToeActivity extends Activity {
     protected ImageButton bottomLeftButton;
     protected ImageButton bottomCenterButton;
     protected ImageButton bottomRightButton;
-
+    private int gameOver = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +79,7 @@ public class TicTacToeActivity extends Activity {
                 tempGrid[i][j] = 0;
             }
         }
+
         topLeftButton = (ImageButton) findViewById(R.id.topLeftButton);
         topCenterButton = (ImageButton) findViewById(R.id.topCenterButton);
         topRightButton = (ImageButton) findViewById(R.id.topRightButton);
@@ -156,18 +158,17 @@ public class TicTacToeActivity extends Activity {
             @Override
             public void onClick(View view) {
                 if (game.whosTurn() == 1){
-                    game.move(2,0);
-                    mUpdateView();
-                }
+                    gameOver = game.move(2,0);
 
-            }
+                    }mUpdateView();
+                }
         });
 
         topCenterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (game.whosTurn() == 1){
-                    game.move(2,1);
+                    gameOver = game.move(2,1);
                     mUpdateView();
                 }
 
@@ -178,7 +179,7 @@ public class TicTacToeActivity extends Activity {
             @Override
             public void onClick(View view) {
                 if (game.whosTurn() == 1){
-                    game.move(2,2);
+                    gameOver = game.move(2,2);
                     mUpdateView();
                 }
 
@@ -189,7 +190,7 @@ public class TicTacToeActivity extends Activity {
             @Override
             public void onClick(View view) {
                 if (game.whosTurn() == 1){
-                    game.move(1,0);
+                    gameOver = game.move(1,0);
                     mUpdateView();
                 }
 
@@ -200,7 +201,7 @@ public class TicTacToeActivity extends Activity {
             @Override
             public void onClick(View view) {
                 if (game.whosTurn() == 1){
-                    game.move(1,1);
+                    gameOver = game.move(1,1);
                     mUpdateView();
                 }
 
@@ -211,7 +212,7 @@ public class TicTacToeActivity extends Activity {
             @Override
             public void onClick(View view) {
                 if (game.whosTurn() == 1){
-                    game.move(1,2);
+                    gameOver = game.move(1,2);
                     mUpdateView();
                 }
 
@@ -222,7 +223,7 @@ public class TicTacToeActivity extends Activity {
             @Override
             public void onClick(View view) {
                 if (game.whosTurn() == 1){
-                    game.move(0,0);
+                    gameOver = game.move(0,0);
                     mUpdateView();
                 }
 
@@ -233,7 +234,7 @@ public class TicTacToeActivity extends Activity {
             @Override
             public void onClick(View view) {
                 if (game.whosTurn() == 1){
-                    game.move(0,1);
+                    gameOver = game.move(0,1);
                     mUpdateView();
                 }
             }
@@ -243,7 +244,7 @@ public class TicTacToeActivity extends Activity {
             @Override
             public void onClick(View view) {
                 if (game.whosTurn() == 1){
-                    game.move(0,2);
+                    gameOver = game.move(0,2);
                     mUpdateView();
                 }
             }
@@ -295,16 +296,27 @@ public class TicTacToeActivity extends Activity {
             for(int j = 0; j< game.board.getGridWidth(); j++){
                 tempGrid[i][j] = game.board.getPieceAt(i,j);
                 switch(tempGrid[i][j]){
-                    case 1:
+                    case X:
                         buttons[Integer.parseInt(Integer.toString(i) + Integer.toString(j))].setBackgroundResource(R.drawable.xbutton);
                         break;
-                    case 2:
+                    case O:
                         buttons[Integer.parseInt(Integer.toString(i) + Integer.toString(j))].setBackgroundResource(R.drawable.obutton);
                         break;
                     default:
                         buttons[Integer.parseInt(Integer.toString(i) + Integer.toString(j))].setBackgroundResource(R.drawable.transbutton);
                         break;
                 }
+            }
+        }
+
+        if(gameOver != 0){
+            switch(gameOver){
+                case -1:
+                    Toast.makeText(TicTacToeActivity.this, "It's a Draw!",Toast.LENGTH_SHORT).show();
+                case 1:
+                    Toast.makeText(TicTacToeActivity.this, "You Win!",Toast.LENGTH_SHORT).show();
+                case 2:
+                    Toast.makeText(TicTacToeActivity.this, "Computer wins!",Toast.LENGTH_SHORT).show();
             }
         }
     }
