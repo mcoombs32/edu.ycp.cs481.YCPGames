@@ -27,7 +27,7 @@ public class TicTacToeAI extends Player {
 
 	public TicTacToeAI(int num) {
 		super(num);
-		difficulty = 0;//settings.getDifficulty();//get difficulty from settings
+		difficulty = 2;//settings.getDifficulty();//get difficulty from settings
 		rand = new Random();
 		setHumanPlayer(false);
 	}
@@ -35,7 +35,7 @@ public class TicTacToeAI extends Player {
 	@Override
 	public int[] makeMove(int[][] g) {
 		int[] move = {0, 0};
-		this.grid = g;
+		grid = g;
 		switch (difficulty) {
 			case 0://difficulty low (very very low)
 				move = randMove();
@@ -71,8 +71,7 @@ public class TicTacToeAI extends Player {
 			move[0] = rand.nextInt(3);
 
 			move[1] = rand.nextInt(3);
-            System.out.print(move[0]);
-            System.out.print(move[1]);
+			Log.d(TAG, "Loop " + move[0] + " " + move[1]);
 		} while (isMoveInvalid(move));
 
 		return move;
@@ -82,10 +81,12 @@ public class TicTacToeAI extends Player {
 	 * helper method to ensure that a move is valid
 	 */
 	private boolean isMoveInvalid(int[] move) {
-		if (grid[move[0]][move[1]] == 0) {
+		if(grid[move[0]][move[1]] == 0) {
 			return false;
+		}else{
+			return true;
 		}
-		return true;
+
 	}
 
 	private int[] lookupTable() {

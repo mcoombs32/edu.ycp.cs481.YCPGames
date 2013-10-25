@@ -11,7 +11,6 @@ public class TicTacToeBoard extends Board {
 	//this will help make isGameOver() faster in the early game
 	private int playerOnePieces, playerTwoPieces;
 	private static final String TAG = "YCPGamesTicTacToeBoard";
-    private int grid[][] = new int[3][3];
 	public TicTacToeBoard() {
 		/*
          * im going to standardize the board layout here
@@ -64,11 +63,7 @@ public class TicTacToeBoard extends Board {
 			return;
 		}
 		grid[x][y] = player;
-        for (int i =0; i <3; i++){
-            for (int j = 0; j < 3; j++){
-               // Log.d(TAG,"Grid"+i+""+j+" = "+grid[i][j]);
-            }
-        }
+
 		if (player == 1) {
 			playerOnePieces++;
 		} else {
