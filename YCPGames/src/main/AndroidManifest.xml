@@ -26,7 +26,7 @@
             android:name="edu.ycp.cs481.ycpgames.TicTacToeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_tic_tac_toe"
-            android:theme="@style/FullscreenTheme" >
+            android:theme="@style/NoActionBar" >
         </activity>
     </application>
 

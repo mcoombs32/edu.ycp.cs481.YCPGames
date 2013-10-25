@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
+    android:layout_weight="1"
     android:background="#05bc2f"
     tools:context=".TicTacToeActivity">
 
@@ -45,7 +46,8 @@
                 android:id="@+id/topLeftButton"
                 android:layout_gravity="left|top"
                 android:layout_marginTop="22dp"
-                android:layout_marginLeft="2dp" />
+                android:layout_marginLeft="2dp"
+                android:background="@drawable/transbutton" />
 
             <ImageButton
                 android:layout_width="125dp"

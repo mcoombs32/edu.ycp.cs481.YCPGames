@@ -68,7 +68,7 @@ public class TicTacToeActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        //super.unregisterReceiver()
         setContentView(R.layout.activity_tictactoe);
         game =  new TicTacToeGame();
         final View controlsView = findViewById(R.id.fullscreen_content_controls);
@@ -89,6 +89,8 @@ public class TicTacToeActivity extends Activity {
         bottomLeftButton = (ImageButton) findViewById(R.id.bottomLeftButton);
         bottomCenterButton = (ImageButton) findViewById(R.id.bottomCenterButton);
         bottomRightButton = (ImageButton) findViewById(R.id.bottomRightButton);
+
+
 
         buttons[00] = bottomLeftButton;
         buttons[01] = bottomCenterButton;
