@@ -12,5 +12,9 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="top_left">TOP LEFT</string>
+    <string name="game_over">Game Over!</string>
+    <string name="comp_win">Computer has won.\nWould you like to play again?</string>
+    <string name="player_win">You\'ve won!\nWould you like to play again?</string>
+    <string name="draw">It\'s a draw!\nWould you like to play again?</string>
 
 </resources>

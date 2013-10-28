@@ -4,6 +4,8 @@ import edu.ycp.cs481.ycpgames.util.SystemUiHider;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -161,8 +163,9 @@ public class TicTacToeActivity extends Activity {
             public void onClick(View view) {
                 if (game.whosTurn() == 1){
                     gameOver = game.move(2,0);
-
-                    }mUpdateView();
+                    mUpdateView();
+                    }
+                gameOverCheck();
                 }
         });
 
@@ -173,6 +176,7 @@ public class TicTacToeActivity extends Activity {
                     gameOver = game.move(2,1);
                     mUpdateView();
                 }
+                gameOverCheck();
 
             }
         });
@@ -184,6 +188,7 @@ public class TicTacToeActivity extends Activity {
                     gameOver = game.move(2,2);
                     mUpdateView();
                 }
+                gameOverCheck();
 
             }
         });
@@ -195,6 +200,7 @@ public class TicTacToeActivity extends Activity {
                     gameOver = game.move(1,0);
                     mUpdateView();
                 }
+                gameOverCheck();
 
             }
         });
@@ -206,6 +212,7 @@ public class TicTacToeActivity extends Activity {
                     gameOver = game.move(1,1);
                     mUpdateView();
                 }
+                gameOverCheck();
 
             }
         });
@@ -228,6 +235,7 @@ public class TicTacToeActivity extends Activity {
                     gameOver = game.move(0,0);
                     mUpdateView();
                 }
+                gameOverCheck();
 
             }
         });
@@ -239,6 +247,7 @@ public class TicTacToeActivity extends Activity {
                     gameOver = game.move(0,1);
                     mUpdateView();
                 }
+                gameOverCheck();
             }
         });
 
@@ -249,6 +258,7 @@ public class TicTacToeActivity extends Activity {
                     gameOver = game.move(0,2);
                     mUpdateView();
                 }
+                gameOverCheck();
             }
         });
 
@@ -307,19 +317,40 @@ public class TicTacToeActivity extends Activity {
                 }
             }
         }
-
+    }
+    private void gameOverCheck(){
         if(gameOver != 0){
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle(R.string.game_over);
             switch(gameOver){
                 case -1:
-                    Toast.makeText(TicTacToeActivity.this, "It's a Draw!",Toast.LENGTH_SHORT).show();
+                    alertDialogBuilder.setMessage(R.string.draw);
                     break;
                 case 1:
-                    Toast.makeText(TicTacToeActivity.this, "You Win!",Toast.LENGTH_SHORT).show();
+                    alertDialogBuilder.setMessage(R.string.player_win);
                     break;
                 case 2:
-                    Toast.makeText(TicTacToeActivity.this, "Computer wins!",Toast.LENGTH_SHORT).show();
+                    alertDialogBuilder.setMessage(R.string.comp_win);
                     break;
             }
+            alertDialogBuilder
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            game.reset();
+                            mUpdateView();
+                            dialog.cancel();
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            TicTacToeActivity.this.finish();
+                        }
+                    });
+            AlertDialog gameOverAlert = alertDialogBuilder.create();
+            gameOverAlert.show();
+            gameOver = 0;
         }
     }
 
