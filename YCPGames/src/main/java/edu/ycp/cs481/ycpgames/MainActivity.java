@@ -45,9 +45,8 @@ public class MainActivity extends Activity {
 			public void onClick(View view) {
 				Log.d(TAG, "DotsButton Pressed");
 				//When dots button is pressed:
-				//Placeholder "Toast" till Dots is implemented
-				Toast.makeText(MainActivity.this, R.string.Dots, Toast.LENGTH_SHORT).show();
-				//TODO: link to Dots
+				Intent intent = new Intent(MainActivity.this, DotsActivity.class);
+                startActivity(intent);
 			}
 		});
 		CheckersButton.setOnClickListener(new View.OnClickListener() {
