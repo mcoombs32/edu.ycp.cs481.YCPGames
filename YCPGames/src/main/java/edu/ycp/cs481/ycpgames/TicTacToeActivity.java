@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
@@ -49,6 +50,7 @@ public class TicTacToeActivity extends Activity {
     /**
      * The instance of the {@link SystemUiHider} for this activity.
      */
+    private static final String TAG = "TicTacToeActivity";
 
     private static final int X = 1;
     private static final int O = 2;
@@ -146,21 +148,12 @@ public class TicTacToeActivity extends Activity {
                     }
                 });
 
-        // Set up the user interaction to manually show or hide the system UI.
-        contentView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (TOGGLE_ON_CLICK) {
-                    mSystemUiHider.toggle();
-                } else {
-                    mSystemUiHider.show();
-                }
-            }
-        });
+
 
         topLeftButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d(TAG,"Received touch event on button (2,0).");
                 if (game.whosTurn() == 1){
                     gameOver = game.move(2,0);
                     mUpdateView();
@@ -172,6 +165,7 @@ public class TicTacToeActivity extends Activity {
         topCenterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d(TAG,"Received touch event on button (2,1).");
                 if (game.whosTurn() == 1){
                     gameOver = game.move(2,1);
                     mUpdateView();
@@ -184,6 +178,7 @@ public class TicTacToeActivity extends Activity {
         topRightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d(TAG,"Received touch event on button (2,2).");
                 if (game.whosTurn() == 1){
                     gameOver = game.move(2,2);
                     mUpdateView();
@@ -196,6 +191,7 @@ public class TicTacToeActivity extends Activity {
         centerLeftButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d(TAG,"Received touch event on button (1,0).");
                 if (game.whosTurn() == 1){
                     gameOver = game.move(1,0);
                     mUpdateView();
@@ -208,6 +204,7 @@ public class TicTacToeActivity extends Activity {
         centerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d(TAG,"Received touch event on button (1,1).");
                 if (game.whosTurn() == 1){
                     gameOver = game.move(1,1);
                     mUpdateView();
@@ -220,6 +217,7 @@ public class TicTacToeActivity extends Activity {
         centerRightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d(TAG,"Received touch event on button (1,2).");
                 if (game.whosTurn() == 1){
                     gameOver = game.move(1,2);
                     mUpdateView();
@@ -231,6 +229,7 @@ public class TicTacToeActivity extends Activity {
         bottomLeftButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d(TAG,"Received touch event on button (0,0).");
                 if (game.whosTurn() == 1){
                     gameOver = game.move(0,0);
                     mUpdateView();
@@ -243,6 +242,7 @@ public class TicTacToeActivity extends Activity {
         bottomCenterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d(TAG,"Received touch event on button (0,1).");
                 if (game.whosTurn() == 1){
                     gameOver = game.move(0,1);
                     mUpdateView();
@@ -254,6 +254,7 @@ public class TicTacToeActivity extends Activity {
         bottomRightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d(TAG,"Received touch event on button (0,2).");
                 if (game.whosTurn() == 1){
                     gameOver = game.move(0,2);
                     mUpdateView();
@@ -295,8 +296,7 @@ public class TicTacToeActivity extends Activity {
     Runnable mHideRunnable = new Runnable() {
         @Override
         public void run() {
-            mSystemUiHider.hide();
-            mUpdateView();
+
         }
     };
 
@@ -306,12 +306,15 @@ public class TicTacToeActivity extends Activity {
                 tempGrid[i][j] = game.board.getPieceAt(i,j);
                 switch(tempGrid[i][j]){
                     case X:
+                        Log.d(TAG,"Drawing X at Button: ("+i+","+j+")");
                         buttons[Integer.parseInt(Integer.toString(i) + Integer.toString(j))].setBackgroundResource(R.drawable.xbutton);
                         break;
                     case O:
+                        Log.d(TAG,"Drawing 0 at Button: ("+i+","+j+")");
                         buttons[Integer.parseInt(Integer.toString(i) + Integer.toString(j))].setBackgroundResource(R.drawable.obutton);
                         break;
                     default:
+                        Log.d(TAG,"Drawing transparent at Button: ("+i+","+j+")");
                         buttons[Integer.parseInt(Integer.toString(i) + Integer.toString(j))].setBackgroundResource(R.drawable.transbutton);
                         break;
                 }
@@ -319,7 +322,7 @@ public class TicTacToeActivity extends Activity {
         }
     }
     private void gameOverCheck(){
-        if(gameOver != 0){
+        if(gameOver > 0){
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle(R.string.game_over);
             switch(gameOver){
