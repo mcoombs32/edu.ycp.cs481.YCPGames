@@ -1,0 +1,121 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:background="#108442"
+    tools:context=".TicTacToeActivity">
+
+    <!-- The primary full-screen view. This can be replaced with whatever view
+         is needed to present your content, e.g. VideoView, SurfaceView,
+         TextureView, etc. -->
+    <ImageView android:id="@+id/fullscreen_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:keepScreenOn="true"
+        android:textColor="#33b5e5"
+        android:textStyle="bold"
+        android:textSize="50sp"
+        android:gravity="center"
+        android:background="@drawable/tictactoebackground" />
+
+    <!-- This FrameLayout insets its children based on system windows using
+         android:fitsSystemWindows. -->
+    <LinearLayout android:id="@+id/fullscreen_content_controls"
+        style="?buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black_overlay"
+        android:orientation="horizontal"
+        tools:ignore="UselessParent"
+        android:layout_row="2"
+        android:layout_column="1">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="152dp"
+        android:layout_gravity="bottom|top">
+
+        <ImageButton
+            android:layout_width="117dp"
+            android:layout_height="150dp"
+            android:id="@+id/topLeftButton"
+            android:layout_gravity="left|top"
+            android:background="@drawable/transbutton" />
+
+        <ImageButton
+            android:layout_width="123dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/topCenterButton"
+            android:layout_gravity="center_horizontal|top"
+            android:background="@drawable/transbutton"
+            android:layout_marginLeft="16dp" />
+
+        <ImageButton
+            android:layout_width="125dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/topRightButton"
+            android:layout_gravity="right|top"
+            android:layout_marginLeft="4dp"
+            android:background="@drawable/transbutton" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="174dp"
+        android:layout_gravity="center_vertical|left"
+        android:layout_marginTop="-18dp">
+
+        <ImageButton
+            android:layout_width="123dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/centerLeftButton"
+            android:layout_gravity="left|center_vertical"
+            android:background="@drawable/transbutton" />
+
+        <ImageButton
+            android:layout_width="131dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/centerButton"
+            android:layout_gravity="center"
+            android:background="@drawable/transbutton" />
+
+        <ImageButton
+            android:layout_width="125dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/centerRightButton"
+            android:layout_gravity="right|center_vertical"
+            android:background="@drawable/transbutton" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom|left">
+
+        <ImageButton
+            android:layout_width="122dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/bottomLeftButton"
+            android:layout_gravity="left|bottom"
+            android:background="@drawable/transbutton" />
+
+        <ImageButton
+            android:layout_width="128dp"
+            android:layout_height="178dp"
+            android:id="@+id/bottomCenterButton"
+            android:layout_gravity="center_horizontal|bottom"
+            android:background="@drawable/transbutton" />
+
+        <ImageButton
+            android:layout_width="132dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/bottomRightButton"
+            android:layout_gravity="right|bottom"
+            android:background="@drawable/transbutton" />
+    </LinearLayout>
+
+</FrameLayout>
