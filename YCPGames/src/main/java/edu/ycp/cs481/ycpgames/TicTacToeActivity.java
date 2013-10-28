@@ -54,7 +54,6 @@ public class TicTacToeActivity extends Activity {
     private TicTacToeGame game;
     private ImageButton[] buttons = new ImageButton[23];
     private int[][] tempGrid;
-    private int currentTurn;
     protected ImageButton topLeftButton;
     protected ImageButton topCenterButton;
     protected ImageButton topRightButton;
@@ -65,6 +64,7 @@ public class TicTacToeActivity extends Activity {
     protected ImageButton bottomCenterButton;
     protected ImageButton bottomRightButton;
     private int gameOver = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,9 +92,9 @@ public class TicTacToeActivity extends Activity {
 
 
 
-        buttons[00] = bottomLeftButton;
-        buttons[01] = bottomCenterButton;
-        buttons[02] = bottomRightButton;
+        buttons[0] = bottomLeftButton;
+        buttons[1] = bottomCenterButton;
+        buttons[2] = bottomRightButton;
         buttons[10] = centerLeftButton;
         buttons[11] = centerButton;
         buttons[12] = centerRightButton;
@@ -268,21 +268,18 @@ public class TicTacToeActivity extends Activity {
         delayedHide(100);
     }
 
+    @Override
+    protected void onStop(){
+        super.onStop();
+    }
+
 
     /**
      * Touch listener to use for in-layout UI controls to delay hiding the
      * system UI. This is to prevent the jarring behavior of controls going away
      * while interacting with activity UI.
      */
-    View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            if (AUTO_HIDE) {
-                delayedHide(AUTO_HIDE_DELAY_MILLIS);
-            }
-            return false;
-        }
-    };
+
 
     Handler mHideHandler = new Handler();
     Runnable mHideRunnable = new Runnable() {

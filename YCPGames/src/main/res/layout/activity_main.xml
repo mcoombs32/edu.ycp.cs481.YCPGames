@@ -2,43 +2,39 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/menubackgroud">
 
-    <LinearLayout
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center">
+        android:id="@+id/TicTacToeButton"
+        android:background="@drawable/tictactoebutton"
+        android:layout_row="0"
+        android:layout_column="2"
+        android:layout_marginTop="14dp" />
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/TicTacToeButton"
-            android:layout_gravity="center"/>
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/DotsButton"
-            android:layout_gravity="center"/>
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/CheckersButton"/>
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/SettingsButton"/>
-
-    </LinearLayout>
-
-    <LinearLayout
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:id="@+id/CheckersButton"
+        android:layout_row="4"
+        android:layout_column="0"
+        android:layout_gravity="right" />
 
-    </LinearLayout>
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/DotsButton"
+        android:layout_row="2"
+        android:layout_column="8" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/SettingsButton"
+        android:layout_row="5"
+        android:layout_column="8"
+        android:layout_gravity="right" />
 
 </LinearLayout>
