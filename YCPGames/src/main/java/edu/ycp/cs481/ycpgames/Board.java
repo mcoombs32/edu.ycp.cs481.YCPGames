@@ -6,6 +6,7 @@ package edu.ycp.cs481.ycpgames;
 public abstract class Board {
 	private static final String TAG = "YCPGamesBoard";
 	int[][] grid = new int[3][3];
+	Settings settings = Settings.getInstance();
 
 	public Board() {
 
@@ -33,9 +34,7 @@ public abstract class Board {
 		return 0;
 	}
 
-	public int isGameOver() {
-		return 0;
-	}
+
 
 	public void reset() {
 
