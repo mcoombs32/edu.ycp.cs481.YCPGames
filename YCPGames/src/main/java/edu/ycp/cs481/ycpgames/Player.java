@@ -56,10 +56,7 @@ public class Player {
 		humanPlayer = human;
 	}
 
-	/**
-	 * this is only here so that I can override method in TicTacToeAI and still be able to have
-	 * instances of TicTacToeAI declared as Player
-	 */
+
 	public int[] makeMove(int[][] g) {
 		Log.d(TAG, "Make move is not implemented here");
 		return null;

@@ -6,7 +6,8 @@ package edu.ycp.cs481.ycpgames;
 import android.util.Log;
 public class TicTacToeGame extends Game {
 	private static final String TAG = "YCPGamesTicTacToeGame";
-
+	//override Board board
+	TicTacToeBoard board;
 	public TicTacToeGame() {
 		settings = Settings.getInstance();
 		playerOne = new TicTacToePlayer(1);

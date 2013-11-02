@@ -30,6 +30,7 @@ public class DotsBoard extends Board {
 	public BoardVal getLineAt(int x, int y, Direction d){
 		return grid[x][y].getVal(d);
 	}
+
 	public DotsNode[][] getDotsGrid(){
 		return grid;
 	}
@@ -60,7 +61,7 @@ public class DotsBoard extends Board {
 		if(playerOneBoxes == playerTwoBoxes){
 			return BoardVal.DRAW;
 		}
-		return null;
+		return BoardVal.IN_PROGRESS;
 	}
 	/**
 	 *

@@ -1,10 +1,14 @@
 package edu.ycp.cs481.ycpgames;
 
+import android.util.Log;
+
 /**
  * Created by brian on 10/28/13.
  */
 public class DotsGame extends Game {
 	String TAG = "YCPGamesDotsGame";
+	//override Board board
+	DotsBoard board;
 	public DotsGame(){
 		settings = Settings.getInstance();
 		playerOne = new DotsPlayer(1);
@@ -26,7 +30,21 @@ public class DotsGame extends Game {
 	 * 0 for game in progress, -1 for draw, otherwise player number of winner
 	 */
 	public int makeMove(int nodeX, int nodeY, Direction D){
+		if(board.getLineAt(nodeX,nodeY,D) == BoardVal.EMPTY){
+			//Draw Line
+			board.drawLine(nodeX,nodeY,D,whosTurn());
+			endTurn();
+			if((settings.isSinglePlayer()) && (board.isGameOver() == BoardVal.IN_PROGRESS)){
+				//call AI if single-player game and game is still in progress
+				int[] location = playerTwo.makeMove(board.getGrid());
 
+				Log.d(TAG, "AI move = "+ location[0]+" "+location[1]);
+				//ai needs to make move, and I need to make sure its valid
+			}
+		}else{
+			//space was taken
+			return -2;
+		}
 		return 0;
 	}
 
@@ -57,11 +75,11 @@ public class DotsGame extends Game {
 	/**
 	 * @return an int with the player number of whos turn it is
 	 */
-	public int whosTurn() {
+	public BoardVal whosTurn() {
 		if (playerOne.isPlayersTurn()) {
-			return 1;
+			return BoardVal.PLAYER_ONE;
 		} else {
-			return 2;
+			return BoardVal.PLAYER_TWO;
 		}
 	}
 
