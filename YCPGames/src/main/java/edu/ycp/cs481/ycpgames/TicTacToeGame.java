@@ -37,7 +37,7 @@ public class TicTacToeGame extends Game {
 			//if its single player but not ai player
 			playerTwo = new TicTacToeAI(2);
 		} else if (!settings.isSinglePlayer() && playerTwo.isHumanPlayer()) {
-			//if its multiplayer and alraedy set with human player
+			//if its multiplayer and already set with human player
 			playerTwo.setMyTurn(false);
 		} else {
 			//if its multiplayer but set up with AI

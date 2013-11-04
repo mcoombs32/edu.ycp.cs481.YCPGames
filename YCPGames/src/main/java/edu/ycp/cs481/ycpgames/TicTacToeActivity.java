@@ -322,7 +322,7 @@ public class TicTacToeActivity extends Activity {
         }
     }
     private void gameOverCheck(){
-        if(gameOver > 0){
+        if((gameOver > 0)||(gameOver == -1)){
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialogBuilder.setTitle(R.string.game_over);
             switch(gameOver){

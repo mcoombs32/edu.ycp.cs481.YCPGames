@@ -10,6 +10,8 @@ public class Settings {
 	private Boolean singlePlayer = true;
 	private int difficulty = 0;
 	private int girdSize = 3;
+
+    private int dotsGridSize[] = {5,5};
 	/*
 	singleton is cool
 	and seems useful here
@@ -61,4 +63,12 @@ public class Settings {
 	public void setGirdSize(int g) {
 		girdSize = g;
 	}
+
+    public int[] getDotsGridSize() {
+        return dotsGridSize;
+    }
+
+    public void setDotsGridSize(int[] dotsGridSize) {
+        this.dotsGridSize = dotsGridSize;
+    }
 }
