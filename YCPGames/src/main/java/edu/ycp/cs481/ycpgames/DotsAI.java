@@ -14,6 +14,18 @@ public class DotsAI extends Player{
 		setHumanPlayer(false);
 	}
 
+	/**
+	 *
+	 * @param g    a snapshot of the gird
+	 * @return int[] move
+	 * 					move[0] x position of move
+	 * 					move[1] y position of move
+	 * 					move[2] direction of move
+	 * 						0 = up
+	 * 						1 = down
+	 * 						2 = left
+	 * 						3 = right
+	 */
 	@Override
 	public int[] makeMove(int[][] g){
 		int[] move = {0, 0};

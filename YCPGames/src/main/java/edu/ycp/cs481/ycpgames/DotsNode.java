@@ -4,15 +4,15 @@ package edu.ycp.cs481.ycpgames;
  * Created by admin on 10/29/13.
  */
 public class DotsNode {
-	BoardVal up = BoardVal.EMPTY;
-	BoardVal down = BoardVal.EMPTY;
-	BoardVal left = BoardVal.EMPTY;
-	BoardVal right = BoardVal.EMPTY;
-	BoardVal playerClaim = BoardVal.EMPTY;
+	GameVal up = GameVal.EMPTY;
+	GameVal down = GameVal.EMPTY;
+	GameVal left = GameVal.EMPTY;
+	GameVal right = GameVal.EMPTY;
+	GameVal playerClaim = GameVal.EMPTY;
 	public DotsNode(){
 
 	}
-	public BoardVal getVal(Direction d){
+	public GameVal getVal(Direction d){
 		switch (d){
 			case UP:
 				return up;
@@ -26,7 +26,7 @@ public class DotsNode {
 				return null;
 		}
 	}
-	public void setVal(Direction d, BoardVal v){
+	public void setVal(Direction d, GameVal v){
 		switch (d){
 			case UP:
 				up = v;
@@ -43,12 +43,12 @@ public class DotsNode {
 			default:
 				break;
 		}
-		if((up != BoardVal.EMPTY) && (down != BoardVal.EMPTY) && (left != BoardVal.EMPTY) && (right != BoardVal.EMPTY)){
+		if((up != GameVal.EMPTY) && (down != GameVal.EMPTY) && (left != GameVal.EMPTY) && (right != GameVal.EMPTY)){
 			playerClaim = v;
 		}
 	}
 
-	public BoardVal isNodeFilled(){
+	public GameVal isNodeFilled(){
 		return playerClaim;
 	}
 }

@@ -77,14 +77,14 @@ public class TicTacToeGame extends Game {
                 Log.d(TAG, "AI move = "+ location[0]+" "+location[1]);
 
                 if ((location[0] == -1) || (location[1] == -1)) {
-					return -2;
+					return -3;
 				} else if (board.checkSpace(location[0], location[1])) {
                     Log.d(TAG, ""+board.checkSpace(location[0], location[1]));
 					//if location checks out place piece and end turn
 					board.placePiece(location[0], location[1], whosTurn());
 					endTurn();
 				} else {
-					return -2;
+					return -3;
 				}
 			}
 		} else {

@@ -1,7 +1,5 @@
 package edu.ycp.cs481.ycpgames;
 
-import android.util.Log;
-
 /**
  * Created by brian on 10/28/13.
  */
@@ -30,16 +28,56 @@ public class DotsGame extends Game {
 	 * 0 for game in progress, -1 for draw, otherwise player number of winner
 	 */
 	public int makeMove(int nodeX, int nodeY, Direction D){
-		if(board.getLineAt(nodeX,nodeY,D) == BoardVal.EMPTY){
+		if(board.getLineAt(nodeX,nodeY,D) == GameVal.EMPTY){
 			//Draw Line
 			board.drawLine(nodeX,nodeY,D,whosTurn());
 			endTurn();
-			if((settings.isSinglePlayer()) && (board.isGameOver() == BoardVal.IN_PROGRESS)){
+			if((settings.isSinglePlayer()) && (board.isGameOver() == GameVal.IN_PROGRESS)){
 				//call AI if single-player game and game is still in progress
 				int[] location = playerTwo.makeMove(board.getGrid());
+				//make sure its a valid move
 
-				Log.d(TAG, "AI move = "+ location[0]+" "+location[1]);
-				//ai needs to make move, and I need to make sure its valid
+				/*logic for placing piece
+				 *need to convert from int into GameVal
+				 *
+				 * move[0] x position of move
+				 * move[1] y position of move
+				 * move[2] direction of move
+				 * 			0 = up
+				 * 			1 = down
+				 * 			2 = left
+				 * 			3 = right
+				 * this isn't the most elegant method but it works
+				 */
+				switch (location[3]){
+					case 0:
+						if(board.getLineAt(location[0],location[1],Direction.UP)== GameVal.ERROR){
+							return -3;
+						}
+						board.drawLine(location[0],location[1],Direction.UP,whosTurn());
+						break;
+					case 1:
+						if(board.getLineAt(location[0],location[1],Direction.DOWN)== GameVal.ERROR){
+							return -3;
+						}
+						board.drawLine(location[0],location[1],Direction.DOWN,whosTurn());
+						break;
+					case 2:
+						if(board.getLineAt(location[0],location[1],Direction.LEFT)== GameVal.ERROR){
+							return -3;
+						}
+						board.drawLine(location[0],location[1],Direction.LEFT,whosTurn());
+						break;
+					case 3:
+						if(board.getLineAt(location[0],location[1],Direction.RIGHT)== GameVal.ERROR){
+							return -3;
+						}
+						board.drawLine(location[0],location[1],Direction.RIGHT,whosTurn());
+						break;
+					default:
+						return -3;
+				}
+				endTurn();
 			}
 		}else{
 			//space was taken
@@ -75,11 +113,11 @@ public class DotsGame extends Game {
 	/**
 	 * @return an int with the player number of whos turn it is
 	 */
-	public BoardVal whosTurn() {
+	public GameVal whosTurn() {
 		if (playerOne.isPlayersTurn()) {
-			return BoardVal.PLAYER_ONE;
+			return GameVal.PLAYER_ONE;
 		} else {
-			return BoardVal.PLAYER_TWO;
+			return GameVal.PLAYER_TWO;
 		}
 	}
 

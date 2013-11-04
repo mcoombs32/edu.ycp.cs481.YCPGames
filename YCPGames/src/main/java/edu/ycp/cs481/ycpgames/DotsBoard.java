@@ -24,44 +24,47 @@ public class DotsBoard extends Board {
 		}
 	}
 
-	public void drawLine(int x, int y, Direction d, BoardVal v){
+	public void drawLine(int x, int y, Direction d, GameVal v){
 		grid[x][y].setVal(d,v);
 	}
-	public BoardVal getLineAt(int x, int y, Direction d){
+	public GameVal getLineAt(int x, int y, Direction d){
+		if((x <0) || (x>grid.length) || (y<0) || (y>grid[0].length)){
+			return GameVal.ERROR;
+		}
 		return grid[x][y].getVal(d);
 	}
 
 	public DotsNode[][] getDotsGrid(){
 		return grid;
 	}
-	public BoardVal isGameOver(){
+	public GameVal isGameOver(){
 		int playerOneBoxes = 0;
 		int playerTwoBoxes = 0;
-		BoardVal tempVal;
+		GameVal tempVal;
 		for(int x = 0; x < settings.getGirdSize(); x++){
 			for(int y = 0; y < settings.getGirdSize(); y++){
 				tempVal = grid[x][y].isNodeFilled();
-				if(tempVal == BoardVal.EMPTY){
-					return BoardVal.EMPTY;
+				if(tempVal == GameVal.EMPTY){
+					return GameVal.EMPTY;
 				}
-				if(tempVal == BoardVal.PLAYER_ONE){
+				if(tempVal == GameVal.PLAYER_ONE){
 					playerOneBoxes++;
 				}
-				if(tempVal == BoardVal.PLAYER_TWO){
+				if(tempVal == GameVal.PLAYER_TWO){
 					playerTwoBoxes++;
 				}
 			}
 		}
 		if(playerOneBoxes > playerTwoBoxes){
-			return BoardVal.PLAYER_ONE;
+			return GameVal.PLAYER_ONE;
 		}
 		if(playerOneBoxes < playerTwoBoxes){
-			return BoardVal.PLAYER_TWO;
+			return GameVal.PLAYER_TWO;
 		}
 		if(playerOneBoxes == playerTwoBoxes){
-			return BoardVal.DRAW;
+			return GameVal.DRAW;
 		}
-		return BoardVal.IN_PROGRESS;
+		return GameVal.IN_PROGRESS;
 	}
 	/**
 	 *
