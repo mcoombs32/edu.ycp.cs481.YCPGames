@@ -1,10 +1,13 @@
 package edu.ycp.cs481.ycpgames;
 
+import android.util.Log;
+
 /**
  * Created by admin on 10/29/13.
  */
 public class DotsNode {
-	GameVal up = GameVal.EMPTY;
+    private static final String TAG = "DotsNode";
+    GameVal up = GameVal.EMPTY;
 	GameVal down = GameVal.EMPTY;
 	GameVal left = GameVal.EMPTY;
 	GameVal right = GameVal.EMPTY;
@@ -23,6 +26,7 @@ public class DotsNode {
 			case RIGHT:
 				return right;
 			default:
+                Log.d(TAG, "Default Case");
 				return null;
 		}
 	}

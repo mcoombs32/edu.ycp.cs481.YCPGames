@@ -116,6 +116,7 @@ public class DotsActivity extends Activity {
             }
         });
 
+        game = new DotsGame();
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -164,5 +165,9 @@ public class DotsActivity extends Activity {
     private void delayedHide(int delayMillis) {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
+    }
+
+    private void mDotsUpdate(){
+
     }
 }
