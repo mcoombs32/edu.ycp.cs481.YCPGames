@@ -8,10 +8,17 @@ import android.util.Log;
 public class DotsAI extends Player{
 	private int difficulty;
 	private int [][] grid;
+	private GameVal player;
 	public DotsAI(int num){
 		super(num);
 		difficulty = settings.getDifficulty();
 		setHumanPlayer(false);
+		if(num == 1){
+			player = GameVal.PLAYER_ONE;
+		}else{
+			player = GameVal.PLAYER_TWO;
+		}
+
 	}
 
 	/**
@@ -48,5 +55,39 @@ public class DotsAI extends Player{
 
 
 		return move;
+	}
+
+	private int[] minimax(){
+
+		return null;
+	}
+
+	/**
+	 * evaluation function for the current board state
+	 *
+	 * @return the score for the current board state
+	 */
+	private int evaluate(GameVal player){
+		int score = 0;
+
+
+
+		return score;
+	}
+
+	/**
+	 * ranks a node based on how many lines it has around it based on current turn
+	 *
+	 * @param nodeX    x location of node
+	 * @param nodeY    y location of node
+	 * @return			rank for node
+	 */
+	private int evaluateNode(int nodeX, int nodeY, GameVal whosTurn){
+		if(whosTurn == player){
+
+		}else{
+
+		}
+		return 0;
 	}
 }
