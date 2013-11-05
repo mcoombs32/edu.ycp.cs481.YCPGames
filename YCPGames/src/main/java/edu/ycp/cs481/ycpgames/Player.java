@@ -8,7 +8,7 @@ import android.util.Log;
 public class Player {
 	private static final String TAG = "YCPGamesPlayer";
 	public int playerNum;
-	private boolean myTurn;
+	public boolean myTurn;
 	private boolean humanPlayer = true;
 	Settings settings;
 

@@ -14,6 +14,11 @@ public class DotsBoard extends Board {
 
 	public void reset(){
 		grid = new DotsNode[settings.getGirdSize()][settings.getGirdSize()];
+		for(int x = 0; x < settings.getGirdSize(); x++){
+			for(int y = 0; y < settings.getGirdSize(); y++){
+				grid[x][y] = new DotsNode();
+			}
+		}
 		for(int x = 0; x < settings.getGirdSize()-1; x++){
 			for(int y = 0; y < settings.getGirdSize()-1; y++){
 				//use alliasing to to link the overlaping values
