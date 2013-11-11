@@ -18,12 +18,13 @@ public class MainActivity extends Activity {
 	protected ImageButton DotsButton;
 	protected ImageButton CheckersButton;
 	protected ImageButton SettingsButton;
-
+	Settings settings = Settings.getInstance();;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		Log.d(TAG, "onCreate() called");
+
 
 		//Get references to main menu buttons
 		TicTacToeButton = (ImageButton) findViewById(R.id.TicTacToeButton);
@@ -36,6 +37,7 @@ public class MainActivity extends Activity {
 
             @Override
             public void onClick(View v) {
+				settings.setSinglePlayer(true);
                 Intent intent = new Intent(MainActivity.this, TicTacToeActivity.class);
                 startActivity(intent);
             }
@@ -44,6 +46,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View view) {
 				Log.d(TAG, "DotsButton Pressed");
+				settings.setSinglePlayer(false);
 				//When dots button is pressed:
 				Intent intent = new Intent(MainActivity.this, DotsActivity.class);
                 startActivity(intent);
