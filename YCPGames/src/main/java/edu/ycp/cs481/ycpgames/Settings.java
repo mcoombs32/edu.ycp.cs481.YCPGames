@@ -7,9 +7,9 @@ import android.util.Log;
  */
 public class Settings {
 	private static final String TAG = "YCPGamesSettings";
-	private Boolean singlePlayer = true;
+	private Boolean singlePlayer = false;
 	private int difficulty = 0;
-	private int girdSize = 3;
+	private int gridSize = 5;
 
     private int dotsGridSize[] = {5,5};
 	/*
@@ -56,12 +56,12 @@ public class Settings {
 	 * getter and setter for gridsize
 	 *
 	 */
-	public int getGirdSize() {
-		return girdSize;
+	public int getGridSize() {
+		return gridSize;
 	}
 
-	public void setGirdSize(int g) {
-		girdSize = g;
+	public void setGridSize(int g) {
+		gridSize = g;
 	}
 
     public int[] getDotsGridSize() {

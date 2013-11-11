@@ -8,25 +8,42 @@ public class DotsBoard extends Board {
 	 * Origin (0,0)is set at bottom left
 	 */
 	DotsNode [][] grid;
-	public DotsBoard(){
+    private int playerOneBoxes;
+    private int playerTwoBoxes;
+
+    public DotsBoard(){
 		reset();
 	}
 
-	public void reset(){
-		grid = new DotsNode[settings.getGirdSize()][settings.getGirdSize()];
-		for(int x = 0; x < settings.getGirdSize(); x++){
-			for(int y = 0; y < settings.getGirdSize(); y++){
+    public int getPlayerOneBoxes() {
+        return playerOneBoxes;
+    }
+
+    public int getPlayerTwoBoxes() {
+        return playerTwoBoxes;
+    }
+
+    public void reset(){
+		grid = new DotsNode[settings.getGridSize()][settings.getGridSize()];
+		for(int x = 0; x < settings.getGridSize(); x++){
+			for(int y = 0; y < settings.getGridSize(); y++){
 				grid[x][y] = new DotsNode();
 			}
 		}
-		for(int x = 0; x < settings.getGirdSize()-1; x++){
-			for(int y = 0; y < settings.getGirdSize()-1; y++){
+		for(int x = 0; x < settings.getGridSize()-1; x++){
+			for(int y = 0; y < settings.getGridSize()-1; y++){
 				//use alliasing to to link the overlaping values
 				//TODO: needs some JUNITS, im not 100% sure this will work how i want it too
-				grid[x+1][y].left = grid[x][y].right;
-				grid[x][y+1].down = grid[x][y].up;
+				/* Should be done programmatically, TODO this later
+				grid[x+1][y].setVal(Direction.LEFT,grid[x][y].getVal(Direction.RIGHT));
+				grid[x][y+1].setVal(Direction.DOWN, grid[x][y].getVal(Direction.UP));*/
+                grid[x+1][y].left = grid[x][y].right;
+                grid[x][y+1].down = grid[x][y].up;
+
 			}
 		}
+        playerOneBoxes = 0;
+        playerTwoBoxes = 0;
 	}
 
 	public void drawLine(int x, int y, Direction d, GameVal v){
@@ -43,11 +60,10 @@ public class DotsBoard extends Board {
 		return grid;
 	}
 	public GameVal isGameOver(){
-		int playerOneBoxes = 0;
-		int playerTwoBoxes = 0;
+
 		GameVal tempVal;
-		for(int x = 0; x < settings.getGirdSize(); x++){
-			for(int y = 0; y < settings.getGirdSize(); y++){
+		for(int x = 0; x < settings.getGridSize(); x++){
+			for(int y = 0; y < settings.getGridSize(); y++){
 				tempVal = grid[x][y].isNodeFilled();
 				if(tempVal == GameVal.EMPTY){
 					return GameVal.EMPTY;

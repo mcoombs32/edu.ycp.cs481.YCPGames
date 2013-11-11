@@ -7,14 +7,16 @@ import android.util.Log;
  */
 public class DotsNode {
     private static final String TAG = "DotsNode";
-    GameVal up = GameVal.EMPTY;
-	GameVal down = GameVal.EMPTY;
-	GameVal left = GameVal.EMPTY;
-	GameVal right = GameVal.EMPTY;
-	GameVal playerClaim = GameVal.EMPTY;
+    // these should probably be private fields with getters and setters
+    public GameVal up = GameVal.EMPTY;
+    public GameVal down = GameVal.EMPTY;
+    public GameVal left = GameVal.EMPTY;
+    public GameVal right = GameVal.EMPTY;
+    public GameVal playerClaim;
 	public DotsNode(){
 
-	}
+        playerClaim = GameVal.EMPTY;
+    }
 	public GameVal getVal(Direction d){
 		switch (d){
 			case UP:

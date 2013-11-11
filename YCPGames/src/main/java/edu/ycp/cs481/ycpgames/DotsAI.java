@@ -1,7 +1,5 @@
 package edu.ycp.cs481.ycpgames;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -147,8 +145,8 @@ public class DotsAI extends Player{
 	 */
 	private List<int[]> generateMoves(){
 		List<int[]> moves = new ArrayList<int[]>();
-		for(int x = 0; x < settings.getGirdSize(); x++){
-			for(int y = 0; y < settings.getGirdSize(); y++){
+		for(int x = 0; x < settings.getGridSize(); x++){
+			for(int y = 0; y < settings.getGridSize(); y++){
 				/*logic for generating move
 				 *need to convert from int into GameVal
 				 *
@@ -191,8 +189,8 @@ public class DotsAI extends Player{
 		int score = 0;
 
 		//run evaluate node for each node on board
-		for(int x = 0; x < settings.getGirdSize(); x++){
-			for(int y = 0; y < settings.getGirdSize(); y++){
+		for(int x = 0; x < settings.getGridSize(); x++){
+			for(int y = 0; y < settings.getGridSize(); y++){
 				score += evaluateNode(x,y,whosTurn);
 			}
 		}
