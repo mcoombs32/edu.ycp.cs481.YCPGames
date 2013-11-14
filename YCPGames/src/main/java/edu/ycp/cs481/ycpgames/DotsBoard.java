@@ -35,12 +35,12 @@ public class DotsBoard extends Board {
 		for(int x = 0; x < settings.getGridSize()-1; x++){
 			for(int y = 0; y < settings.getGridSize()-1; y++){
 				sharedLine = new DotsLine();
-                grid[x+1][y].left = sharedLine;
-				grid[x][y].right = sharedLine;
+                grid[x+1][y].setLeft(sharedLine);
+				grid[x][y].setRight(sharedLine);
 
 				sharedLine = new DotsLine();
-                grid[x][y+1].down = sharedLine;
-				grid[x][y].up = sharedLine;
+                grid[x][y+1].setDown(sharedLine);
+				grid[x][y].setUp(sharedLine);
 
 			}
 		}

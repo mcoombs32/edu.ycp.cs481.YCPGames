@@ -8,11 +8,11 @@ import android.util.Log;
 public class DotsNode {
     private static final String TAG = "DotsNode";
     // these should probably be private fields with getters and setters
-    public DotsLine up = new DotsLine();
-    public DotsLine down = new DotsLine();
-    public DotsLine left = new DotsLine();
-    public DotsLine right = new DotsLine();
-    public GameVal playerClaim = GameVal.EMPTY;
+    private DotsLine up = new DotsLine();
+    private DotsLine down = new DotsLine();
+    private DotsLine left = new DotsLine();
+    private DotsLine right = new DotsLine();
+    private GameVal playerClaim = GameVal.EMPTY;
 
 	public DotsNode(){
 
@@ -56,6 +56,42 @@ public class DotsNode {
 	}
 
 	public GameVal isNodeFilled(){
+		return playerClaim;
+	}
+
+	public DotsLine getUp() {
+		return up;
+	}
+
+	public DotsLine getDown() {
+		return down;
+	}
+
+	public DotsLine getLeft() {
+		return left;
+	}
+
+	public DotsLine getRight() {
+		return right;
+	}
+
+	public void setUp(DotsLine up) {
+		this.up = up;
+	}
+
+	public void setDown(DotsLine down) {
+		this.down = down;
+	}
+
+	public void setLeft(DotsLine left) {
+		this.left = left;
+	}
+
+	public void setRight(DotsLine right) {
+		this.right = right;
+	}
+
+	public GameVal getPlayerClaim() {
 		return playerClaim;
 	}
 }
