@@ -1,5 +1,7 @@
 package edu.ycp.cs481.ycpgames;
 
+import android.util.Log;
+
 /**
  * Created by brian on 10/28/13.
  */
@@ -7,6 +9,7 @@ public class DotsBoard extends Board {
 	/*
 	 * Origin (0,0)is set at bottom left
 	 */
+	String TAG = "YCPGamesDotsBoard";
 	DotsNode [][] grid;
     private int playerOneBoxes;
     private int playerTwoBoxes;
@@ -50,6 +53,7 @@ public class DotsBoard extends Board {
 
 	public void drawLine(int x, int y, Direction d, GameVal v){
 		grid[x][y].setVal(d,v);
+		Log.d(TAG, "Drawing line at " + x + ", " + y + ", " + v);
 	}
 
 	public GameVal getLineAt(int x, int y, Direction d){
@@ -71,7 +75,7 @@ public class DotsBoard extends Board {
 			for(int y = 0; y < settings.getGridSize(); y++){
 				tempVal = grid[x][y].isNodeFilled();
 				if(tempVal == GameVal.EMPTY){
-					return GameVal.EMPTY;
+					return GameVal.IN_PROGRESS;
 				}
 				if(tempVal == GameVal.PLAYER_ONE){
 					playerOneBoxes++;

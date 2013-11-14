@@ -1,5 +1,7 @@
 package edu.ycp.cs481.ycpgames;
 
+import android.util.Log;
+
 /**
  * Created by brian on 10/28/13.
  */
@@ -47,11 +49,13 @@ public class DotsGame extends Game {
 	 */
 	public int makeMove(int nodeX, int nodeY, Direction D){
 		if(board.getLineAt(nodeX,nodeY,D) == GameVal.EMPTY){
-			//Draw Line if game is in progress
+
 			if(board.isGameOver() == GameVal.IN_PROGRESS){
+				//Draw Line if game is in progress
 				board.drawLine(nodeX,nodeY,D,whosTurn());
 				endTurn();
 			}
+
 			if((settings.isSinglePlayer()) && (board.isGameOver() == GameVal.IN_PROGRESS)){
 				//call AI if single-player game and game is still in progress
 				int[] location = playerTwo.makeMove(board.getGrid());

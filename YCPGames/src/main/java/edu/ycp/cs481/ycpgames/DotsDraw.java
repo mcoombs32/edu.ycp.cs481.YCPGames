@@ -101,8 +101,8 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
                }
             }
         }
-        canvas.drawText("Player 1: " + game.board.getPlayerOneBoxes(), 20, 1200, paintOne);
-        canvas.drawText("Player 2: "+game.board.getPlayerTwoBoxes(),520,1200,paintTwo);
+        canvas.drawText("Player 1: " + game.getPlayerOneScore(), 20, 1200, paintOne);
+        canvas.drawText("Player 2: "+game.getPlayerTwoScore(),520,1200,paintTwo);
     }
 
     public DotsGridCell mFindNearestDot(int x, int y){
