@@ -24,21 +24,23 @@ public class DotsBoard extends Board {
     }
 
     public void reset(){
+		DotsLine sharedLine;
 		grid = new DotsNode[settings.getGridSize()][settings.getGridSize()];
 		for(int x = 0; x < settings.getGridSize(); x++){
 			for(int y = 0; y < settings.getGridSize(); y++){
+				//initialize a grid of DotsNodes
 				grid[x][y] = new DotsNode();
 			}
 		}
 		for(int x = 0; x < settings.getGridSize()-1; x++){
 			for(int y = 0; y < settings.getGridSize()-1; y++){
-				//use alliasing to to link the overlaping values
-				//TODO: needs some JUNITS, im not 100% sure this will work how i want it too
-				/* Should be done programmatically, TODO this later
-				grid[x+1][y].setVal(Direction.LEFT,grid[x][y].getVal(Direction.RIGHT));
-				grid[x][y+1].setVal(Direction.DOWN, grid[x][y].getVal(Direction.UP));*/
-                grid[x+1][y].left = grid[x][y].right;
-                grid[x][y+1].down = grid[x][y].up;
+				sharedLine = new DotsLine();
+                grid[x+1][y].left = sharedLine;
+				grid[x][y].right = sharedLine;
+
+				sharedLine = new DotsLine();
+                grid[x][y+1].down = sharedLine;
+				grid[x][y].up = sharedLine;
 
 			}
 		}
@@ -49,6 +51,7 @@ public class DotsBoard extends Board {
 	public void drawLine(int x, int y, Direction d, GameVal v){
 		grid[x][y].setVal(d,v);
 	}
+
 	public GameVal getLineAt(int x, int y, Direction d){
 		if((x <0) || (x>grid.length) || (y<0) || (y>grid[0].length)){
 			return GameVal.ERROR;
@@ -59,8 +62,10 @@ public class DotsBoard extends Board {
 	public DotsNode[][] getDotsGrid(){
 		return grid;
 	}
-	public GameVal isGameOver(){
 
+	public GameVal isGameOver(){
+		playerOneBoxes = 0;
+		playerTwoBoxes = 0;
 		GameVal tempVal;
 		for(int x = 0; x < settings.getGridSize(); x++){
 			for(int y = 0; y < settings.getGridSize(); y++){

@@ -8,11 +8,12 @@ import android.util.Log;
 public class DotsNode {
     private static final String TAG = "DotsNode";
     // these should probably be private fields with getters and setters
-    public GameVal up = GameVal.EMPTY;
-    public GameVal down = GameVal.EMPTY;
-    public GameVal left = GameVal.EMPTY;
-    public GameVal right = GameVal.EMPTY;
-    public GameVal playerClaim;
+    public DotsLine up = new DotsLine();
+    public DotsLine down = new DotsLine();
+    public DotsLine left = new DotsLine();
+    public DotsLine right = new DotsLine();
+    public GameVal playerClaim = GameVal.EMPTY;
+
 	public DotsNode(){
 
         playerClaim = GameVal.EMPTY;
@@ -20,13 +21,13 @@ public class DotsNode {
 	public GameVal getVal(Direction d){
 		switch (d){
 			case UP:
-				return up;
+				return up.getLineVal();
 			case DOWN:
-				return down;
+				return down.getLineVal();
 			case LEFT:
-				return left;
+				return left.getLineVal();
 			case RIGHT:
-				return right;
+				return right.getLineVal();
 			default:
                 Log.d(TAG, "Default Case");
 				return null;
@@ -35,21 +36,21 @@ public class DotsNode {
 	public void setVal(Direction d, GameVal v){
 		switch (d){
 			case UP:
-				up = v;
+				up.setLineVal(v);
 				break;
 			case DOWN:
-				down = v;
+				down.setLineVal(v);
 				break;
 			case LEFT:
-				left = v;
+				left.setLineVal(v);
 				break;
 			case RIGHT:
-				right = v;
+				right.setLineVal(v);
 				break;
 			default:
 				break;
 		}
-		if((up != GameVal.EMPTY) && (down != GameVal.EMPTY) && (left != GameVal.EMPTY) && (right != GameVal.EMPTY)){
+		if((up.getLineVal() != GameVal.EMPTY) && (down.getLineVal() != GameVal.EMPTY) && (left.getLineVal() != GameVal.EMPTY) && (right.getLineVal() != GameVal.EMPTY)){
 			playerClaim = v;
 		}
 	}

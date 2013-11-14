@@ -19,6 +19,24 @@ public class DotsGame extends Game {
 
 		board = new DotsBoard();
 	}
+
+	/**
+	 *
+	 * @return number of boxes player one has made
+	 */
+	public int getPlayerOneScore(){
+		return board.getPlayerOneBoxes();
+	}
+
+	/**
+	 *
+	 * @return number of boxes player two has made
+	 */
+	public int getPlayerTwoScore(){
+		return board.getPlayerTwoBoxes();
+	}
+
+
 	/**
 	 * So! this is how this is going to work. This is all placeholder stuff till I get the rest of
 	 * the backend up and running. Pass me a x/y value of a node (one of the boxes) and a direction
@@ -29,9 +47,11 @@ public class DotsGame extends Game {
 	 */
 	public int makeMove(int nodeX, int nodeY, Direction D){
 		if(board.getLineAt(nodeX,nodeY,D) == GameVal.EMPTY){
-			//Draw Line
-			board.drawLine(nodeX,nodeY,D,whosTurn());
-			endTurn();
+			//Draw Line if game is in progress
+			if(board.isGameOver() == GameVal.IN_PROGRESS){
+				board.drawLine(nodeX,nodeY,D,whosTurn());
+				endTurn();
+			}
 			if((settings.isSinglePlayer()) && (board.isGameOver() == GameVal.IN_PROGRESS)){
 				//call AI if single-player game and game is still in progress
 				int[] location = playerTwo.makeMove(board.getGrid());
@@ -111,7 +131,7 @@ public class DotsGame extends Game {
 	}
 
 	/**
-	 * @return an int with the player number of whos turn it is
+	 * @return a gameval indicating the player whos turn it is
 	 */
 	public GameVal whosTurn() {
 		if (playerOne.isPlayersTurn()) {
