@@ -79,7 +79,7 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
 
 
 
-               if ((game.board.getLineAt(i, j, Direction.UP) != GameVal.EMPTY) && (j != 0)){
+               if ((game.board.getLineAt(i, j, Direction.UP) != GameVal.EMPTY)){
                    if ((game.board.getLineAt(i, j, Direction.UP) == GameVal.PLAYER_ONE)){
                        tempPaint = paintOne;
                    }else if ((game.board.getLineAt(i, j, Direction.UP) == GameVal.PLAYER_TWO)){
@@ -87,7 +87,7 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
                    }
                    canvas.drawLine(center[0],center[1], grid.getCell(i+1,j).getCenter()[0],grid.getCell(i+1,j).getCenter()[1],tempPaint);
                }
-               if ((game.board.getLineAt(i,j,Direction.LEFT) != GameVal.EMPTY) && (i !=0)){
+               if ((game.board.getLineAt(i,j,Direction.LEFT) != GameVal.EMPTY)){
                    if ((game.board.getLineAt(i, j, Direction.LEFT) == GameVal.PLAYER_ONE)){
                        tempPaint = paintOne;
                    }else if ((game.board.getLineAt(i, j, Direction.LEFT) == GameVal.PLAYER_TWO)){

@@ -19,37 +19,6 @@ public class DotsNode {
         playerClaim = GameVal.EMPTY;
     }
 
-    public DotsLine getUp() {
-        return up;
-    }
-
-    public void setUp(DotsLine up) {
-        this.up = up;
-    }
-
-    public DotsLine getDown() {
-        return down;
-    }
-
-    public void setDown(DotsLine down) {
-        this.down = down;
-    }
-
-    public DotsLine getLeft() {
-        return left;
-    }
-
-    public void setLeft(DotsLine left) {
-        this.left = left;
-    }
-
-    public DotsLine getRight() {
-        return right;
-    }
-
-    public void setRight(DotsLine right) {
-        this.right = right;
-    }
 
     public GameVal getVal(Direction d){
 		switch (d){
