@@ -7,7 +7,7 @@ import android.util.Log;
  */
 public class Settings {
 	private static final String TAG = "YCPGamesSettings";
-	private Boolean singlePlayer = false;
+	private Boolean singlePlayer = true;
 	private int difficulty = 0;
 	private int gridSize = 5;
 

@@ -41,8 +41,6 @@ public class DotsActivity extends Activity {
     @Override
     protected void onPause(){
         super.onPause();
-        draw.setRunning(false);
-        //finish();
     }
 
 

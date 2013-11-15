@@ -8,25 +8,59 @@ import android.util.Log;
 public class DotsNode {
     private static final String TAG = "DotsNode";
     // these should probably be private fields with getters and setters
-    public GameVal up = GameVal.EMPTY;
-    public GameVal down = GameVal.EMPTY;
-    public GameVal left = GameVal.EMPTY;
-    public GameVal right = GameVal.EMPTY;
-    public GameVal playerClaim;
+    private DotsLine up = new DotsLine();
+    private DotsLine down = new DotsLine();
+    private DotsLine left = new DotsLine();
+    private DotsLine right = new DotsLine();
+    private GameVal playerClaim = GameVal.EMPTY;
+
 	public DotsNode(){
 
         playerClaim = GameVal.EMPTY;
     }
-	public GameVal getVal(Direction d){
+
+    public DotsLine getUp() {
+        return up;
+    }
+
+    public void setUp(DotsLine up) {
+        this.up = up;
+    }
+
+    public DotsLine getDown() {
+        return down;
+    }
+
+    public void setDown(DotsLine down) {
+        this.down = down;
+    }
+
+    public DotsLine getLeft() {
+        return left;
+    }
+
+    public void setLeft(DotsLine left) {
+        this.left = left;
+    }
+
+    public DotsLine getRight() {
+        return right;
+    }
+
+    public void setRight(DotsLine right) {
+        this.right = right;
+    }
+
+    public GameVal getVal(Direction d){
 		switch (d){
 			case UP:
-				return up;
+				return up.getLineVal();
 			case DOWN:
-				return down;
+				return down.getLineVal();
 			case LEFT:
-				return left;
+				return left.getLineVal();
 			case RIGHT:
-				return right;
+				return right.getLineVal();
 			default:
                 Log.d(TAG, "Default Case");
 				return null;
@@ -35,21 +69,21 @@ public class DotsNode {
 	public void setVal(Direction d, GameVal v){
 		switch (d){
 			case UP:
-				up = v;
+				up.setLineVal(v);
 				break;
 			case DOWN:
-				down = v;
+				down.setLineVal(v);
 				break;
 			case LEFT:
-				left = v;
+				left.setLineVal(v);
 				break;
 			case RIGHT:
-				right = v;
+				right.setLineVal(v);
 				break;
 			default:
 				break;
 		}
-		if((up != GameVal.EMPTY) && (down != GameVal.EMPTY) && (left != GameVal.EMPTY) && (right != GameVal.EMPTY)){
+		if((up.getLineVal() != GameVal.EMPTY) && (down.getLineVal() != GameVal.EMPTY) && (left.getLineVal() != GameVal.EMPTY) && (right.getLineVal() != GameVal.EMPTY)){
 			playerClaim = v;
 		}
 	}

@@ -17,7 +17,7 @@ import android.widget.Toast;
  */
 public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
 
-    //private static final String TAG = "DotsDraw";
+    private static final String TAG = "DotsDraw";
     private Bitmap mBackground;
     SurfaceHolder surfaceHolder;
     private GameThread thread;
@@ -57,10 +57,6 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
     }
 
 
-    public void setRunning(boolean run){
-        thread.setRunning(run);
-    }
-
     @Override
     public void onDraw(Canvas canvas){
         canvas.drawRGB(255, 255, 255);
@@ -71,34 +67,57 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
             tempPaint = paintTwo;
         }
 
+
         while (touched){
             //canvas.drawBitmap(mBackground,start.getCenter()[0] - (mBackground.getScaledWidth(canvas)/2), start.getCenter()[1] - (mBackground.getScaledHeight(canvas)/2),selectPaint);
             //canvas.drawCircle(start.getCenter()[0], start.getCenter()[1],300,selectPaint);
         }
         DotsNode[][] temp = game.board.getDotsGrid();
-        for(int i = 0; i < grid.getGridWidth();i++){
-            for (int j = 0; j < grid.getGridLength(); j++) {
+        for(int i = 0; i < grid.getGridWidth()-1;i++){
+            for (int j = 0; j < grid.getGridLength()-1; j++) {
                int[] center = grid.getCell(i,j).getCenter();
 
+
+
                if ((game.board.getLineAt(i, j, Direction.UP) != GameVal.EMPTY) && (j != 0)){
-                   canvas.drawLine(center[0],center[1], grid.getCell(i,j-1).getCenter()[0],grid.getCell(i,j-1).getCenter()[1],tempPaint);
-               }
-               if ((game.board.getLineAt(i,j,Direction.LEFT) != GameVal.EMPTY) && (i !=0)){
-                   canvas.drawLine(center[0],center[1], grid.getCell(i-1,j).getCenter()[0],grid.getCell(i-1,j).getCenter()[1],tempPaint);
-               }
-               if ((game.board.getLineAt(i,j,Direction.RIGHT) != GameVal.EMPTY) && (i != grid.getGridWidth()-1)){
+                   if ((game.board.getLineAt(i, j, Direction.UP) == GameVal.PLAYER_ONE)){
+                       tempPaint = paintOne;
+                   }else if ((game.board.getLineAt(i, j, Direction.UP) == GameVal.PLAYER_TWO)){
+                       tempPaint = paintTwo;
+                   }
                    canvas.drawLine(center[0],center[1], grid.getCell(i+1,j).getCenter()[0],grid.getCell(i+1,j).getCenter()[1],tempPaint);
                }
+               if ((game.board.getLineAt(i,j,Direction.LEFT) != GameVal.EMPTY) && (i !=0)){
+                   if ((game.board.getLineAt(i, j, Direction.LEFT) == GameVal.PLAYER_ONE)){
+                       tempPaint = paintOne;
+                   }else if ((game.board.getLineAt(i, j, Direction.LEFT) == GameVal.PLAYER_TWO)){
+                       tempPaint = paintTwo;
+                   }
+                   canvas.drawLine(center[0],center[1], grid.getCell(i,j+1).getCenter()[0],grid.getCell(i,j+1).getCenter()[1],tempPaint);
+               }
+               if ((game.board.getLineAt(i,j,Direction.RIGHT) != GameVal.EMPTY) && (i != grid.getGridWidth()-1)){
+                   if ((game.board.getLineAt(i, j, Direction.RIGHT) == GameVal.PLAYER_ONE)){
+                       tempPaint = paintOne;
+                   }else if ((game.board.getLineAt(i, j, Direction.RIGHT) == GameVal.PLAYER_TWO)){
+                       tempPaint = paintTwo;
+                   }
+                   canvas.drawLine(grid.getCell(i+1,j).getCenter()[0],grid.getCell(i+1,j).getCenter()[1], grid.getCell(i+1,j+1).getCenter()[0],grid.getCell(i+1,j+1).getCenter()[1],tempPaint);
+               }
                if ((game.board.getLineAt(i,j,Direction.DOWN) != GameVal.EMPTY) && (j != grid.getGridLength()-1)){
-                    canvas.drawLine(center[0],center[1], grid.getCell(i,j+1).getCenter()[0],grid.getCell(i,j+1).getCenter()[1],tempPaint);
+                   if ((game.board.getLineAt(i, j, Direction.DOWN) == GameVal.PLAYER_ONE)){
+                       tempPaint = paintOne;
+                   }else if ((game.board.getLineAt(i, j, Direction.DOWN) == GameVal.PLAYER_TWO)){
+                       tempPaint = paintTwo;
+                   }
+                   canvas.drawLine(grid.getCell(i,j+1).getCenter()[0],grid.getCell(i,j+1).getCenter()[1], grid.getCell(i+1,j+1).getCenter()[0],grid.getCell(i+1,j+1).getCenter()[1],tempPaint);
                }
+            }
+        }
 
-               canvas.drawBitmap(mBackground,center[0] - (mBackground.getScaledWidth(canvas)/2),center[1] - (mBackground.getScaledHeight(canvas)/2),null);
-               if(temp[i][j].isNodeFilled() == GameVal.PLAYER_ONE){
-                   canvas.drawBitmap(mBackground,grid.getCell(i,j).getCenter()[0]+grid.getCell(i,j).getWidth()/2,grid.getCell(i,j).getCenter()[1]+grid.getCell(i,j).getLength()/2,paintOne);
-               }else if(temp[i][j].isNodeFilled() == GameVal.PLAYER_TWO){
-                   canvas.drawBitmap(mBackground,grid.getCell(i,j).getCenter()[0],grid.getCell(i,j).getCenter()[1],paintTwo);
-               }
+        for(int i = 0; i < grid.getGridWidth();i++){
+            for (int j = 0; j < grid.getGridLength(); j++) {
+                int[] center = grid.getCell(i,j).getCenter();
+                canvas.drawBitmap(mBackground,center[0] - (mBackground.getScaledWidth(canvas)/2),center[1] - (mBackground.getScaledHeight(canvas)/2),null);
             }
         }
         canvas.drawText("Player 1: " + game.board.getPlayerOneBoxes(), 20, 1200, paintOne);
@@ -125,6 +144,10 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
         thread = new GameThread(getHolder(), this);
         thread.setRunning(true);
         thread.start();
+    }
+
+    public void setRunning(boolean run){
+        thread.setRunning(run);
     }
 
     @Override
@@ -193,21 +216,37 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
         float dx = end.getX()-start.getX();
         float dy = end.getY()-start.getY();
         if (Math.abs(dx) > Math.abs(dy)){
+           Log.d(TAG,"dot Y="+start.getArrY());
+           Log.d(TAG,"grid height="+game.board.getGridHeight());
            if (dx > 0){
-                isMoveValid =  game.makeMove(start.getArrX(),start.getArrY(),Direction.RIGHT);
+               if (start.getArrY() == game.board.getGridHeight()){
+                    isMoveValid =  game.makeMove(start.getArrX(),start.getArrY()-1,Direction.DOWN);
+               }else
+                    isMoveValid =  game.makeMove(start.getArrX(),start.getArrY(),Direction.UP);
            }else
-                isMoveValid =  game.makeMove(start.getArrX(),start.getArrY(),Direction.LEFT);
+
+               if (start.getArrY() == game.board.getGridWidth()){
+                    isMoveValid =  game.makeMove(end.getArrX(),end.getArrY()-1,Direction.DOWN);
+               }else
+                    isMoveValid =  game.makeMove(end.getArrX(),end.getArrY(),Direction.UP);
         }else{
             if (dy > 0){
-                isMoveValid = game.makeMove(start.getArrX(),start.getArrY(),Direction.DOWN);
+                if (start.getArrX() == game.board.getGridWidth()){
+                    isMoveValid = game.makeMove(start.getArrX()-1,start.getArrY(),Direction.RIGHT);
+                }else
+                    isMoveValid = game.makeMove(start.getArrX(),start.getArrY(),Direction.LEFT);
             }else
-                isMoveValid = game.makeMove(start.getArrX(),start.getArrY(),Direction.UP);
+            if (start.getArrX() == game.board.getGridWidth()){
+                isMoveValid = game.makeMove(end.getArrX()-1,end.getArrY(),Direction.RIGHT);
+            }else
+                isMoveValid = game.makeMove(end.getArrX(),end.getArrY(),Direction.LEFT);
         }
         if (isMoveValid == -2){
             invalidToast.show();
-        }
+        }else
+            invalidate();
     }
-    //public
+
 
 class GameThread extends Thread{
     private SurfaceHolder surfaceHolder;

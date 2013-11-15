@@ -1,11 +1,13 @@
 package edu.ycp.cs481.ycpgames;
 
+import android.util.Log;
+
 /**
  * Created by brian on 10/28/13.
  */
 public class DotsBoard extends Board {
 	/*
-	 * Origin (0,0)is set at bottom left
+	 * Origin (0,0)is set at Top left
 	 */
 	DotsNode [][] grid;
     private int playerOneBoxes;
@@ -24,21 +26,28 @@ public class DotsBoard extends Board {
     }
 
     public void reset(){
-		grid = new DotsNode[settings.getGridSize()][settings.getGridSize()];
-		for(int x = 0; x < settings.getGridSize(); x++){
-			for(int y = 0; y < settings.getGridSize(); y++){
+		DotsLine sharedLine;
+		grid = new DotsNode[settings.getGridSize()-1][settings.getGridSize()-1];
+		for(int x = 0; x < settings.getGridSize()-1; x++){
+			for(int y = 0; y < settings.getGridSize()-1; y++){
+				//initialize a grid of DotsNodes
 				grid[x][y] = new DotsNode();
 			}
 		}
 		for(int x = 0; x < settings.getGridSize()-1; x++){
 			for(int y = 0; y < settings.getGridSize()-1; y++){
-				//use alliasing to to link the overlaping values
-				//TODO: needs some JUNITS, im not 100% sure this will work how i want it too
-				/* Should be done programmatically, TODO this later
-				grid[x+1][y].setVal(Direction.LEFT,grid[x][y].getVal(Direction.RIGHT));
-				grid[x][y+1].setVal(Direction.DOWN, grid[x][y].getVal(Direction.UP));*/
-                grid[x+1][y].left = grid[x][y].right;
-                grid[x][y+1].down = grid[x][y].up;
+				sharedLine = new DotsLine();
+                grid[x][y].setLeft(sharedLine);
+                if (x+1 == settings.getGridSize()){
+                    grid[x+1][y].setRight(sharedLine);
+                }
+
+                sharedLine = new DotsLine();
+                grid[x][y].setDown(sharedLine);
+                if (y+1 == settings.getGridSize()){
+                    grid[x][y+1].setUp(sharedLine);
+                }
+
 
 			}
 		}
@@ -48,7 +57,13 @@ public class DotsBoard extends Board {
 
 	public void drawLine(int x, int y, Direction d, GameVal v){
 		grid[x][y].setVal(d,v);
+        Log.d("DotsBoard", "Grid: ("+x+","+y+")");
+        Log.d("DotsBoard", "Right: "+grid[x][y].getRight().getLineVal());
+        Log.d("DotsBoard", "Left: "+grid[x][y].getLeft().getLineVal());
+        Log.d("DotsBoard", "Up: "+grid[x][y].getUp().getLineVal());
+        Log.d("DotsBoard", "Down: "+grid[x][y].getDown().getLineVal());
 	}
+
 	public GameVal getLineAt(int x, int y, Direction d){
 		if((x <0) || (x>grid.length) || (y<0) || (y>grid[0].length)){
 			return GameVal.ERROR;
@@ -59,14 +74,16 @@ public class DotsBoard extends Board {
 	public DotsNode[][] getDotsGrid(){
 		return grid;
 	}
-	public GameVal isGameOver(){
 
+	public GameVal isGameOver(){
+		playerOneBoxes = 0;
+		playerTwoBoxes = 0;
 		GameVal tempVal;
 		for(int x = 0; x < settings.getGridSize(); x++){
 			for(int y = 0; y < settings.getGridSize(); y++){
 				tempVal = grid[x][y].isNodeFilled();
 				if(tempVal == GameVal.EMPTY){
-					return GameVal.EMPTY;
+					return GameVal.IN_PROGRESS;
 				}
 				if(tempVal == GameVal.PLAYER_ONE){
 					playerOneBoxes++;
