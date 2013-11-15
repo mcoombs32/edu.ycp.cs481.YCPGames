@@ -60,25 +60,19 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void onDraw(Canvas canvas){
         canvas.drawRGB(255, 255, 255);
-        Paint tempPaint;
-        if (game.whosTurn() == GameVal.PLAYER_ONE){
-            tempPaint = paintOne;
-        }else {
-            tempPaint = paintTwo;
-        }
-
+        Paint tempPaint = null;
+        game.board.isGameOver();
+        canvas.drawText("Player 1: " + game.getPlayerOneScore(), 20, 1200, paintOne);
+        canvas.drawText("Player 2: "+game.getPlayerTwoScore(),520,1200,paintTwo);
 
         while (touched){
             //canvas.drawBitmap(mBackground,start.getCenter()[0] - (mBackground.getScaledWidth(canvas)/2), start.getCenter()[1] - (mBackground.getScaledHeight(canvas)/2),selectPaint);
             //canvas.drawCircle(start.getCenter()[0], start.getCenter()[1],300,selectPaint);
         }
-        DotsNode[][] temp = game.board.getDotsGrid();
+        //DotsNode[][] temp = game.board.getDotsGrid();
         for(int i = 0; i < grid.getGridWidth()-1;i++){
             for (int j = 0; j < grid.getGridLength()-1; j++) {
                int[] center = grid.getCell(i,j).getCenter();
-
-
-
                if ((game.board.getLineAt(i, j, Direction.UP) != GameVal.EMPTY)){
                    if ((game.board.getLineAt(i, j, Direction.UP) == GameVal.PLAYER_ONE)){
                        tempPaint = paintOne;
@@ -120,8 +114,6 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
                 canvas.drawBitmap(mBackground,center[0] - (mBackground.getScaledWidth(canvas)/2),center[1] - (mBackground.getScaledHeight(canvas)/2),null);
             }
         }
-        canvas.drawText("Player 1: " + game.getPlayerOneScore(), 20, 1200, paintOne);
-        canvas.drawText("Player 2: "+game.getPlayerTwoScore(),520,1200,paintTwo);
     }
 
     public DotsGridCell mFindNearestDot(int x, int y){

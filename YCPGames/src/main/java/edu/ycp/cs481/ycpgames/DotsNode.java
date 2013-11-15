@@ -16,7 +16,6 @@ public class DotsNode {
 
 	public DotsNode(){
 
-        playerClaim = GameVal.EMPTY;
     }
 
 

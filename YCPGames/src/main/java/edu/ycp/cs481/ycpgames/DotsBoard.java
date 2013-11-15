@@ -1,6 +1,6 @@
 package edu.ycp.cs481.ycpgames;
 
-import android.util.Log;
+//import android.util.Log;
 
 /**
  * Created by brian on 10/28/13.
@@ -10,8 +10,8 @@ public class DotsBoard extends Board {
 	 * Origin (0,0)is set at Top left
 	 */
 	DotsNode [][] grid;
-    private int playerOneBoxes;
-    private int playerTwoBoxes;
+    private static int playerOneBoxes;
+    private static int playerTwoBoxes;
 
     public DotsBoard(){
 		reset();
@@ -37,14 +37,14 @@ public class DotsBoard extends Board {
 		for(int x = 0; x < settings.getGridSize()-1; x++){
 			for(int y = 0; y < settings.getGridSize()-1; y++){
 				sharedLine = new DotsLine();
-                grid[x][y].setLeft(sharedLine);
-                if (x+1 == settings.getGridSize()){
-                    grid[x+1][y].setRight(sharedLine);
+                grid[x][y].setRight(sharedLine);
+                if (x != settings.getGridSize()-2){
+                    grid[x+1][y].setLeft(sharedLine);
                 }
 
                 sharedLine = new DotsLine();
                 grid[x][y].setDown(sharedLine);
-                if (y+1 == settings.getGridSize()){
+                if (y != settings.getGridSize()-2){
                     grid[x][y+1].setUp(sharedLine);
                 }
 
@@ -56,12 +56,7 @@ public class DotsBoard extends Board {
 	}
 
 	public void drawLine(int x, int y, Direction d, GameVal v){
-		grid[x][y].setVal(d,v);
-        Log.d("DotsBoard", "Grid: ("+x+","+y+")");
-        Log.d("DotsBoard", "Right: "+grid[x][y].getRight().getLineVal());
-        Log.d("DotsBoard", "Left: "+grid[x][y].getLeft().getLineVal());
-        Log.d("DotsBoard", "Up: "+grid[x][y].getUp().getLineVal());
-        Log.d("DotsBoard", "Down: "+grid[x][y].getDown().getLineVal());
+        grid[x][y].setVal(d,v);
 	}
 
 	public GameVal getLineAt(int x, int y, Direction d){
@@ -78,12 +73,12 @@ public class DotsBoard extends Board {
 	public GameVal isGameOver(){
 		playerOneBoxes = 0;
 		playerTwoBoxes = 0;
-		GameVal tempVal;
-		for(int x = 0; x < settings.getGridSize(); x++){
-			for(int y = 0; y < settings.getGridSize(); y++){
+		GameVal tempVal, checkVal = null;
+		for(int x = 0; x < settings.getGridSize()-1; x++){
+			for(int y = 0; y < settings.getGridSize()-1; y++){
 				tempVal = grid[x][y].isNodeFilled();
 				if(tempVal == GameVal.EMPTY){
-					return GameVal.IN_PROGRESS;
+					checkVal = GameVal.IN_PROGRESS;
 				}
 				if(tempVal == GameVal.PLAYER_ONE){
 					playerOneBoxes++;
@@ -93,6 +88,9 @@ public class DotsBoard extends Board {
 				}
 			}
 		}
+        if (checkVal == GameVal.IN_PROGRESS){
+            return checkVal;
+        }
 		if(playerOneBoxes > playerTwoBoxes){
 			return GameVal.PLAYER_ONE;
 		}
