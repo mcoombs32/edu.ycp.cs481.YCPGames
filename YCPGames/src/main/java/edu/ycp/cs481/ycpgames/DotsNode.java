@@ -51,6 +51,10 @@ public class DotsNode {
 			default:
 				break;
 		}
+		checkForPlayerClaim(v);
+	}
+
+	public void checkForPlayerClaim(GameVal v){
 		if((up.getLineVal() != GameVal.EMPTY) && (down.getLineVal() != GameVal.EMPTY) && (left.getLineVal() != GameVal.EMPTY) && (right.getLineVal() != GameVal.EMPTY)){
 			playerClaim = v;
 		}
