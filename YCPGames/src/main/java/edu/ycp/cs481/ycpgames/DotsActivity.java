@@ -10,7 +10,6 @@ import android.util.Log;
 public class DotsActivity extends Activity {
 
     private int screenHeight,screenWidth;
-    private DotsGame game;
     private DotsDraw draw;
     private DotsGrid grid;
     final static String TAG = "DotsActivity";

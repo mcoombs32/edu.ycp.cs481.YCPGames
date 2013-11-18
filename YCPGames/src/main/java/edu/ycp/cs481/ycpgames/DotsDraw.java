@@ -12,6 +12,8 @@ import android.graphics.Canvas;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.io.InputStream;
+
 /**
  * Created by michaelcoombs on 11/5/13.
  */
@@ -26,7 +28,7 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
     private Paint paintOne, paintTwo;
     private DotsGridCell start,end;
     private boolean touched;
-    private float pointerX, pointerY;
+
     private Toast invalidToast;
 
     public DotsDraw(Context context, DotsGrid grid){
@@ -37,7 +39,8 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
         getHolder().addCallback(this);
         game = new DotsGame();
         invalidToast = Toast.makeText(context,"Invalid move, please select another!",Toast.LENGTH_SHORT);
-        mBackground = BitmapFactory.decodeResource(getResources(),R.drawable.dot);
+        InputStream is = context.getResources().openRawResource(R.drawable.dot);
+        mBackground =  BitmapFactory.decodeStream(is);
 
         paintOne = new Paint();
         paintOne.setColor(Color.GREEN);
@@ -62,6 +65,7 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
         canvas.drawRGB(255, 255, 255);
         Paint tempPaint = null;
         game.board.isGameOver();
+
         canvas.drawText("Player 1: " + game.getPlayerOneScore(), 20, 1200, paintOne);
         canvas.drawText("Player 2: "+game.getPlayerTwoScore(),520,1200,paintTwo);
 
@@ -177,16 +181,12 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
                 touched = true;
                 break;
             case MotionEvent.ACTION_MOVE:
-                pointerX = event.getX();
-                pointerY = event.getY();
                 touched = true;
                 break;
             case MotionEvent.ACTION_UP:
                 final float endX = event.getX();
                 final float endY = event.getY();
                 end = mFindNearestDot((int)endX, (int)endY);
-                pointerX = -1;
-                pointerY = -1;
                 touched = true;
                 if (end == null || end.equals(start))
                     break;
@@ -208,8 +208,8 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
         float dx = end.getX()-start.getX();
         float dy = end.getY()-start.getY();
         if (Math.abs(dx) > Math.abs(dy)){
-           Log.d(TAG,"dot Y="+start.getArrY());
-           Log.d(TAG,"grid height="+game.board.getGridHeight());
+           //Log.d(TAG,"dot Y="+start.getArrY());
+           //Log.d(TAG,"grid height="+game.board.getGridHeight());
            if (dx > 0){
                if (start.getArrY() == game.board.getGridHeight()){
                     isMoveValid =  game.makeMove(start.getArrX(),start.getArrY()-1,Direction.DOWN);
