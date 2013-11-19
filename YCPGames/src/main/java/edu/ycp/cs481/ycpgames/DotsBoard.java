@@ -17,6 +17,10 @@ public class DotsBoard extends Board {
 		reset();
 	}
 
+	public DotsNode[][] getDotsGrid(){
+		return grid;
+	}
+
     public int getPlayerOneBoxes() {
         return playerOneBoxes;
     }

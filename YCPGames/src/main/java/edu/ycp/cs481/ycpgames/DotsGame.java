@@ -65,8 +65,9 @@ public class DotsGame extends Game {
 			}
 			if((settings.isSinglePlayer()) && (board.isGameOver() == GameVal.IN_PROGRESS)){
 				//call AI if single-player game and game is still in progress
-
-				int[] location = playerTwo.makeMove(board.getGrid());
+				Log.d(TAG,"calling ai");
+				int[] location = playerTwo.makeDotsMove(board.getDotsGrid());
+				Log.d(TAG,"AI move. x="+location[0] + " y="+location[1]+" direction="+location[2]);
 				//make sure its a valid move
 
 				/*logic for placing piece

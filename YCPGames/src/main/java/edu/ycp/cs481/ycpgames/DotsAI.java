@@ -36,8 +36,8 @@ public class DotsAI extends Player {
 	 * 						2 = left
 	 * 						3 = right
 	 */
-
-	public int[] makeMove(DotsNode[][] g){
+	@Override
+	public int[] makeDotsMove(DotsNode[][] g){
 		int[] move = {0, 0};
 		int[] result;
 		grid = g;
@@ -145,8 +145,8 @@ public class DotsAI extends Player {
 	 */
 	private List<int[]> generateMoves(){
 		List<int[]> moves = new ArrayList<int[]>();
-		for(int x = 0; x < settings.getGridSize(); x++){
-			for(int y = 0; y < settings.getGridSize(); y++){
+		for(int x = 0; x < settings.getGridSize()-1; x++){
+			for(int y = 0; y < settings.getGridSize()-1; y++){
 				/*logic for generating move
 				 *need to convert from int into GameVal
 				 *

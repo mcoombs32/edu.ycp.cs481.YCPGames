@@ -61,4 +61,8 @@ public class Player {
 		Log.d(TAG, "Make move is not implemented here");
 		return null;
 	}
+	public int[] makeDotsMove(DotsNode[][] g){
+		Log.d(TAG, "MakeDotsMove is not implemented here");
+		return null;
+	}
 }
