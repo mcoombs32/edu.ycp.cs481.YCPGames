@@ -46,7 +46,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View view) {
 				Log.d(TAG, "DotsButton Pressed");
-				settings.setSinglePlayer(false);
+				//settings.setSinglePlayer(false);
 				//When dots button is pressed:
 				Intent intent = new Intent(MainActivity.this, DotsActivity.class);
                 startActivity(intent);

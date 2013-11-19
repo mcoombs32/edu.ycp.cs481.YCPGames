@@ -31,7 +31,7 @@
             android:theme="@style/NoActionBar" >
         </activity>
         <activity
-            android:name="edu.ycp.cs481.ycpgames.DotsActivity"
+            android:name=".DotsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_dots"
             android:screenOrientation="sensorPortrait"

@@ -5,13 +5,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.graphics.Canvas;
-import android.util.Log;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -178,7 +176,7 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public boolean onTouchEvent(MotionEvent event){
-
+       // if (game.settings.isSinglePlayer() && game.playerOne.isPlayersTurn()){
         int action = event.getAction();
 
         switch (action){
@@ -209,7 +207,9 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
         }
 
         touched = false;
+        //}
         return true;
+
     }
 
     private void mUpdateGrid(DotsGridCell start, DotsGridCell end) {

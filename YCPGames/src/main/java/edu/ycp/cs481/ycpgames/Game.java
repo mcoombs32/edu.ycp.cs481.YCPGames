@@ -12,8 +12,8 @@ public class Game {
 
 	public Game() {
 		settings = Settings.getInstance();
-		playerOne = new Player(1);
-		playerTwo = new Player(2);
+		//playerOne = new Player(1);
+		//playerTwo = new Player(2);
 		//board = new Board();
 	}
 

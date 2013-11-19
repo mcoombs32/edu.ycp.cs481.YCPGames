@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by brian on 10/28/13.
  */
-public class DotsAI extends Player{
+public class DotsAI extends Player {
 	private int difficulty;
 	private DotsNode [][] grid;
 	private GameVal player, opponent;

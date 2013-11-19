@@ -1,5 +1,7 @@
 package edu.ycp.cs481.ycpgames;
 
+import edu.ycp.cs481.ycpgames.GameVal;
+
 /**
  * Created by brian on 11/14/13.
  */

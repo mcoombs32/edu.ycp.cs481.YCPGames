@@ -3,6 +3,9 @@ package edu.ycp.cs481.ycpgames;
 /**
  * Created by brian on 10/28/13.
  */
+
+import android.util.Log;
+
 public class DotsGame extends Game {
 	String TAG = "YCPGamesDotsGame";
 	//override Board board
@@ -12,9 +15,11 @@ public class DotsGame extends Game {
 		playerOne = new DotsPlayer(1);
 
 		if (settings.isSinglePlayer()) {
-			playerTwo = new DotsAI(2);
+            playerTwo = new DotsAI(2);
+            Log.d(TAG, "AI Created");
 		} else {
 			playerTwo = new DotsPlayer(2);
+            Log.d(TAG, "Not AI Created");
 		}
 
 		board = new DotsBoard();
@@ -60,6 +65,7 @@ public class DotsGame extends Game {
 			}
 			if((settings.isSinglePlayer()) && (board.isGameOver() == GameVal.IN_PROGRESS)){
 				//call AI if single-player game and game is still in progress
+
 				int[] location = playerTwo.makeMove(board.getGrid());
 				//make sure its a valid move
 
