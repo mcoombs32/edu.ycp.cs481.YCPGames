@@ -26,6 +26,7 @@ public class DotsActivity extends Activity {
         display.getSize(size);
         screenHeight = size.y;
         screenWidth = size.x;
+        Log.d("DotsActivity","Screen size: ("+size.x+","+size.y+")");
 
         int screen[] = {screenWidth,screenHeight};
 

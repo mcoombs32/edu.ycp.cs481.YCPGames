@@ -65,10 +65,9 @@ public class DotsBoard extends Board {
 		}
 		return grid[x][y].getVal(d);
 	}
-
-	public DotsNode[][] getDotsGrid(){
-		return grid;
-	}
+    public void playerClaimUpdate(int x, int y,GameVal v){
+        grid[x][y].checkForPlayerClaim(v);
+    }
 
 	public GameVal isGameOver(){
 		playerOneBoxes = 0;
@@ -76,6 +75,7 @@ public class DotsBoard extends Board {
 		GameVal tempVal, checkVal = null;
 		for(int x = 0; x < settings.getGridSize()-1; x++){
 			for(int y = 0; y < settings.getGridSize()-1; y++){
+                //grid[x][y].checkForPlayerClaim();
 				tempVal = grid[x][y].isNodeFilled();
 				if(tempVal == GameVal.EMPTY){
 					checkVal = GameVal.IN_PROGRESS;

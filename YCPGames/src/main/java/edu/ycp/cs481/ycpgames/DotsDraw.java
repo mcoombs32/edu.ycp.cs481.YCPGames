@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -12,6 +14,7 @@ import android.graphics.Canvas;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -21,7 +24,7 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
 
     private static final String TAG = "DotsDraw";
     private Bitmap mBackground;
-    SurfaceHolder surfaceHolder;
+    private final SurfaceHolder surfaceHolder;
     private GameThread thread;
     private DotsGrid grid;
     private DotsGame game;
@@ -40,21 +43,28 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
         game = new DotsGame();
         invalidToast = Toast.makeText(context,"Invalid move, please select another!",Toast.LENGTH_SHORT);
         InputStream is = context.getResources().openRawResource(R.drawable.dot);
-        mBackground =  BitmapFactory.decodeStream(is);
-
+        try {
+            mBackground =  BitmapFactory.decodeStream(is);
+            is.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         paintOne = new Paint();
-        paintOne.setColor(Color.GREEN);
+        paintOne.setColor(Color.parseColor("#108642"));
         paintOne.setStyle(Paint.Style.FILL);
         paintOne.setAntiAlias(true);
-        paintOne.setTextSize(36);
+        paintOne.setTextSize(48);
+        paintOne.setTypeface(Typeface.DEFAULT_BOLD);
+        paintOne.setShadowLayer(1.2f,1,1,Color.GRAY);
         paintOne.setStrokeWidth(12);
         start = null;
         end = null;
-
         paintTwo = new Paint();
-        paintTwo.setColor(Color.GRAY);
+        paintTwo.setColor(Color.parseColor("#c0c0c0"));
         paintTwo.setAntiAlias(true);
-        paintTwo.setTextSize(36);
+        paintTwo.setTextSize(48);
+        paintTwo.setTypeface(Typeface.DEFAULT_BOLD);
+        paintTwo.setShadowLayer(1.2f,1,1,Color.GRAY);
         paintTwo.setStyle(Paint.Style.FILL);
         paintTwo.setStrokeWidth(12);
     }
@@ -66,14 +76,11 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
         Paint tempPaint = null;
         game.board.isGameOver();
 
-        canvas.drawText("Player 1: " + game.getPlayerOneScore(), 20, 1200, paintOne);
-        canvas.drawText("Player 2: "+game.getPlayerTwoScore(),520,1200,paintTwo);
+        float textWidth = paintTwo.measureText("Player 2: "+game.getPlayerTwoScore());
+        canvas.drawText("Player 1: " + game.getPlayerOneScore(), 20, canvas.getHeight()-(grid.getCell(0,0).getLength()/2), paintOne);
+        canvas.drawText("Player 2: "+game.getPlayerTwoScore(),canvas.getWidth()-(textWidth+20),canvas.getHeight()-(grid.getCell(0,0).getLength()/2),paintTwo);
 
-        while (touched){
-            //canvas.drawBitmap(mBackground,start.getCenter()[0] - (mBackground.getScaledWidth(canvas)/2), start.getCenter()[1] - (mBackground.getScaledHeight(canvas)/2),selectPaint);
-            //canvas.drawCircle(start.getCenter()[0], start.getCenter()[1],300,selectPaint);
-        }
-        //DotsNode[][] temp = game.board.getDotsGrid();
+
         for(int i = 0; i < grid.getGridWidth()-1;i++){
             for (int j = 0; j < grid.getGridLength()-1; j++) {
                int[] center = grid.getCell(i,j).getCenter();
@@ -115,7 +122,8 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
         for(int i = 0; i < grid.getGridWidth();i++){
             for (int j = 0; j < grid.getGridLength(); j++) {
                 int[] center = grid.getCell(i,j).getCenter();
-                canvas.drawBitmap(mBackground,center[0] - (mBackground.getScaledWidth(canvas)/2),center[1] - (mBackground.getScaledHeight(canvas)/2),null);
+                //Log.d(TAG,"w:"+(mBackground.getScaledWidth(canvas)/2)+", h:"+(mBackground.getScaledHeight(canvas)/2));
+                canvas.drawBitmap(mBackground,center[0] - (mBackground.getWidth()/2),center[1] - (mBackground.getHeight()/2),null);
             }
         }
     }
@@ -154,7 +162,7 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         boolean retry = true;
-        thread.setRunning(false);
+        setRunning(false);
         while (retry) {
             try {
                 thread.join();
@@ -165,6 +173,8 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
 
         }
     }
+
+
 
     @Override
     public boolean onTouchEvent(MotionEvent event){
@@ -208,8 +218,6 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
         float dx = end.getX()-start.getX();
         float dy = end.getY()-start.getY();
         if (Math.abs(dx) > Math.abs(dy)){
-           //Log.d(TAG,"dot Y="+start.getArrY());
-           //Log.d(TAG,"grid height="+game.board.getGridHeight());
            if (dx > 0){
                if (start.getArrY() == game.board.getGridHeight()){
                     isMoveValid =  game.makeMove(start.getArrX(),start.getArrY()-1,Direction.DOWN);
@@ -262,7 +270,10 @@ class GameThread extends Thread{
             try{
                 c = surfaceHolder.lockCanvas();
                 synchronized (surfaceHolder) {
-                    gameView.onDraw(c);
+                    if(c!= null){
+                        gameView.onDraw(c);
+                    }
+
                 }
             }finally {
                 if (c != null) {

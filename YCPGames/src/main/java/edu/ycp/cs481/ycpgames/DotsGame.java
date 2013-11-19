@@ -37,6 +37,7 @@ public class DotsGame extends Game {
 	}
 
 
+
 	/**
 	 * So! this is how this is going to work. This is all placeholder stuff till I get the rest of
 	 * the backend up and running. Pass me a x/y value of a node (one of the boxes) and a direction
@@ -50,6 +51,11 @@ public class DotsGame extends Game {
 			//Draw Line if game is in progress
 			if(board.isGameOver() == GameVal.IN_PROGRESS){
 				board.drawLine(nodeX,nodeY,D,whosTurn());
+                for (int i = 0; i < board.getGridHeight(); i++){
+                    for (int j = 0; j < board.getGridWidth(); j++){
+                        board.playerClaimUpdate(nodeX,nodeY,whosTurn());
+                    }
+                }
 				endTurn();
 			}
 			if((settings.isSinglePlayer()) && (board.isGameOver() == GameVal.IN_PROGRESS)){
@@ -97,6 +103,7 @@ public class DotsGame extends Game {
 					default:
 						return -3;
 				}
+                board.playerClaimUpdate(nodeX,nodeY,whosTurn());
 				endTurn();
 			}
 		}else{
