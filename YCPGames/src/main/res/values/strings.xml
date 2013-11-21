@@ -17,5 +17,9 @@
     <string name="player_win">You\'ve won!\nWould you like to play again?</string>
     <string name="draw">It\'s a draw!\nWould you like to play again?</string>
     <string name="title_activity_dots">DotsActivity</string>
+    <string name="player2_win">Player 2 (\"<b>O</b>\") has won!\nWould You like to play again?</string>
+    <string name="player1_win">Player 1 (\"<b>X</b>\") has won!\nWould You like to play again?</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

@@ -6,7 +6,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 
 import android.view.View;
@@ -34,11 +33,8 @@ public class TicTacToeActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //super.unregisterReceiver()
         setContentView(R.layout.activity_tictactoe);
         game =  new TicTacToeGame();
-        final View controlsView = findViewById(R.id.fullscreen_content_controls);
-        final View contentView = findViewById(R.id.fullscreen_content);
         tempGrid = new int[3][3];
         for (int i = 0; i < 3; i++){
             for (int j = 0; j < 3; j++){
@@ -84,7 +80,7 @@ public class TicTacToeActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Log.d(TAG,"Received touch event on button (2,1).");
-                if (game.whosTurn() == 1){
+                if ((game.whosTurn() == 1) || !Settings.getInstance().isSinglePlayer()){
                     gameOver = game.move(2,1);
                     mUpdateView();
                 }
@@ -97,7 +93,7 @@ public class TicTacToeActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Log.d(TAG,"Received touch event on button (2,2).");
-                if (game.whosTurn() == 1){
+                if ((game.whosTurn() == 1) || !Settings.getInstance().isSinglePlayer()){
                     gameOver = game.move(2,2);
                     mUpdateView();
                 }
@@ -110,7 +106,7 @@ public class TicTacToeActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Log.d(TAG,"Received touch event on button (1,0).");
-                if (game.whosTurn() == 1){
+                if ((game.whosTurn() == 1) || !Settings.getInstance().isSinglePlayer()){
                     gameOver = game.move(1,0);
                     mUpdateView();
                 }
@@ -123,7 +119,7 @@ public class TicTacToeActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Log.d(TAG,"Received touch event on button (1,1).");
-                if (game.whosTurn() == 1){
+                if ((game.whosTurn() == 1) || !Settings.getInstance().isSinglePlayer()){
                     gameOver = game.move(1,1);
                     mUpdateView();
                 }
@@ -136,7 +132,7 @@ public class TicTacToeActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Log.d(TAG,"Received touch event on button (1,2).");
-                if (game.whosTurn() == 1){
+                if ((game.whosTurn() == 1) || !Settings.getInstance().isSinglePlayer()){
                     gameOver = game.move(1,2);
                     mUpdateView();
                 }
@@ -148,7 +144,7 @@ public class TicTacToeActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Log.d(TAG,"Received touch event on button (0,0).");
-                if (game.whosTurn() == 1){
+                if ((game.whosTurn() == 1) || !Settings.getInstance().isSinglePlayer()){
                     gameOver = game.move(0,0);
                     mUpdateView();
                 }
@@ -161,7 +157,7 @@ public class TicTacToeActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Log.d(TAG,"Received touch event on button (0,1).");
-                if (game.whosTurn() == 1){
+                if ((game.whosTurn() == 1) || !Settings.getInstance().isSinglePlayer()){
                     gameOver = game.move(0,1);
                     mUpdateView();
                 }
@@ -173,28 +169,19 @@ public class TicTacToeActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Log.d(TAG,"Received touch event on button (0,2).");
-                if (game.whosTurn() == 1){
+                if ((game.whosTurn() == 1) || !Settings.getInstance().isSinglePlayer()){
                     gameOver = game.move(0,2);
                     mUpdateView();
                 }
                 gameOverCheck();
             }
         });
-
-        // Upon interacting with UI controls, delay any scheduled hide()
-        // operations to prevent the jarring behavior of controls going away
-        // while interacting with the UI.
-        //findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
     }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
 
-        // Trigger the initial hide() shortly after the activity has been
-        // created, to briefly hint to the user that UI controls
-        // are available.
-        delayedHide(100);
     }
 
     @Override
@@ -203,20 +190,6 @@ public class TicTacToeActivity extends Activity {
     }
 
 
-    /**
-     * Touch listener to use for in-layout UI controls to delay hiding the
-     * system UI. This is to prevent the jarring behavior of controls going away
-     * while interacting with activity UI.
-     */
-
-
-    Handler mHideHandler = new Handler();
-    Runnable mHideRunnable = new Runnable() {
-        @Override
-        public void run() {
-
-        }
-    };
 
     private void mUpdateView(){
         for (int i = 0; i< game.board.getGridHeight();i++){
@@ -248,10 +221,16 @@ public class TicTacToeActivity extends Activity {
                     alertDialogBuilder.setMessage(R.string.draw);
                     break;
                 case 1:
-                    alertDialogBuilder.setMessage(R.string.player_win);
+                    if(Settings.getInstance().isSinglePlayer())
+                        alertDialogBuilder.setMessage(R.string.player_win);
+                    else
+                        alertDialogBuilder.setMessage(R.string.player1_win);
                     break;
                 case 2:
-                    alertDialogBuilder.setMessage(R.string.comp_win);
+                    if(Settings.getInstance().isSinglePlayer())
+                        alertDialogBuilder.setMessage(R.string.comp_win);
+                    else
+                        alertDialogBuilder.setMessage(R.string.player2_win);
                     break;
             }
             alertDialogBuilder
@@ -275,12 +254,4 @@ public class TicTacToeActivity extends Activity {
         }
     }
 
-    /**
-     * Schedules a call to hide() in [delay] milliseconds, canceling any
-     * previously scheduled calls.
-     */
-    private void delayedHide(int delayMillis) {
-        mHideHandler.removeCallbacks(mHideRunnable);
-        mHideHandler.postDelayed(mHideRunnable, delayMillis);
-    }
 }

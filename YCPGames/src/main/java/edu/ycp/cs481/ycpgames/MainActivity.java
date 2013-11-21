@@ -18,7 +18,7 @@ public class MainActivity extends Activity {
 	protected ImageButton DotsButton;
 	protected ImageButton CheckersButton;
 	protected ImageButton SettingsButton;
-	Settings settings = Settings.getInstance();;
+	Settings settings = Settings.getInstance();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -37,17 +37,16 @@ public class MainActivity extends Activity {
 
             @Override
             public void onClick(View v) {
-				settings.setSinglePlayer(true);
+				//settings.setSinglePlayer(true);
                 Intent intent = new Intent(MainActivity.this, TicTacToeActivity.class);
                 startActivity(intent);
+
             }
         });
 		DotsButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				Log.d(TAG, "DotsButton Pressed");
-				//settings.setSinglePlayer(false);
-				//When dots button is pressed:
 				Intent intent = new Intent(MainActivity.this, DotsActivity.class);
                 startActivity(intent);
 			}
