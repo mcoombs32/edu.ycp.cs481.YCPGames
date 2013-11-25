@@ -67,8 +67,7 @@ public class MainActivity extends Activity {
 				Log.d(TAG, "SettingsButton Pressed");
 				//When Settings button is pressed:
 				//Placeholder "Toast" till Settings is implemented
-				Toast.makeText(MainActivity.this, R.string.Settings, Toast.LENGTH_SHORT).show();
-				//TODO: link to settings
+                Intent intent = new Intent(MainActivity.this,SettingsActivity.class);
 			}
 		});
 
