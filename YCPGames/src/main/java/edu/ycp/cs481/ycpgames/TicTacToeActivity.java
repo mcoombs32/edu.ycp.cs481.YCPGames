@@ -68,7 +68,7 @@ public class TicTacToeActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Log.d(TAG,"Received touch event on button (2,0).");
-                if (game.whosTurn() == 1){
+                if (game.whosTurn() == 1 || !Settings.getInstance().isSinglePlayer()){
                     gameOver = game.move(2,0);
                     mUpdateView();
                     }

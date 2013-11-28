@@ -2,6 +2,7 @@ package edu.ycp.cs481.ycpgames;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -25,7 +26,7 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		Log.d(TAG, "onCreate() called");
 
-
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 		//Get references to main menu buttons
 		TicTacToeButton = (ImageButton) findViewById(R.id.TicTacToeButton);
 		DotsButton = (ImageButton) findViewById(R.id.DotsButton);
@@ -37,7 +38,6 @@ public class MainActivity extends Activity {
 
             @Override
             public void onClick(View v) {
-				//settings.setSinglePlayer(true);
                 Intent intent = new Intent(MainActivity.this, TicTacToeActivity.class);
                 startActivity(intent);
 
@@ -65,9 +65,8 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View view) {
 				Log.d(TAG, "SettingsButton Pressed");
-				//When Settings button is pressed:
-				//Placeholder "Toast" till Settings is implemented
                 Intent intent = new Intent(MainActivity.this,SettingsActivity.class);
+                startActivity(intent);
 			}
 		});
 

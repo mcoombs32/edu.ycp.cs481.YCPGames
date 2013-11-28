@@ -27,15 +27,15 @@ public class Settings {
 	}
 
 	/*
-	 *method to see if it is a single player or multiplayer game
-	 * returns true if singleplayer
+	 *method to see if it is a single player or multi-player game
+	 * returns true if single player
 	 */
 	public boolean isSinglePlayer() {
 		return singlePlayer;
 	}
 
 	/*
-	 *method to set singleplayer vs multiplayer
+	 *method to set single player vs multi-player
 	 */
 	public void setSinglePlayer(Boolean SP) {
 		singlePlayer = SP;
@@ -53,7 +53,7 @@ public class Settings {
 	}
 
 	/*
-	 * getter and setter for gridsize
+	 * getter and setter for grid size
 	 *
 	 */
 	public int getGridSize() {
