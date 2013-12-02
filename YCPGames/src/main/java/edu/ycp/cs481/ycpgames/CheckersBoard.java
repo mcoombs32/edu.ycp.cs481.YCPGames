@@ -147,8 +147,8 @@ public class CheckersBoard {
 		return validMoves;
 	}
 
-	public CheckersVal getPieceAt(int x, int y){
-		return grid[x][y].getPlayer();
+	public CheckersPiece getPieceAt(int x, int y){
+		return grid[x][y];
 	}
 
 	/**

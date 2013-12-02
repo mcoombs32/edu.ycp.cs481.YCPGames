@@ -41,4 +41,7 @@ public class CheckersPlayer {
 	public CheckersVal getPlayerNum() {
 		return playerNum;
 	}
+	public int makeMove(){
+		return -1;
+	}
 }
