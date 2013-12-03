@@ -66,9 +66,11 @@ public class CheckersGame {
 	 *
 	 * @param x    x value of move
 	 * @param y    y value of move
-	 * @return code
+	 * @return    game state
+	 * 		0 for game in progresss, 1 for player 1 win, 2 for player 2 win
+	 * 		-1 for error
 	 */
-	public void makeMove(int x, int y){
+	public int makeMove(int x, int y){
 		boolean jumpAvailible = false;
 		int[] selectedMove = null;
 		for(int[] move : validMoves){
@@ -79,9 +81,12 @@ public class CheckersGame {
 		}
 		//return if invalid move
 		if (selectedMove == null){
-			return;
+			return -1;
 		}
 		board.makeMove(selectedX,selectedY,selectedMove);
+		if(board.isGameOver() != 0){
+			return board.isGameOver();
+		}
 		if(selectedMove[2] == 0){
 			//if move was not a jump then end turn
 			endTurn();
@@ -126,15 +131,19 @@ public class CheckersGame {
 					}
 					if(!jumpAvailible){
 						endTurn();
-						return;
+						return board.isGameOver();
 					}
 				}
 				//make move
 				board.makeMove(selectedX,selectedY,selectedMove);
+				if(board.isGameOver() != 0){
+					return board.isGameOver();
+				}
 			}while(isJumpMode);
 			//end turn
 			endTurn();
 		}
+		return board.isGameOver();
 	}
 
 	/**
@@ -151,7 +160,7 @@ public class CheckersGame {
 	 * @return CheckersVal of whos turn it is
 	 */
 	public CheckersVal whosTurn(){
-		if(playerOne.isMyTurn() == true){
+		if(playerOne.isMyTurn()){
 			return CheckersVal.PLAYER_ONE;
 		}else{
 			return CheckersVal.PLAYER_TWO;

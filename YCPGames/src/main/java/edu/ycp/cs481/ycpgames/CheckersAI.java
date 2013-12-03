@@ -15,10 +15,12 @@ public class CheckersAI extends CheckersPlayer {
 	public void findMove(Boolean isJump){
 
 	}
+	@Override
 	public int[] getSelected(){
 
 		return null;
 	}
+	@Override
 	public int[] getMove(){
 
 		return null;

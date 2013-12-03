@@ -9,6 +9,8 @@ import java.util.List;
 public class CheckersBoard {
 	private static final String TAG = "YCPGamesBoard";
 	private CheckersPiece[][] grid = new CheckersPiece[8][8];
+	private int playerOnePieces, playerTwoPieces;
+
 	Settings settings;
 	public CheckersBoard(){
 		settings = Settings.getInstance();
@@ -38,6 +40,8 @@ public class CheckersBoard {
 				}
 			}
 		}
+		playerOnePieces = 12;
+		playerTwoPieces = 12;
 	}
 
 	/**
@@ -163,7 +167,22 @@ public class CheckersBoard {
 		grid[x][y] = new CheckersPiece(CheckersVal.EMPTY);
 		if(move[2] ==1){
 			//move was a jump
+			if(grid[move[3]][move[4]].getPlayer() == CheckersVal.PLAYER_ONE){
+				playerOnePieces--;
+			}else{
+				playerTwoPieces--;
+			}
 			grid[move[3]][move[4]].kill();
+		}
+	}
+	public int isGameOver(){
+		if(playerOnePieces == 0){
+			return 2;
+		}
+		else if(playerTwoPieces == 0){
+			return 1;
+		}else{
+			return 0;
 		}
 	}
 }
