@@ -185,4 +185,13 @@ public class CheckersBoard {
 			return 0;
 		}
 	}
+
+	public int getPlayerOnePieces() {
+		return playerOnePieces;
+	}
+
+	public int getPlayerTwoPieces() {
+		return playerTwoPieces;
+	}
+
 }

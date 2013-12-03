@@ -116,8 +116,8 @@ public class CheckersGame {
 			do{
 				//find AI move
 				playerTwo.findMove(isJumpMode);
-				selectedX = playerTwo.getSelected()[0];
-				selectedY = playerTwo.getSelected()[1];
+				selectedX = playerTwo.getSelectedPiece()[0];
+				selectedY = playerTwo.getSelectedPiece()[1];
 				selectedMove = playerTwo.getMove();
 
 				if(isJumpMode){

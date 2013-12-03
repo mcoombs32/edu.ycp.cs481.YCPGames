@@ -44,7 +44,7 @@ public class CheckersPlayer {
 	public void findMove(Boolean isJump){
 		Log.d(TAG,"findMove not implemented here");
 	}
-	public int[] getSelected(){
+	public int[] getSelectedPiece(){
 		Log.d(TAG,"getSelected not implemented here");
 		return null;
 	}

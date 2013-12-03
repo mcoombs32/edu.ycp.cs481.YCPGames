@@ -183,6 +183,7 @@ public class TicTacToeAI extends Player {
 	 * heuristic eval function for the current board state
 	 *
 	 * @return:    evaluated score
+	 *
 	 * +100, +10, +1 for EACH 3-, 2-, 1-in-a-line for computer.
 	 * -100, -10, -1 for EACH 3-, 2-, 1-in-a-line for opponent.
 	 * 0 otherwise
