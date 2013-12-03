@@ -7,22 +7,33 @@ import java.util.List;
  * Created by brian on 11/18/13.
  */
 public class CheckersGame {
-	private List<int[]> validMoves = new ArrayList<int[]>();;
-	private int selectedX = -1, selectedY = -1;
-	private CheckersPlayer playerOne = new CheckersPlayer(CheckersVal.PLAYER_ONE);
-	private CheckersPlayer playerTwo = new CheckersPlayer(CheckersVal.PLAYER_TWO);
+	private static final String TAG = "YCPGamesCheckersGame";
+	Settings settings = Settings.getInstance();
+	private List<int[]> validMoves;
+	private int selectedX, selectedY;
+	private CheckersPlayer playerOne;
+	private CheckersPlayer playerTwo;
 	private CheckersBoard board = new CheckersBoard();
+	private boolean isJumpMode;
 	public CheckersGame(){
-		super();
+		reset();
 	}
 
 	/**
 	 * resets everything
 	 */
 	public void reset() {
-		playerOne.setMyTurn(true);
-		playerTwo.setMyTurn(false);
+		validMoves = new ArrayList<int[]>();
+		selectedX = -1;
+		selectedY = -1;
 		board.reset();
+		isJumpMode = false;
+		playerOne = new CheckersPlayer(CheckersVal.PLAYER_ONE);
+		if(settings.isSinglePlayer()){
+			playerTwo = new CheckersAI(CheckersVal.PLAYER_TWO, board);
+		}else{
+			playerTwo = new CheckersPlayer(CheckersVal.PLAYER_TWO);
+		}
 	}
 
 	/**
@@ -33,7 +44,7 @@ public class CheckersGame {
 	 * @return true if valid piece to select false otherwise
 	 */
 	public boolean selectPiece(int x, int y){
-		if(board.getPieceAt(x,y).getPlayer() == whosTurn()){
+		if((board.getPieceAt(x,y).getPlayer() == whosTurn()) && !isJumpMode){
 			selectedX = x;
 			selectedY = y;
 			validMoves = board.getValidMoves(x,y);
@@ -58,6 +69,7 @@ public class CheckersGame {
 	 * @return code
 	 */
 	public void makeMove(int x, int y){
+		boolean jumpAvailible = false;
 		int[] selectedMove = null;
 		for(int[] move : validMoves){
 			if((move[0] == x) && (move[1] == y)){
@@ -70,10 +82,70 @@ public class CheckersGame {
 			return;
 		}
 		board.makeMove(selectedX,selectedY,selectedMove);
-		endTurn();
-		//ai move here
+		if(selectedMove[2] == 0){
+			//if move was not a jump then end turn
+			endTurn();
+		}else{
+			//if move was a jump check to see if there is another jump availible
+			validMoves = board.getValidMoves(selectedX,selectedY);
+			for(int[] move : validMoves){
+				if(move[2] == 1){
+					//a jump was found
+					jumpAvailible = true;
+				}
+			}
+			if(jumpAvailible){
+				//if a jump is found go to jump mode
+				selectedX = selectedMove[0];
+				selectedY = selectedMove[1];
+				isJumpMode = true;
+				validMoves = board.getValidMoves(selectedX,selectedY);
+			}else{
+				//if there is not another jump then end turn
+				endTurn();
+			}
+		}
+
+		//if AI move
+		if(settings.isSinglePlayer() && (whosTurn() == CheckersVal.PLAYER_TWO)){
+			do{
+				//find AI move
+				playerTwo.findMove(isJumpMode);
+				selectedX = playerTwo.getSelected()[0];
+				selectedY = playerTwo.getSelected()[1];
+				selectedMove = playerTwo.getMove();
+
+				if(isJumpMode){
+					//if no jump availilble return
+					jumpAvailible = false;
+					for(int[] move : validMoves){
+						if(move[2] == 1){
+							//a jump was found
+							jumpAvailible = true;
+						}
+					}
+					if(!jumpAvailible){
+						endTurn();
+						return;
+					}
+				}
+				//make move
+				board.makeMove(selectedX,selectedY,selectedMove);
+			}while(isJumpMode);
+			//end turn
+			endTurn();
+		}
 	}
 
+	/**
+	 *
+	 * @param x    x location of piece to get
+	 * @param y    y location of piece to get
+	 * @return piece at board[x][y]
+	 */
+	public CheckersPiece getCheckersPieceAt(int x, int y){
+		return board.getPieceAt(x,y);
+	}
 	/**
 	 *
 	 * @return CheckersVal of whos turn it is
@@ -93,6 +165,8 @@ public class CheckersGame {
 		playerTwo.setMyTurn(!playerTwo.isMyTurn());
 		selectedX = -1;
 		selectedY = -1;
-		validMoves = new ArrayList<int[]>();;
+		isJumpMode = false;
+		validMoves = new ArrayList<int[]>();
 	}
+
 }
