@@ -33,7 +33,7 @@ public class CheckersGame {
 	 * @return true if valid piece to select false otherwise
 	 */
 	public boolean selectPiece(int x, int y){
-		if(board.getPieceAt(x,y) == whosTurn()){
+		if(board.getPieceAt(x,y).getPlayer() == whosTurn()){
 			selectedX = x;
 			selectedY = y;
 			validMoves = board.getValidMoves(x,y);
@@ -53,11 +53,25 @@ public class CheckersGame {
 
 	/**
 	 *
-	 * @param move move values, needs to be an array returned by getValid moves, otherwise things break
+	 * @param x    x value of move
+	 * @param y    y value of move
 	 * @return code
 	 */
-	public void makeMove(int[] move){
-
+	public void makeMove(int x, int y){
+		int[] selectedMove = null;
+		for(int[] move : validMoves){
+			if((move[0] == x) && (move[1] == y)){
+				selectedMove = move;
+				break;
+			}
+		}
+		//return if invalid move
+		if (selectedMove == null){
+			return;
+		}
+		board.makeMove(selectedX,selectedY,selectedMove);
+		endTurn();
+		//ai move here
 	}
 
 	/**
