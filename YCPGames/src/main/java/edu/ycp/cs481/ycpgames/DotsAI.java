@@ -22,6 +22,14 @@ public class DotsAI extends Player {
 			opponent = GameVal.PLAYER_ONE;
 		}
 
+		grid = new DotsNode[settings.getGridWidth()][settings.getGridHeight()];
+		for(int x = 0; x < settings.getGridWidth()-1; x++){
+			for(int y = 0; y < settings.getGridHeight()-1; y++){
+				//initialize a grid of DotsNodes
+				grid[x][y] = new DotsNode();
+			}
+		}
+
 	}
 
 	/**
@@ -40,7 +48,21 @@ public class DotsAI extends Player {
 	public int[] makeDotsMove(DotsNode[][] g){
 		int[] move = new int[3];
 		int[] result;
-		grid = g;
+		/*
+		 * WARNING:
+		 * THE FOLLOWING CODE IS TERRIBLE
+		 * dereferencing everything...
+		 */
+		for(int x = 0; x < g.length; x++){
+			for(int y = 0; y < g[0].length; y++){
+				grid[x][y].setVal(Direction.UP,g[x][y].getVal(Direction.UP));
+				grid[x][y].setVal(Direction.DOWN,g[x][y].getVal(Direction.DOWN));
+				grid[x][y].setVal(Direction.LEFT,g[x][y].getVal(Direction.LEFT));
+				grid[x][y].setVal(Direction.RIGHT,g[x][y].getVal(Direction.RIGHT));
+			}
+		}
+
+		// end terrible
 		switch (difficulty) {
 			case 0://difficulty low
 				result = minimax(2, player);
@@ -49,13 +71,13 @@ public class DotsAI extends Player {
 				move[2] = result[3];
 				break;
 			case 1://difficulty medium
-				result = minimax(4, player);
+				result = minimax(3, player);
 				move[0] = result[1];
 				move[1] = result[2];
 				move[2] = result[3];
 				break;
 			case 2://difficulty high
-				result = minimax(8, player);
+				result = minimax(4, player);
 				move[0] = result[1];
 				move[1] = result[2];
 				move[2] = result[3];
@@ -72,6 +94,12 @@ public class DotsAI extends Player {
 
 	/**
 	 * Recursive  minimax method for finding best move
+	 *
+	 * bestD direction of move
+	 * 			0 = up
+	 * 			1 = down
+	 * 			2 = left
+	 * 			3 = right
 	 *
 	 * @param depth  level in the tree
 	 * @param whosTurn active player
@@ -107,6 +135,7 @@ public class DotsAI extends Player {
 						bestScore = currentScore;
 						bestX = move[0];
 						bestY = move[1];
+						bestD = move[2];
 					}
 				}else{
 					//simulating opponent turn
@@ -116,6 +145,7 @@ public class DotsAI extends Player {
 						bestScore = currentScore;
 						bestX = move[0];
 						bestY = move[1];
+						bestD = move[2];
 					}
 				}
 				//undo move
@@ -232,13 +262,13 @@ public class DotsAI extends Player {
 					return 10;
 				case 3:
 					//this is a bad move, sets opponent up to capture
-					return -100;
+					return -1000;
 				case 4:
 					//rank according to who claimed node
 					if(grid[nodeX][nodeY].isNodeFilled() == player){
-						return 100;
+						return 10000;
 					}else{
-						return -100;
+						return -10000;
 					}
 				default:
 					return 0;
@@ -254,13 +284,13 @@ public class DotsAI extends Player {
 					return -10;
 				case 3:
 					//this is a good move, sets AI up to capture
-					return 100;
+					return 1000;
 				case 4:
 					//rank according to who claimed node
 					if(grid[nodeX][nodeY].isNodeFilled() != player){
-						return 100;
+						return 10000;
 					}else{
-						return -100;
+						return -10000;
 					}
 				default:
 					return 0;

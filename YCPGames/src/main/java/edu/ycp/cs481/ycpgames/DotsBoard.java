@@ -69,8 +69,13 @@ public class DotsBoard extends Board {
 		}
 		return grid[x][y].getVal(d);
 	}
-    public void playerClaimUpdate(int x, int y,GameVal v){
-        grid[x][y].checkForPlayerClaim(v);
+    public void playerClaimUpdate(GameVal v){
+		for(int x = 0; x < settings.getGridWidth()-1; x++){
+			for(int y = 0; y < settings.getGridHeight()-1; y++){
+				grid[x][y].checkForPlayerClaim(v);
+			}
+		}
+
     }
 
 	public GameVal isGameOver(){
