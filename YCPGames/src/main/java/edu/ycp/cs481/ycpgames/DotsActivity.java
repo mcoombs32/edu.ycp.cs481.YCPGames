@@ -10,8 +10,8 @@ import android.view.Display;
 import android.util.Log;
 
 public class DotsActivity extends Activity {
-
     private int screenHeight,screenWidth;
+
     private DotsDraw draw;
     final static String TAG = "DotsActivity";
 

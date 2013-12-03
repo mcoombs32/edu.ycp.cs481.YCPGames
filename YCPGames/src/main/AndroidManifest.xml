@@ -40,12 +40,18 @@
         <activity
             android:name="edu.ycp.cs481.ycpgames.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName="edu.ycp.cs481.ycpgames.MainActivity">
+            android:parentActivityName="edu.ycp.cs481.ycpgames.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="edu.ycp.cs481.ycpgames.MainActivity"/>
-
+                android:value="edu.ycp.cs481.ycpgames.MainActivity" />
         </activity>
+        <activity
+            android:name="edu.ycp.cs481.ycpgames.CheckersActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_checkers"
+            android:theme="@style/FullscreenTheme" >
+        </activity>
+        <activity android:name=".CheckersDraw" />
     </application>
 
 </manifest>
