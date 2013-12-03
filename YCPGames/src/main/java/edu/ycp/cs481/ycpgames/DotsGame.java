@@ -63,7 +63,7 @@ public class DotsGame extends Game {
                 }
 				endTurn();
 			}
-			if((settings.isSinglePlayer()) && (board.isGameOver() == GameVal.IN_PROGRESS)){
+			if((Settings.getInstance().isSinglePlayer()) && (board.isGameOver() == GameVal.IN_PROGRESS)&& (playerTwo.isPlayersTurn())){
 				//call AI if single-player game and game is still in progress
 				Log.d(TAG,"calling ai");
 				int[] location = playerTwo.makeDotsMove(board.getDotsGrid());
@@ -82,7 +82,7 @@ public class DotsGame extends Game {
 				 * 			3 = right
 				 * this isn't the most elegant method but it works
 				 */
-				switch (location[3]){
+				switch (location[2]){
 					case 0:
 						if(board.getLineAt(location[0],location[1],Direction.UP)== GameVal.ERROR){
 							return -3;

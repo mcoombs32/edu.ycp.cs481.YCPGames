@@ -1,6 +1,7 @@
 package edu.ycp.cs481.ycpgames;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -20,25 +21,24 @@ import java.io.InputStream;
  */
 public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
 
-    private static final String TAG = "DotsDraw";
+
     private Bitmap mBackground;
-    private final SurfaceHolder surfaceHolder;
     private GameThread thread;
     private DotsGrid grid;
     private DotsGame game;
     private Paint paintOne, paintTwo;
     private DotsGridCell start,end;
-    private boolean touched;
 
     private Toast invalidToast;
 
-    public DotsDraw(Context context, DotsGrid grid){
+    public DotsDraw(Context context, int[] screen){
         super(context);
-        touched = false;
-        this.grid = grid;
-        surfaceHolder = getHolder();
+
         getHolder().addCallback(this);
         game = new DotsGame();
+
+
+        grid = new DotsGrid(screen);
         invalidToast = Toast.makeText(context,"Invalid move, please select another!",Toast.LENGTH_SHORT);
         InputStream is = context.getResources().openRawResource(R.drawable.dot);
         try {
@@ -186,16 +186,13 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
                 start = mFindNearestDot((int)x,(int)y);
                 if(start == null)
                     break;
-                touched = true;
                 break;
             case MotionEvent.ACTION_MOVE:
-                touched = true;
                 break;
             case MotionEvent.ACTION_UP:
                 final float endX = event.getX();
                 final float endY = event.getY();
                 end = mFindNearestDot((int)endX, (int)endY);
-                touched = true;
                 if (end == null || end.equals(start))
                     break;
                 else{
@@ -203,10 +200,7 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
                     break;
                 }
             default:
-                touched = false;
         }
-
-        touched = false;
         //}
         return true;
 

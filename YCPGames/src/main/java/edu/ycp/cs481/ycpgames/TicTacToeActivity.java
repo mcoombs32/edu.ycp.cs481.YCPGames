@@ -5,7 +5,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import android.view.View;
@@ -30,10 +32,15 @@ public class TicTacToeActivity extends Activity {
     private int gameOver = 0;
     private static final String TAG = "TicTacToeActivity";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tictactoe);
+
+        Settings.getInstance().setSinglePlayer(sharedPref.getBoolean("pref_key_single_player",true));
+        Settings.getInstance().setDifficulty(Integer.parseInt(sharedPref.getString("pref_key_difficulty", "0"))); 
         game =  new TicTacToeGame();
         tempGrid = new int[3][3];
         for (int i = 0; i < 3; i++){
@@ -136,6 +143,7 @@ public class TicTacToeActivity extends Activity {
                     gameOver = game.move(1,2);
                     mUpdateView();
                 }
+                gameOverCheck();
 
             }
         });

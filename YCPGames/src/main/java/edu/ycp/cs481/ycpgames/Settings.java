@@ -9,9 +9,9 @@ public class Settings {
 	private static final String TAG = "YCPGamesSettings";
 	private Boolean singlePlayer = false;
 	private int difficulty = 0;
-	private int gridSize = 5;
+	private int gridHeight = 5;
+    private int gridWidth = 5;
 
-    private int dotsGridSize[] = {5,5};
 	/*
 	singleton is cool
 	and seems useful here
@@ -26,24 +26,14 @@ public class Settings {
 		Log.d(TAG, "Settings singleton object created");
 	}
 
-	/*
-	 *method to see if it is a single player or multi-player game
-	 * returns true if single player
-	 */
 	public boolean isSinglePlayer() {
 		return singlePlayer;
 	}
 
-	/*
-	 *method to set single player vs multi-player
-	 */
 	public void setSinglePlayer(Boolean SP) {
 		singlePlayer = SP;
 	}
 
-	/*
-	 *getter and setter for difficulty
-	 */
 	public int getDifficulty() {
 		return difficulty;
 	}
@@ -52,23 +42,12 @@ public class Settings {
 		difficulty = d;
 	}
 
-	/*
-	 * getter and setter for grid size
-	 *
-	 */
-	public int getGridSize() {
-		return gridSize;
-	}
+    public int getGridHeight() {return gridHeight;}
+    public int getGridWidth() {return gridWidth;}
 
-	public void setGridSize(int g) {
-		gridSize = g;
-	}
+    public void setGridHeight(int g){this.gridHeight = g;}
+    public void setGridWidth(int g){this.gridWidth = g;}
 
-    public int[] getDotsGridSize() {
-        return dotsGridSize;
-    }
 
-    public void setDotsGridSize(int[] dotsGridSize) {
-        this.dotsGridSize = dotsGridSize;
-    }
+
 }

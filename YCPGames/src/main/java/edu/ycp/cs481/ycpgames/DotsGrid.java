@@ -6,7 +6,7 @@ package edu.ycp.cs481.ycpgames;
 public class DotsGrid {
     private static final int LENGTH = 1;
     private static final int WIDTH = 0;
-    private int[] gridSize = Settings.getInstance().getDotsGridSize();
+    private int[] gridSize = {Settings.getInstance().getGridWidth(),Settings.getInstance().getGridHeight()};
     private DotsGridCell[][] gridNodes;
     private int cellLength, cellWidth;
 

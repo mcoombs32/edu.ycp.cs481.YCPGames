@@ -12,7 +12,7 @@ public class DotsAI extends Player {
 	private GameVal player, opponent;
 	public DotsAI(int num){
 		super(num);
-		difficulty = settings.getDifficulty();
+		difficulty = Settings.getInstance().getDifficulty();
 		setHumanPlayer(false);
 		if(num == 1){
 			player = GameVal.PLAYER_ONE;
@@ -38,7 +38,7 @@ public class DotsAI extends Player {
 	 */
 	@Override
 	public int[] makeDotsMove(DotsNode[][] g){
-		int[] move = {0, 0};
+		int[] move = new int[3];
 		int[] result;
 		grid = g;
 		switch (difficulty) {
@@ -145,8 +145,8 @@ public class DotsAI extends Player {
 	 */
 	private List<int[]> generateMoves(){
 		List<int[]> moves = new ArrayList<int[]>();
-		for(int x = 0; x < settings.getGridSize()-1; x++){
-			for(int y = 0; y < settings.getGridSize()-1; y++){
+		for(int x = 0; x < settings.getGridWidth()-1; x++){
+			for(int y = 0; y < settings.getGridHeight()-1; y++){
 				/*logic for generating move
 				 *need to convert from int into GameVal
 				 *
@@ -189,8 +189,8 @@ public class DotsAI extends Player {
 		int score = 0;
 
 		//run evaluate node for each node on board
-		for(int x = 0; x < settings.getGridSize(); x++){
-			for(int y = 0; y < settings.getGridSize(); y++){
+		for(int x = 0; x < settings.getGridWidth()-1; x++){
+			for(int y = 0; y < settings.getGridHeight()-1; y++){
 				score += evaluateNode(x,y,whosTurn);
 			}
 		}

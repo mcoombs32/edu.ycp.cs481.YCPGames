@@ -33,8 +33,8 @@
     <string name="grid_size_pref">Grid Size (Dots)</string>
     <string name="grid_width_pref">Grid Width</string>
     <string name="grid_height_pref">Grid Height</string>
-    <string name="grid_height_dialog">Please enter the height of the grid (2 - 10):</string>
-    <string name="grid_width_dialog">Please enter the height of the grid (2 - 10):</string>
+    <string name="grid_height_dialog">Please choose the height of the grid:</string>
+    <string name="grid_width_dialog">Please choose the width of the grid:</string>
     <string name="difficulty_dialog_title">Choose Difficulty:</string>
 
 

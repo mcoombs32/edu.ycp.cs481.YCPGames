@@ -72,6 +72,7 @@ public class TicTacToeGame extends Game {
 
             if (settings.isSinglePlayer() && (board.isGameOver() == 0)) {
 				//call AI if single-player game and game is still in progress
+                Log.d(TAG,"AI Difficulty: "+settings.getDifficulty());
 				int[] location = playerTwo.makeMove(board.getGrid());
 
                 Log.d(TAG, "AI move = "+ location[0]+" "+location[1]);

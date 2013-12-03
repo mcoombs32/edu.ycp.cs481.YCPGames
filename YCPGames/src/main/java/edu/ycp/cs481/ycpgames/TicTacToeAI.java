@@ -27,7 +27,7 @@ public class TicTacToeAI extends Player {
 
 	public TicTacToeAI(int num) {
 		super(num);
-		difficulty = 2;//settings.getDifficulty();//get difficulty from settings
+		difficulty = Settings.getInstance().getDifficulty();//get difficulty from settings
 		rand = new Random();
 		setHumanPlayer(false);
 	}
@@ -81,11 +81,7 @@ public class TicTacToeAI extends Player {
 	 * helper method to ensure that a move is valid
 	 */
 	private boolean isMoveInvalid(int[] move) {
-		if(grid[move[0]][move[1]] == 0) {
-			return false;
-		}else{
-			return true;
-		}
+        return grid[move[0]][move[1]] != 0;
 
 	}
 

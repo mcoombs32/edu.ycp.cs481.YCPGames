@@ -46,7 +46,6 @@ public class MainActivity extends Activity {
 		DotsButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Log.d(TAG, "DotsButton Pressed");
 				Intent intent = new Intent(MainActivity.this, DotsActivity.class);
                 startActivity(intent);
 			}
@@ -64,7 +63,6 @@ public class MainActivity extends Activity {
 		SettingsButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Log.d(TAG, "SettingsButton Pressed");
                 Intent intent = new Intent(MainActivity.this,SettingsActivity.class);
                 startActivity(intent);
 			}
