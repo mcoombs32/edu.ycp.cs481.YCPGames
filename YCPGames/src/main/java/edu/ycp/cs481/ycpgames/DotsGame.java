@@ -58,7 +58,7 @@ public class DotsGame extends Game {
 				board.drawLine(nodeX,nodeY,D,whosTurn());
                 for (int i = 0; i < board.getGridHeight(); i++){
                     for (int j = 0; j < board.getGridWidth(); j++){
-                        board.playerClaimUpdate(nodeX,nodeY,whosTurn());
+                        board.playerClaimUpdate(whosTurn());
                     }
                 }
 				endTurn();
@@ -110,7 +110,7 @@ public class DotsGame extends Game {
 					default:
 						return -3;
 				}
-                board.playerClaimUpdate(nodeX,nodeY,whosTurn());
+                board.playerClaimUpdate(whosTurn());
 				endTurn();
 			}
 		}else{
@@ -131,7 +131,7 @@ public class DotsGame extends Game {
 
 		if (settings.isSinglePlayer() && !playerTwo.isHumanPlayer()) {
 			//if its single player and already has an AI player
-			playerTwo.setMyTurn(false);
+			playerTwo = new DotsAI(2);
 		} else if (settings.isSinglePlayer()) {
 			//if its single player but not ai player
 			playerTwo = new DotsAI(2);
