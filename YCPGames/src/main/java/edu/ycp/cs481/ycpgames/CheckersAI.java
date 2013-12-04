@@ -23,7 +23,29 @@ public class CheckersAI extends CheckersPlayer {
 
 	@Override
 	public void findMove(Boolean isJump){
-
+		int[] bestMove = null;
+		selectedPiece = null;
+		move = null;
+		switch (settings.getDifficulty()){
+			case 0:
+				bestMove = minimax(2,super.getPlayerNum());
+				break;
+			case 1:
+				bestMove = minimax(4,super.getPlayerNum());
+				break;
+			case 2:
+				bestMove = minimax(8,super.getPlayerNum());
+				break;
+			default:
+				return;
+		}
+		selectedPiece[0] = bestMove[6];
+		selectedPiece[1] = bestMove[7];
+		move[0] = bestMove[0];
+		move[1] = bestMove[1];
+		move[2] = bestMove[2];
+		move[3] = bestMove[3];
+		move[4] = bestMove[4];
 	}
 	@Override
 	public int[] getSelectedPiece(){
@@ -42,9 +64,25 @@ public class CheckersAI extends CheckersPlayer {
 
 	//helper methods
 
+	/**
+	 *
+	 * @param depth
+	 * @param player
+	 * @return array containing best move and score for it
+	 * 				[0] = x coordinate
+	 * 				[1] = y coordinate
+	 * 				[2] = is a jump or not
+	 * 						0 means no 1 means yes
+	 * 				[3] = x of jumped piece
+	 * 				[4] = y of jumped piece
+	 * 				[5] = score
+	 * 				[6] = best piece x
+	 * 				[7] = best piece y
+	 */
 	private int[] minimax(int depth, CheckersVal player){
 		//find all pieces
 		List<int[]> pieces = findPieces();
+		CheckersPiece jumpedPiece = null;
 		//set goal
 		int bestScore;
 		if(super.getPlayerNum() == player){
@@ -53,8 +91,60 @@ public class CheckersAI extends CheckersPlayer {
 			bestScore= Integer.MAX_VALUE;
 		}
 		int currentScore;
-
-		return null;
+		int [] bestMove = new int[7];
+		if(pieces.isEmpty() || depth == 0){
+			//either game is over or depth is reached
+			bestScore = evaluate();
+		}else{
+			//evaluate branches
+			for(int [] piece : pieces){
+				//get possible moves for current piece
+				List<int[]> moves = board.getValidMoves(piece[0],piece[1]);
+				for(int[] move : moves){
+					//try move
+					jumpedPiece = board.makeMove(piece[0],piece[1],move);
+					if(player == super.getPlayerNum()){
+						if(player == CheckersVal.PLAYER_ONE){
+							currentScore = minimax(depth-1, CheckersVal.PLAYER_TWO)[5];
+						}else{
+							currentScore = minimax(depth-1, CheckersVal.PLAYER_ONE)[5];
+						}
+						if(currentScore > bestScore){
+							bestScore = currentScore;
+							bestMove[0] = move[0];
+							bestMove[1] = move[1];
+							bestMove[2] = move[2];
+							bestMove[3] = move[3];
+							bestMove[4] = move[4];
+							bestMove[5] = bestScore;
+							bestMove[6] = piece[0];
+							bestMove[7] = piece[1];
+						}
+					}else{
+						if(player == CheckersVal.PLAYER_ONE){
+							currentScore = minimax(depth-1, CheckersVal.PLAYER_TWO)[5];
+						}else{
+							currentScore = minimax(depth-1, CheckersVal.PLAYER_ONE)[5];
+						}
+						if(currentScore < bestScore){
+							bestScore = currentScore;
+							bestMove[0] = move[0];
+							bestMove[1] = move[1];
+							bestMove[2] = move[2];
+							bestMove[3] = move[3];
+							bestMove[4] = move[4];
+							bestMove[5] = bestScore;
+							bestMove[6] = piece[0];
+							bestMove[7] = piece[1];
+						}
+					}
+					//undo move
+					board.undoMove(piece[0],piece[1],move, jumpedPiece);
+					jumpedPiece = null;
+				}
+			}
+		}
+		return bestMove;
 	}
 
 	/**
