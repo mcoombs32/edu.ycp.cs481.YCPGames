@@ -120,7 +120,7 @@ public class CheckersGame {
 				selectedY = playerTwo.getSelectedPiece()[1];
 				selectedMove = playerTwo.getMove();
 
-				if(isJumpMode){
+				if(false/*isJumpMode*/){
 					//if no jump availilble return
 					jumpAvailible = false;
 					for(int[] move : validMoves){
@@ -139,7 +139,7 @@ public class CheckersGame {
 				if(board.isGameOver() != 0){
 					return board.isGameOver();
 				}
-			}while(isJumpMode);
+			}while(false/*isJumpMode*/);
 			//end turn
 			endTurn();
 		}
