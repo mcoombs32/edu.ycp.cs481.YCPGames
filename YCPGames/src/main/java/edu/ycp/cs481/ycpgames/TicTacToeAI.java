@@ -36,7 +36,7 @@ public class TicTacToeAI extends Player {
 	public int[] makeMove(int[][] g) {
 		int[] move = {0, 0};
 		grid = g;
-		switch (difficulty) {
+		switch (Settings.getInstance().getDifficulty()) {
 			case 0://difficulty low (very very low)
 				move = randMove();
                 Log.d(TAG,"randMove() = "+move[0]+ " "+move[1]);
@@ -125,7 +125,15 @@ public class TicTacToeAI extends Player {
 			for (int[] move : moves) {
 				//try move
 				grid[move[0]][move[1]] = player;
-				if (player == playerNum) {
+				if(evaluate() >= 100){
+					//if move is a win return it
+					bestScore = evaluate();
+					bestX = move[0];
+					bestY = move[1];
+					//undo move
+					grid[move[0]][move[1]] = 0;
+					return new int[]{bestScore, bestX, bestY};
+				}else if (player == playerNum) {
 					//here is the part where i wished i had implemented player number better...
 					//recursive call
 					if (player == 1) {
@@ -241,7 +249,7 @@ public class TicTacToeAI extends Player {
 		//checking third cell
 		if (grid[x3][y3] == playerNum) { //if piece is mine
 			if (score > 0) {//cell 1 and/or 2 are my piece
-				return (score * 10);
+				return (score * 100);
 			} else if (score < 0) { //cell 1 and/or 2 are player 1
 				return 0;
 			} else { //cells 1/2 are empty
@@ -249,7 +257,7 @@ public class TicTacToeAI extends Player {
 			}
 		} else if (grid[x3][y3] != 0) { // if piece is opponent
 			if (score < 0) { //cell 1 and/or 2 are player 1
-				return (score * 10);
+				return (score * 100);
 			} else if (score > 1) { //cell 1 and/or 2 are my pieces
 				return 0;
 			} else { // cells 1/2 are empty

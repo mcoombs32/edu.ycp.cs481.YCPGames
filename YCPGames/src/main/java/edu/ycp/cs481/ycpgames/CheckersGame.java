@@ -74,7 +74,7 @@ public class CheckersGame {
 		if (selectedMove == null){
 			return;
 		}
-        Log.d("CheckersGame","X,Y: "+selectedMove[0]+","+selectedMove[1]);
+        Log.d("CheckersGame", "X,Y: " + selectedMove[0] + "," + selectedMove[1]);
 		board.makeMove(selectedX, selectedY, selectedMove);
 		endTurn();
 

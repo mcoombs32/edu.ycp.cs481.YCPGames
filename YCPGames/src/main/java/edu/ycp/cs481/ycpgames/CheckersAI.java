@@ -1,7 +1,5 @@
 package edu.ycp.cs481.ycpgames;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 
