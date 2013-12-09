@@ -1,5 +1,7 @@
 package edu.ycp.cs481.ycpgames;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,7 @@ import java.util.List;
  * Created by brian on 11/18/13.
  */
 public class CheckersGame {
+	private static final String TAG = "YCPGamesCheckersGame";
 	private List<int[]> validMoves = new ArrayList<int[]>();
 	private int selectedX = -1, selectedY = -1;
 	private CheckersPlayer playerOne = new CheckersPlayer(CheckersVal.PLAYER_ONE);
@@ -34,6 +37,7 @@ public class CheckersGame {
 	 * @return true if valid piece to select false otherwise
 	 */
 	public boolean selectPiece(int x, int y){
+		Log.d(TAG, "piece = " + x + " " + y);
 		if(board.getPieceAt(x,y).getPlayer() == whosTurn()){
 			selectedX = x;
 			selectedY = y;
