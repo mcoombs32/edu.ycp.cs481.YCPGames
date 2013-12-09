@@ -9,6 +9,8 @@ import java.util.List;
 public class CheckersBoard {
 	private static final String TAG = "YCPGamesBoard";
 	private CheckersPiece[][] grid = new CheckersPiece[8][8];
+	private int playerOnePieces, playerTwoPieces;
+
 	Settings settings;
 	public CheckersBoard(){
 		settings = Settings.getInstance();
@@ -38,6 +40,8 @@ public class CheckersBoard {
 				}
 			}
 		}
+		playerOnePieces = 12;
+		playerTwoPieces = 12;
 	}
 
 	/**
@@ -157,13 +161,63 @@ public class CheckersBoard {
 	 * @param y y location of selected piece
 	 * @param move    values for move
 	 */
-	public void makeMove(int x, int y, int[] move){
-
+	public CheckersPiece makeMove(int x, int y, int[] move){
+		CheckersPiece jumpedPiece = null;
 		grid[move[0]][move[1]] = grid[x][y];
 		grid[x][y] = new CheckersPiece(CheckersVal.EMPTY);
 		if(move[2] ==1){
 			//move was a jump
-			grid[move[3]][move[4]].kill();
+			if(grid[move[3]][move[4]].getPlayer() == CheckersVal.PLAYER_ONE){
+				playerOnePieces--;
+			}else{
+				playerTwoPieces--;
+			}
+			jumpedPiece = grid[move[3]][move[4]];
+			grid[move[3]][move[4]] = new CheckersPiece(CheckersVal.EMPTY);
+		}
+		return jumpedPiece;
+	}
+
+	/**
+	 * undoes a makeMove()
+	 * @param x	original value given to makeMove
+	 * @param y original value given to makeMove
+	 * @param move original value given to makeMove
+	 * @param jumpedPiece output of makeMove
+	 */
+	public void undoMove(int x, int y, int[] move, CheckersPiece jumpedPiece){
+		grid[x][y] = grid[move[0]][move[1]];
+		grid[move[0]][move[1]] = new CheckersPiece(CheckersVal.EMPTY);
+		if(move[2] == 1){
+			//move was a jump
+			if(grid[x][y].getPlayer() == CheckersVal.PLAYER_ONE){
+				playerOnePieces++;
+
+			}else{
+				playerTwoPieces++;
+			}
+			grid[move[3]][move[4]] = jumpedPiece;
+		}
+
+
+	}
+	public int isGameOver(){
+		if(playerOnePieces == 0){
+			return 2;
+		}
+		else if(playerTwoPieces == 0){
+			return 1;
+		}else{
+			return 0;
 		}
 	}
+
+	public int getPlayerOnePieces() {
+		return playerOnePieces;
+	}
+
+	public int getPlayerTwoPieces() {
+		return playerTwoPieces;
+	}
+
 }
