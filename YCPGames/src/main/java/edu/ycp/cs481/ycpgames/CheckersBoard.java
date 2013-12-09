@@ -58,7 +58,6 @@ public class CheckersBoard {
 	 */
 	public List<int[]> getValidMoves(int x, int y){
 		List<int[]> validMoves = new ArrayList<int[]>();
-		CheckersVal temp;
 		if(grid[x][y].getPlayer() == CheckersVal.PLAYER_ONE){
 			//find valid moves for player 1 piece
 			if((x!= 0) && (y != 7) && (grid[x-1][y+1].getPlayer() == CheckersVal.EMPTY)){

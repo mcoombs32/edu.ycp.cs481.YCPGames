@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -16,7 +17,7 @@ import java.util.List;
  * Created by michaelcoombs on 12/2/13.
  */
 public class CheckersDraw extends SurfaceView implements SurfaceHolder.Callback {
-
+    private static final String TAG = "CheckersDraw";
     private Paint paintOne, paintTwo, circlePaint, rectPaint;
     private Toast invalidToast;
     private CheckersGame game;
@@ -59,6 +60,7 @@ public class CheckersDraw extends SurfaceView implements SurfaceHolder.Callback 
         rectPaint = new Paint();
         rectPaint.setARGB(128,218,165,32);
         rectPaint.setStyle(Paint.Style.FILL);
+        rectPaint.setStrokeWidth(3);
 
 
 
@@ -71,10 +73,13 @@ public class CheckersDraw extends SurfaceView implements SurfaceHolder.Callback 
         CheckersBoard tempBoard = game.getBoard();
         List<int[]> valid;
         if(selected){
-           valid =  mSelectPiece(selectedPiece);
+           Log.d(TAG,"Draw Valid moves.\n");
+           valid = mSelectPiece(selectedPiece);
+           //Log.d(TAG,"\n"+valid.isEmpty());
            if(valid != null){
                while(valid.iterator().hasNext()){
                    int[] temp = valid.iterator().next();
+                   Log.d(TAG,"\nValid Moves: ("+temp[0]+","+temp[1]+")");
                    canvas.drawRect(grid.getCell(temp[0],temp[1]).getX()+(grid.getCell(temp[0],temp[1]).getWidth()/4),
                            grid.getCell(temp[0],temp[1]).getY()+(grid.getCell(temp[0],temp[1]).getLength()/4),
                            grid.getCell(temp[0],temp[1]).getX1()-(grid.getCell(temp[0],temp[1]).getWidth()/4),
@@ -125,7 +130,11 @@ public class CheckersDraw extends SurfaceView implements SurfaceHolder.Callback 
     private List<int[]> mSelectPiece(CheckersGridCell piece){
         List<int[]> valid = null;
         if(game.selectPiece(piece.getArrX(),piece.getArrY())){
+            Log.d(TAG,"Piece selected");
             valid = game.getValidMoves();
+        }else{
+            Log.d(TAG,"Piece selected not valid");
+            selected = false;
         }
         return valid;
     }
@@ -140,6 +149,7 @@ public class CheckersDraw extends SurfaceView implements SurfaceHolder.Callback 
                 }
             }
         }
+        Log.d(TAG,""+temp.getArrX()+","+temp.getArrY());
         return temp;
     }
 
@@ -166,7 +176,7 @@ public class CheckersDraw extends SurfaceView implements SurfaceHolder.Callback 
 
         boolean touchEvent = false;
         int action = event.getAction();
-
+        Log.d(TAG,""+selected);
         switch (action){
             case MotionEvent.ACTION_DOWN:
                 touchEvent = true;
@@ -179,22 +189,20 @@ public class CheckersDraw extends SurfaceView implements SurfaceHolder.Callback 
                         touchEvent = false;
                         break;
                     }
+                    selected = true;
+                    break;
                 }else{
                     final float x = event.getX();
                     final float y = event.getY();
                     selectedPiece = mGetNearestPiece((int)x,(int)y);
                     mUpdateGrid(selectedPiece);
-                }
-                break;
-            case MotionEvent.ACTION_UP:
-                if(selected = false){
-                    selected = true;
-                }else
                     selected = false;
+                    break;
+                }
+            case MotionEvent.ACTION_UP:
                 break;
             default:
                 touchEvent = false;
-                selected = false;
         }
         return touchEvent;
     }

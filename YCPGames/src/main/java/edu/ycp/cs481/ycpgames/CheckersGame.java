@@ -14,6 +14,7 @@ public class CheckersGame {
 	private CheckersBoard board = new CheckersBoard();
 	public CheckersGame(){
 		super();
+        this.reset();
 	}
 
 	/**
