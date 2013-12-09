@@ -80,7 +80,7 @@ public class CheckersGame {
 
         if(Settings.getInstance().isSinglePlayer()){
             playerTwo.findMove(this.getBoard());
-
+            endTurn();
         }
 		//ai move here
 	}

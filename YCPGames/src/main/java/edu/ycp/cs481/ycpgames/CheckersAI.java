@@ -93,7 +93,7 @@ public class CheckersAI extends CheckersPlayer {
 			bestScore= Integer.MAX_VALUE;
 		}
 		int currentScore;
-		int [] bestMove = new int[7];
+		int [] bestMove = new int[8];
 		if(pieces.isEmpty() || depth == 0){
 			//either game is over or depth is reached
 			bestScore = evaluate();
@@ -166,8 +166,8 @@ public class CheckersAI extends CheckersPlayer {
 	private List<int[]> findPieces(){
 		List<int[]> moves = new ArrayList<int[]>();
 
-		for (int x = 0; x <= 8; x++) {
-			for (int y = 0; y <= 8; y++) {
+		for (int x = 0; x < 8; x++) {
+			for (int y = 0; y < 8; y++) {
 				if(board.getPieceAt(x,y).getPlayer() == super.getPlayerNum()){
 					moves.add(new int[]{x, y});
 				}
@@ -190,8 +190,8 @@ public class CheckersAI extends CheckersPlayer {
 		int score = (int)Math.pow(board.getPlayerTwoPieces()-board.getPlayerOnePieces(),3);
 		List<int[]> moves;
 		CheckersPiece temp;
-		for (int x = 0; x <= 8; x++) {
-			for (int y = 0; y <= 8; y++) {
+		for (int x = 0; x < 8; x++) {
+			for (int y = 0; y < 8; y++) {
 				temp = board.getPieceAt(x,y);
 				if(temp.getRank() == CheckersVal.KING){
 					if(temp.getPlayer() == super.getPlayerNum()){

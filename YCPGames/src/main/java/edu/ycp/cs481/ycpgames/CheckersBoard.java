@@ -62,7 +62,7 @@ public class CheckersBoard {
 			//find valid moves for player 1 piece
 			if((x!= 0) && (y != 7) && (grid[x-1][y+1].getPlayer() == CheckersVal.EMPTY)){
 				//check front diagonal left
-				validMoves.add(new int[]{x-1, y+1,0});
+				validMoves.add(new int[]{x-1, y+1,0,0,0});
 			}else if((x!= 0) && (y != 7) && (grid[x-1][y+1].getPlayer() == CheckersVal.PLAYER_TWO)){
 				//check if player can jump it
 				if((x!= 1) && (y != 6) && (grid[x-2][y+2].getPlayer() == CheckersVal.EMPTY)){
@@ -72,7 +72,7 @@ public class CheckersBoard {
 
 			if((x!= 7) && (y != 7) && (grid[x+1][y+1].getPlayer() == CheckersVal.EMPTY)){
 				//check front diagonal right
-				validMoves.add(new int[]{x+1, y+1,0});
+				validMoves.add(new int[]{x+1, y+1,0,0,0});
 			}else if((x!= 7) && (y != 7) && (grid[x+1][y+1].getPlayer() == CheckersVal.PLAYER_TWO)){
 				//check if player can jump it
 				if((x!= 6) && (y != 6) && (grid[x+2][y+2].getPlayer() == CheckersVal.EMPTY)){
@@ -84,7 +84,7 @@ public class CheckersBoard {
 				//if a king check behind
 				if((x!= 0) && (y != 0) && (grid[x-1][y-1].getPlayer() == CheckersVal.EMPTY)){
 					//check back diagonal left
-					validMoves.add(new int[]{x-1, y-1,0});
+					validMoves.add(new int[]{x-1, y-1,0,0,0});
 				}else if((x!= 0) && (y != 0) && (grid[x-1][y-1].getPlayer() == CheckersVal.PLAYER_TWO)){
 					//check if player can jump it
 					if((x!= 1) && (y != 1) && (grid[x-2][y-2].getPlayer() == CheckersVal.EMPTY)){
@@ -94,7 +94,7 @@ public class CheckersBoard {
 
 				if((x!= 7) && (y != 0) && (grid[x+1][y-1].getPlayer() == CheckersVal.EMPTY)){
 					//check back diagonal right
-					validMoves.add(new int[]{x+1, y-1,0});
+					validMoves.add(new int[]{x+1, y-1,0,0,0});
 				}else if((x!= 7) && (y != 0) && (grid[x+1][y-1].getPlayer() == CheckersVal.PLAYER_TWO)){
 					//check if player can jump it
 					if((x!= 1) && (y != 1) && (grid[x+2][y-2].getPlayer() == CheckersVal.EMPTY)){
@@ -106,7 +106,7 @@ public class CheckersBoard {
 			//find valid moves for player 2 piece
 			if((x!= 0) && (y != 0) && (grid[x-1][y-1].getPlayer() == CheckersVal.EMPTY)){
 				//check front diagonal left
-				validMoves.add(new int[]{x-1, y-1,0});
+				validMoves.add(new int[]{x-1, y-1,0,0,0});
 			}else if((x!= 0) && (y != 0) && (grid[x-1][y-1].getPlayer() == CheckersVal.PLAYER_ONE)){
 				//check if player can jump it
 				if((x!= 1) && (y != 1) && (grid[x-2][y-2].getPlayer() == CheckersVal.EMPTY)){
@@ -116,7 +116,7 @@ public class CheckersBoard {
 
 			if((x!= 7) && (y != 0) && (grid[x+1][y-1].getPlayer() == CheckersVal.EMPTY)){
 				//check front diagonal right
-				validMoves.add(new int[]{x+1, y-1,0});
+				validMoves.add(new int[]{x+1, y-1,0,0,0});
 			}else if((x!= 7) && (y != 0) && (grid[x+1][y-1].getPlayer() == CheckersVal.PLAYER_ONE)){
 				//check if player can jump it
 				if((x!= 6) && (y != 1) && (grid[x+2][y-2].getPlayer() == CheckersVal.EMPTY)){
@@ -128,7 +128,7 @@ public class CheckersBoard {
 				//if a king check behind
 				if((x!= 0) && (y != 7) && (grid[x-1][y+1].getPlayer() == CheckersVal.EMPTY)){
 					//check back diagonal left
-					validMoves.add(new int[]{x-1, y+1,0});
+					validMoves.add(new int[]{x-1, y+1,0,0,0});
 				}else if((x!= 0) && (y != 7) && (grid[x-1][y+1].getPlayer() == CheckersVal.PLAYER_TWO)){
 					//check if player can jump it
 					if((x!= 1) && (y != 6) && (grid[x-2][y+2].getPlayer() == CheckersVal.EMPTY)){
