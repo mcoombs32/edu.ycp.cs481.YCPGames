@@ -138,7 +138,7 @@ public class CheckersBoard {
 
 				if((x!= 7) && (y != 0) && (grid[x+1][y+1].getPlayer() == CheckersVal.EMPTY)){
 					//check back diagonal right
-					validMoves.add(new int[]{x+1, y-1,0});
+					validMoves.add(new int[]{x+1, y-1,0,0,0});
 				}else if((x!= 7) && (y != 7) && (grid[x+1][y+1].getPlayer() == CheckersVal.PLAYER_TWO)){
 					//check if player can jump it
 					if((x!= 1) && (y != 6) && (grid[x+2][y+2].getPlayer() == CheckersVal.EMPTY)){

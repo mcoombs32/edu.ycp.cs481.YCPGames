@@ -47,7 +47,7 @@ public class CheckersDraw extends SurfaceView implements SurfaceHolder.Callback 
         paintOne.setAntiAlias(true);
         paintOne.setTextSize(48);
         paintOne.setTypeface(Typeface.DEFAULT_BOLD);
-        paintOne.setShadowLayer(2.2f, 2, 2, Color.GRAY);
+        paintOne.setShadowLayer(3.2f, 3, 3, Color.DKGRAY);
         paintOne.setStrokeWidth(12);
 
         paintTwo = new Paint();
@@ -55,7 +55,7 @@ public class CheckersDraw extends SurfaceView implements SurfaceHolder.Callback 
         paintTwo.setAntiAlias(true);
         paintTwo.setTextSize(48);
         paintTwo.setTypeface(Typeface.DEFAULT_BOLD);
-        paintTwo.setShadowLayer(2.2f,2,2,Color.BLACK);
+        paintTwo.setShadowLayer(3.2f,3,3,Color.BLACK);
         paintTwo.setStyle(Paint.Style.FILL);
         paintTwo.setStrokeWidth(12);
 
@@ -129,6 +129,7 @@ public class CheckersDraw extends SurfaceView implements SurfaceHolder.Callback 
                     paintTwo);
         }
         for(int i = 0; i < (12 - game.getBoard().getPlayerOnePieces());i++){
+            paintOne.setColor(Color.BLACK);
             canvas.drawCircle(grid.getCell(0,9).getCenter()[0]+((int)(grid.getCell(0,9).getWidth()/1.1)*i),
                     grid.getCell(0,9).getCenter()[1],
                     (int)(grid.getCell(0,9).getWidth()/3.1),
