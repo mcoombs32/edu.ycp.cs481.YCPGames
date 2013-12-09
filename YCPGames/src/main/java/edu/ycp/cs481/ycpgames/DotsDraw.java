@@ -1,7 +1,10 @@
 package edu.ycp.cs481.ycpgames;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -30,6 +33,8 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
     private Paint paintOne, paintTwo;
     private DotsGridCell start,end;
     private Toast invalidToast;
+    private AlertDialog gameOverAlert;
+    private AlertDialog.Builder alertDialogBuilder;
 
     public DotsDraw(Context context, int[] screen){
         super(context);
@@ -67,6 +72,24 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
         paintTwo.setShadowLayer(1.2f,1,1,Color.GRAY);
         paintTwo.setStyle(Paint.Style.FILL);
         paintTwo.setStrokeWidth(12);
+
+        alertDialogBuilder = new AlertDialog.Builder(context);
+        alertDialogBuilder.setTitle(R.string.game_over);
+        alertDialogBuilder
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        game.reset();
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ((Activity)getContext()).finish();
+                    }
+                });
+
     }
 
     @Override
@@ -214,6 +237,9 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
         return true;
 
     }
+    public void showDialog(){
+        gameOverAlert.show();
+    }
 
     private void mUpdateGrid(DotsGridCell start, DotsGridCell end) {
         int isMoveValid;
@@ -248,6 +274,27 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
             invalidToast.show();
         }else
             invalidate();
+        if(game.board.isGameOver() != GameVal.IN_PROGRESS){
+            switch (game.board.isGameOver()){
+                case PLAYER_ONE:
+                    if(Settings.getInstance().isSinglePlayer())
+                        alertDialogBuilder.setMessage(R.string.player_win);
+                    else
+                        alertDialogBuilder.setMessage("Player 1 has won! Would you like to play again?");
+                    break;
+                case PLAYER_TWO:
+                    if(Settings.getInstance().isSinglePlayer())
+                        alertDialogBuilder.setMessage(R.string.comp_win);
+                    else
+                        alertDialogBuilder.setMessage("Player 2 has won! Would you like to play again?");
+                    break;
+                case DRAW:
+                    alertDialogBuilder.setMessage(R.string.draw);
+                    break;
+            }
+            gameOverAlert = alertDialogBuilder.create();
+            this.showDialog();
+        }
     }
 
     class GameThread extends Thread{
@@ -282,8 +329,6 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
                         surfaceHolder.unlockCanvasAndPost(c);
                     }
                 }
-                if(game.board.isGameOver() != GameVal.IN_PROGRESS)
-                   setRunning(false);
 
                 }
             }

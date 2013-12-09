@@ -1,7 +1,10 @@
 package edu.ycp.cs481.ycpgames;
 
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -18,16 +21,20 @@ import java.util.List;
  */
 public class CheckersDraw extends SurfaceView implements SurfaceHolder.Callback {
     private static final String TAG = "CheckersDraw";
-    private Paint paintOne, paintTwo, circlePaint, rectPaint;
+    private Paint paintOne, paintTwo, circlePaint, selectPaint;
     private Toast invalidToast;
     private CheckersGame game;
     private CheckersGrid grid;
     private GameThread thread;
     private CheckersGridCell selectedPiece;
     private boolean selected = false;
+    private AlertDialog gameOverAlert;
+    private AlertDialog.Builder alertDialogBuilder;
+
 
     public CheckersDraw(Context context, int[] screen){
         super(context);
+
         getHolder().addCallback(this);
 
         game = new CheckersGame();
@@ -40,7 +47,7 @@ public class CheckersDraw extends SurfaceView implements SurfaceHolder.Callback 
         paintOne.setAntiAlias(true);
         paintOne.setTextSize(48);
         paintOne.setTypeface(Typeface.DEFAULT_BOLD);
-        paintOne.setShadowLayer(2.2f, 0, 0, Color.BLACK);
+        paintOne.setShadowLayer(2.2f, 2, 2, Color.GRAY);
         paintOne.setStrokeWidth(12);
 
         paintTwo = new Paint();
@@ -48,21 +55,37 @@ public class CheckersDraw extends SurfaceView implements SurfaceHolder.Callback 
         paintTwo.setAntiAlias(true);
         paintTwo.setTextSize(48);
         paintTwo.setTypeface(Typeface.DEFAULT_BOLD);
-        paintTwo.setShadowLayer(2.2f,0,0,Color.GRAY);
+        paintTwo.setShadowLayer(2.2f,2,2,Color.BLACK);
         paintTwo.setStyle(Paint.Style.FILL);
         paintTwo.setStrokeWidth(12);
 
         circlePaint = new Paint();
-        circlePaint.setColor(Color.BLACK);
+        circlePaint.setColor(Color.YELLOW);
         circlePaint.setStyle(Paint.Style.FILL);
         circlePaint.setStrokeWidth(3);
+        circlePaint.setAntiAlias(true);
 
-        rectPaint = new Paint();
-        rectPaint.setARGB(128,218,165,32);
-        rectPaint.setStyle(Paint.Style.FILL);
-        rectPaint.setStrokeWidth(3);
+        selectPaint = new Paint();
+        selectPaint.setARGB(128, 218, 165, 32);
+        selectPaint.setStyle(Paint.Style.FILL);
+        selectPaint.setStrokeWidth(3);
 
-
+        alertDialogBuilder = new AlertDialog.Builder(context);
+        alertDialogBuilder.setTitle(R.string.game_over);
+        alertDialogBuilder
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        game.reset();
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ((Activity)getContext()).finish();
+                    }
+                });
 
 
     }
@@ -72,23 +95,6 @@ public class CheckersDraw extends SurfaceView implements SurfaceHolder.Callback 
         Paint tempPaint;
         CheckersBoard tempBoard = game.getBoard();
         List<int[]> valid;
-        if(selected){
-           Log.d(TAG,"Draw Valid moves.\n");
-           valid = mSelectPiece(selectedPiece);
-           //Log.d(TAG,"\n"+valid.isEmpty());
-           if(valid != null){
-               while(valid.iterator().hasNext()){
-                   int[] temp = valid.iterator().next();
-                   Log.d(TAG,"\nValid Moves: ("+temp[0]+","+temp[1]+")");
-                   canvas.drawRect(grid.getCell(temp[0],temp[1]).getX()+(grid.getCell(temp[0],temp[1]).getWidth()/4),
-                           grid.getCell(temp[0],temp[1]).getY()+(grid.getCell(temp[0],temp[1]).getLength()/4),
-                           grid.getCell(temp[0],temp[1]).getX1()-(grid.getCell(temp[0],temp[1]).getWidth()/4),
-                           grid.getCell(temp[0],temp[1]).getY1()-(grid.getCell(temp[0],temp[1]).getLength()/4),
-                           rectPaint);
-               }
-           }
-        }
-
 
         for(int i = 0; i <grid.getGridWidth();i++){
             for (int j = 1; j < grid.getGridLength()-1;j++){
@@ -104,11 +110,39 @@ public class CheckersDraw extends SurfaceView implements SurfaceHolder.Callback 
                 if(tempBoard.getPieceAt(i,j-1).getPlayer() == CheckersVal.PLAYER_ONE){
                     paintOne.setColor(Color.BLACK);
                     canvas.drawCircle(grid.getCell(i,j).getCenter()[0],grid.getCell(i,j).getCenter()[1],(int)(grid.getCell(i,j).getWidth()/2.1),paintOne);
+                    if(tempBoard.getPieceAt(i,j-1).getRank() == CheckersVal.KING){
+                        canvas.drawCircle(grid.getCell(i,j).getCenter()[0],grid.getCell(i,j).getCenter()[1],(int)(grid.getCell(i,j).getWidth()/3.1),circlePaint);
+                    }
                 }else if (tempBoard.getPieceAt(i,j-1).getPlayer() == CheckersVal.PLAYER_TWO){
-                    paintTwo.setColor(Color.WHITE);
+                    //paintTwo.setColor(Color.WHITE);
                     canvas.drawCircle(grid.getCell(i,j).getCenter()[0],grid.getCell(i,j).getCenter()[1],(int)(grid.getCell(i,j).getWidth()/2.1),paintTwo);
+                    if(tempBoard.getPieceAt(i,j-1).getRank() == CheckersVal.KING){
+                        canvas.drawCircle(grid.getCell(i,j).getCenter()[0],grid.getCell(i,j).getCenter()[1],(int)(grid.getCell(i,j).getWidth()/3.1),circlePaint);
+                    }
                 }
-
+            }
+        }
+        for(int i = 0; i < (12 - game.getBoard().getPlayerTwoPieces());i++){
+            canvas.drawCircle(grid.getCell(0,0).getCenter()[0]+((int)(grid.getCell(0,0).getWidth()/1.1)*i),
+                    grid.getCell(0,0).getCenter()[1],
+                    (int)(grid.getCell(0,0).getWidth()/3.1),
+                    paintTwo);
+        }
+        for(int i = 0; i < (12 - game.getBoard().getPlayerOnePieces());i++){
+            canvas.drawCircle(grid.getCell(0,9).getCenter()[0]+((int)(grid.getCell(0,9).getWidth()/1.1)*i),
+                    grid.getCell(0,9).getCenter()[1],
+                    (int)(grid.getCell(0,9).getWidth()/3.1),
+                    paintOne);
+        }
+        if(selected){
+            valid = mSelectPiece(selectedPiece);
+            if(valid != null){
+                for (int[] temp : valid) {
+                        canvas.drawCircle(grid.getCell(temp[0], temp[1] + 1).getCenter()[0],
+                                grid.getCell(temp[0], temp[1] + 1).getCenter()[1],
+                                (int) (grid.getCell(temp[0], temp[1]).getWidth() / 2.1),
+                                selectPaint);
+                }
             }
         }
     }
@@ -129,7 +163,7 @@ public class CheckersDraw extends SurfaceView implements SurfaceHolder.Callback 
     }
     private List<int[]> mSelectPiece(CheckersGridCell piece){
         List<int[]> valid = null;
-        if(game.selectPiece(piece.getArrX(),piece.getArrY())){
+        if(game.selectPiece(piece.getArrX(),piece.getArrY()-1)){
             Log.d(TAG,"Piece selected");
             valid = game.getValidMoves();
         }else{
@@ -149,13 +183,30 @@ public class CheckersDraw extends SurfaceView implements SurfaceHolder.Callback 
                 }
             }
         }
-        Log.d(TAG,""+temp.getArrX()+","+temp.getArrY());
         return temp;
     }
 
     public void mUpdateGrid(CheckersGridCell move){
-        game.makeMove(move.getArrX(),move.getArrY());
+        game.makeMove(move.getArrX(),move.getArrY()-1);
         selected = false;
+        if(game.getBoard().isGameOver()>0){
+            switch (game.getBoard().isGameOver()){
+                case 1:
+                    if(Settings.getInstance().isSinglePlayer())
+                        alertDialogBuilder.setMessage(R.string.player_win);
+                    else
+                        alertDialogBuilder.setMessage("Player 1 has won! Would you like to play again?");
+                    break;
+                case 2:
+                    if(Settings.getInstance().isSinglePlayer())
+                        alertDialogBuilder.setMessage(R.string.comp_win);
+                    else
+                        alertDialogBuilder.setMessage("Player 2 has won! Would you like to play again?");
+                    break;
+            }
+            gameOverAlert = alertDialogBuilder.create();
+            this.showAlert();
+        }
     }
 
     @Override
@@ -169,6 +220,9 @@ public class CheckersDraw extends SurfaceView implements SurfaceHolder.Callback 
             } catch (InterruptedException e) {}
         }
     }
+    public void showAlert(){
+        gameOverAlert.show();
+    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event){
@@ -176,11 +230,11 @@ public class CheckersDraw extends SurfaceView implements SurfaceHolder.Callback 
 
         boolean touchEvent = false;
         int action = event.getAction();
-        Log.d(TAG,""+selected);
+        //Log.d(TAG,""+selected);
         switch (action){
             case MotionEvent.ACTION_DOWN:
                 touchEvent = true;
-                if(selected == false){
+                if(!selected){
                     final float x = event.getX();
                     final float y = event.getY();
                     selectedPiece = mGetNearestPiece((int)x,(int)y);
@@ -195,6 +249,12 @@ public class CheckersDraw extends SurfaceView implements SurfaceHolder.Callback 
                     final float x = event.getX();
                     final float y = event.getY();
                     selectedPiece = mGetNearestPiece((int)x,(int)y);
+                    if (selectedPiece == null){
+                        invalidToast.show();
+                        touchEvent = false;
+                        selected = false;
+                        break;
+                    }
                     mUpdateGrid(selectedPiece);
                     selected = false;
                     break;
@@ -231,6 +291,7 @@ public class CheckersDraw extends SurfaceView implements SurfaceHolder.Callback 
                     synchronized (surfaceHolder) {
                         if(c!= null){
                             gameView.onDraw(c);
+
                         }
 
                     }

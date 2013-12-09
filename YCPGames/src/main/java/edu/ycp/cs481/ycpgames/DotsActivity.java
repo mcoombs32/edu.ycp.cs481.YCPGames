@@ -31,9 +31,6 @@ public class DotsActivity extends Activity {
         Log.d("DotsActivity","Screen size: ("+size.x+","+size.y+")");
 
         int screen[] = {screenWidth,screenHeight};
-
-
-
         super.onCreate(savedInstanceState);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         Settings.getInstance().setSinglePlayer(sharedPref.getBoolean("pref_key_single_player",true));

@@ -9,23 +9,24 @@ import java.util.List;
  * Created by brian on 11/18/13.
  */
 public class CheckersGame {
-	private static final String TAG = "YCPGamesCheckersGame";
 	private List<int[]> validMoves = new ArrayList<int[]>();
 	private int selectedX = -1, selectedY = -1;
 	private CheckersPlayer playerOne = new CheckersPlayer(CheckersVal.PLAYER_ONE);
-	private CheckersPlayer playerTwo = new CheckersPlayer(CheckersVal.PLAYER_TWO);
+	private CheckersPlayer playerTwo;
 	private CheckersBoard board = new CheckersBoard();
 	public CheckersGame(){
 		super();
         this.reset();
+        if(Settings.getInstance().isSinglePlayer()){
+            playerTwo = new CheckersAI(CheckersVal.PLAYER_TWO,board);
+        }else
+            playerTwo = new CheckersPlayer(CheckersVal.PLAYER_TWO);
 	}
 
 	/**
 	 * resets everything
 	 */
 	public void reset() {
-		playerOne.setMyTurn(true);
-		playerTwo.setMyTurn(false);
 		board.reset();
 	}
 
@@ -37,8 +38,7 @@ public class CheckersGame {
 	 * @return true if valid piece to select false otherwise
 	 */
 	public boolean selectPiece(int x, int y){
-		Log.d(TAG, "piece = " + x + " " + y);
-		if(board.getPieceAt(x,y).getPlayer() == whosTurn()){
+		if(board.getPieceAt(x,y).getPlayer() == whoseTurn()){
 			selectedX = x;
 			selectedY = y;
 			validMoves = board.getValidMoves(x,y);
@@ -74,17 +74,23 @@ public class CheckersGame {
 		if (selectedMove == null){
 			return;
 		}
-		board.makeMove(selectedX,selectedY,selectedMove);
+        Log.d("CheckersGame","X,Y: "+selectedMove[0]+","+selectedMove[1]);
+		board.makeMove(selectedX, selectedY, selectedMove);
 		endTurn();
+
+        if(Settings.getInstance().isSinglePlayer()){
+            playerTwo.findMove(this.getBoard());
+
+        }
 		//ai move here
 	}
 
 	/**
 	 *
-	 * @return CheckersVal of whos turn it is
+	 * @return CheckersVal of whose turn it is
 	 */
-	public CheckersVal whosTurn(){
-		if(playerOne.isMyTurn() == true){
+	public CheckersVal whoseTurn(){
+		if(playerOne.isMyTurn()){
 			return CheckersVal.PLAYER_ONE;
 		}else{
 			return CheckersVal.PLAYER_TWO;
@@ -98,7 +104,7 @@ public class CheckersGame {
 		playerTwo.setMyTurn(!playerTwo.isMyTurn());
 		selectedX = -1;
 		selectedY = -1;
-		validMoves = new ArrayList<int[]>();;
+		validMoves = new ArrayList<int[]>();
 	}
 
     public CheckersBoard getBoard() {

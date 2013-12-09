@@ -12,9 +12,10 @@ public class CheckersAI extends CheckersPlayer {
 	private int [] selectedPiece;
 	private int [] move;
 	private CheckersBoard board;
-	public CheckersAI(CheckersVal player, CheckersBoard b) {
+
+    public CheckersAI(CheckersVal player, CheckersBoard b) {
 		super(player);
-		board = b;
+		this.board = b;
 		setHumanPlayer(false);
 		selectedPiece = null;
 		move = null;
@@ -22,8 +23,9 @@ public class CheckersAI extends CheckersPlayer {
 
 
 	@Override
-	public void findMove(Boolean isJump){
-		int[] bestMove = null;
+	public void findMove(CheckersBoard b){
+        this.board = b;
+		int[] bestMove;
 		selectedPiece = null;
 		move = null;
 		switch (settings.getDifficulty()){
@@ -82,7 +84,7 @@ public class CheckersAI extends CheckersPlayer {
 	private int[] minimax(int depth, CheckersVal player){
 		//find all pieces
 		List<int[]> pieces = findPieces();
-		CheckersPiece jumpedPiece = null;
+		CheckersPiece jumpedPiece;
 		//set goal
 		int bestScore;
 		if(super.getPlayerNum() == player){
@@ -154,11 +156,8 @@ public class CheckersAI extends CheckersPlayer {
 	 * @return boolean indicating if move is valid
 	 */
 	private boolean isMoveValid(int x, int y){
-		if(board.getPieceAt(x,y).getPlayer() == CheckersVal.EMPTY){
-			return true;
-		}
-		return false;
-	}
+        return board.getPieceAt(x, y).getPlayer() == CheckersVal.EMPTY;
+    }
 
 	/**
 	 *
