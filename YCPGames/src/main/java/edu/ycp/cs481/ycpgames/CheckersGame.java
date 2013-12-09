@@ -1,5 +1,7 @@
 package edu.ycp.cs481.ycpgames;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +36,11 @@ public class CheckersGame {
 	 * @return true if valid piece to select false otherwise
 	 */
 	public boolean selectPiece(int x, int y){
-		if(board.getPieceAt(x,y).getPlayer() == whosTurn()){
+        Log.d("CheckersGame","X,Y :"+x+""+y);    /*
+        Log.d("CheckersGame", "Piece.getplayer():"+board.getPieceAt(x,y).getPlayer()+"\n");
+        Log.d("CheckersGame","whoseTurn: "+whoseTurn());
+        */
+		if(board.getPieceAt(x,y).getPlayer() == whoseTurn()){
 			selectedX = x;
 			selectedY = y;
 			validMoves = board.getValidMoves(x,y);
@@ -77,10 +83,10 @@ public class CheckersGame {
 
 	/**
 	 *
-	 * @return CheckersVal of whos turn it is
+	 * @return CheckersVal of whose turn it is
 	 */
-	public CheckersVal whosTurn(){
-		if(playerOne.isMyTurn() == true){
+	public CheckersVal whoseTurn(){
+		if(playerOne.isMyTurn()){
 			return CheckersVal.PLAYER_ONE;
 		}else{
 			return CheckersVal.PLAYER_TWO;
@@ -94,7 +100,7 @@ public class CheckersGame {
 		playerTwo.setMyTurn(!playerTwo.isMyTurn());
 		selectedX = -1;
 		selectedY = -1;
-		validMoves = new ArrayList<int[]>();;
+		validMoves = new ArrayList<int[]>();
 	}
 
     public CheckersBoard getBoard() {
