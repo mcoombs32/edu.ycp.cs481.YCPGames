@@ -6,7 +6,8 @@ package edu.ycp.cs481.ycpgames;
 import android.util.Log;
 public class TicTacToeGame extends Game {
 	private static final String TAG = "YCPGamesTicTacToeGame";
-
+	//override Board board
+	TicTacToeBoard board;
 	public TicTacToeGame() {
 		settings = Settings.getInstance();
 		playerOne = new TicTacToePlayer(1);
@@ -36,7 +37,7 @@ public class TicTacToeGame extends Game {
 			//if its single player but not ai player
 			playerTwo = new TicTacToeAI(2);
 		} else if (!settings.isSinglePlayer() && playerTwo.isHumanPlayer()) {
-			//if its multiplayer and alraedy set with human player
+			//if its multiplayer and already set with human player
 			playerTwo.setMyTurn(false);
 		} else {
 			//if its multiplayer but set up with AI
@@ -71,19 +72,20 @@ public class TicTacToeGame extends Game {
 
             if (settings.isSinglePlayer() && (board.isGameOver() == 0)) {
 				//call AI if single-player game and game is still in progress
+                Log.d(TAG,"AI Difficulty: "+settings.getDifficulty());
 				int[] location = playerTwo.makeMove(board.getGrid());
 
                 Log.d(TAG, "AI move = "+ location[0]+" "+location[1]);
 
                 if ((location[0] == -1) || (location[1] == -1)) {
-					return -2;
+					return -3;
 				} else if (board.checkSpace(location[0], location[1])) {
                     Log.d(TAG, ""+board.checkSpace(location[0], location[1]));
 					//if location checks out place piece and end turn
 					board.placePiece(location[0], location[1], whosTurn());
 					endTurn();
 				} else {
-					return -2;
+					return -3;
 				}
 			}
 		} else {

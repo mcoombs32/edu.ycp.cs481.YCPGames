@@ -8,7 +8,7 @@ import android.util.Log;
 public class Player {
 	private static final String TAG = "YCPGamesPlayer";
 	public int playerNum;
-	private boolean myTurn;
+	public boolean myTurn;
 	private boolean humanPlayer = true;
 	Settings settings;
 
@@ -56,12 +56,13 @@ public class Player {
 		humanPlayer = human;
 	}
 
-	/**
-	 * this is only here so that I can override method in TicTacToeAI and still be able to have
-	 * instances of TicTacToeAI declared as Player
-	 */
+
 	public int[] makeMove(int[][] g) {
 		Log.d(TAG, "Make move is not implemented here");
+		return null;
+	}
+	public int[] makeDotsMove(DotsNode[][] g){
+		Log.d(TAG, "MakeDotsMove is not implemented here");
 		return null;
 	}
 }

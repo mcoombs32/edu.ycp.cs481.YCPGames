@@ -43,7 +43,8 @@
             android:layout_height="150dp"
             android:id="@+id/topLeftButton"
             android:layout_gravity="left|top"
-            android:background="@drawable/transbutton" />
+            android:background="@drawable/transbutton"
+            android:layout_marginRight="9dp" />
 
         <ImageButton
             android:layout_width="123dp"
@@ -51,15 +52,15 @@
             android:id="@+id/topCenterButton"
             android:layout_gravity="center_horizontal|top"
             android:background="@drawable/transbutton"
-            android:layout_marginLeft="16dp" />
+            android:layout_marginLeft="-4dp" />
 
         <ImageButton
-            android:layout_width="125dp"
+            android:layout_width="106dp"
             android:layout_height="fill_parent"
             android:id="@+id/topRightButton"
             android:layout_gravity="right|top"
-            android:layout_marginLeft="4dp"
-            android:background="@drawable/transbutton" />
+            android:background="@drawable/transbutton"
+            android:layout_marginLeft="6dp" />
 
     </LinearLayout>
 

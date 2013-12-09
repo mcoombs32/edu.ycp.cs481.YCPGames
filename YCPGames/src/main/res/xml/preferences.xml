@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/general">
+        <CheckBoxPreference
+            android:key="pref_key_single_player"
+            android:summary="@string/single_player_summ"
+            android:title="@string/single_player_pref"
+            android:defaultValue="true">
+            </CheckBoxPreference>
+        <ListPreference
+            android:dependency="pref_key_single_player"
+            android:defaultValue="1"
+            android:key="pref_key_difficulty"
+            android:title="@string/difficulty_pref"
+            android:dialogTitle="@string/difficulty_dialog_title"
+            android:entries="@array/difficulty_arr"
+            android:entryValues="@array/difficulty_values">
+            </ListPreference>
+        </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/grid_size_pref">
+        <ListPreference
+            android:title="@string/grid_height_pref"
+            android:key="pref_key_grid_height"
+            android:defaultValue="5"
+            android:entries="@array/grid_arr"
+            android:entryValues="@array/grid_values"
+            android:dialogTitle="@string/grid_height_dialog">
+            </ListPreference>
+        <ListPreference
+            android:title="@string/grid_width_pref"
+            android:key="pref_key_grid_width"
+            android:defaultValue="5"
+            android:entries="@array/grid_arr"
+            android:entryValues="@array/grid_values"
+            android:dialogTitle="@string/grid_width_dialog">
+            </ListPreference>
+        </PreferenceCategory>
+</PreferenceScreen>

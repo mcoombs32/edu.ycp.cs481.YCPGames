@@ -7,9 +7,11 @@ import android.util.Log;
  */
 public class Settings {
 	private static final String TAG = "YCPGamesSettings";
-	private Boolean singlePlayer = true;
+	private Boolean singlePlayer = false;
 	private int difficulty = 0;
-	private int girdSize = 3;
+	private int gridHeight = 5;
+    private int gridWidth = 5;
+
 	/*
 	singleton is cool
 	and seems useful here
@@ -24,24 +26,14 @@ public class Settings {
 		Log.d(TAG, "Settings singleton object created");
 	}
 
-	/*
-	 *method to see if it is a single player or multiplayer game
-	 * returns true if singleplayer
-	 */
 	public boolean isSinglePlayer() {
 		return singlePlayer;
 	}
 
-	/*
-	 *method to set singleplayer vs multiplayer
-	 */
 	public void setSinglePlayer(Boolean SP) {
 		singlePlayer = SP;
 	}
 
-	/*
-	 *getter and setter for difficulty
-	 */
 	public int getDifficulty() {
 		return difficulty;
 	}
@@ -50,15 +42,12 @@ public class Settings {
 		difficulty = d;
 	}
 
-	/*
-	 * getter and setter for gridsize
-	 *
-	 */
-	public int getGirdSize() {
-		return girdSize;
-	}
+    public int getGridHeight() {return gridHeight;}
+    public int getGridWidth() {return gridWidth;}
 
-	public void setGirdSize(int g) {
-		girdSize = g;
-	}
+    public void setGridHeight(int g){this.gridHeight = g;}
+    public void setGridWidth(int g){this.gridWidth = g;}
+
+
+
 }

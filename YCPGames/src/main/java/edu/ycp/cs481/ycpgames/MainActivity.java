@@ -2,6 +2,7 @@ package edu.ycp.cs481.ycpgames;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -18,13 +19,14 @@ public class MainActivity extends Activity {
 	protected ImageButton DotsButton;
 	protected ImageButton CheckersButton;
 	protected ImageButton SettingsButton;
-
+	Settings settings = Settings.getInstance();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		Log.d(TAG, "onCreate() called");
 
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 		//Get references to main menu buttons
 		TicTacToeButton = (ImageButton) findViewById(R.id.TicTacToeButton);
 		DotsButton = (ImageButton) findViewById(R.id.DotsButton);
@@ -38,36 +40,29 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, TicTacToeActivity.class);
                 startActivity(intent);
+
             }
         });
 		DotsButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Log.d(TAG, "DotsButton Pressed");
-				//When dots button is pressed:
-				//Placeholder "Toast" till Dots is implemented
-				Toast.makeText(MainActivity.this, R.string.Dots, Toast.LENGTH_SHORT).show();
-				//TODO: link to Dots
+				Intent intent = new Intent(MainActivity.this, DotsActivity.class);
+                startActivity(intent);
 			}
 		});
 		CheckersButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Log.d(TAG, "CheckersButton Pressed");
-				//When Checkers button is pressed:
-				//Placeholder "Toast" till Checkers is implemented
-				Toast.makeText(MainActivity.this, R.string.Checkers, Toast.LENGTH_SHORT).show();
-				//TODO: link to Checkers
+				Intent intent = new Intent(MainActivity.this, CheckersActivity.class);
+                startActivity(intent);
+
 			}
 		});
 		SettingsButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Log.d(TAG, "SettingsButton Pressed");
-				//When Settings button is pressed:
-				//Placeholder "Toast" till Settings is implemented
-				Toast.makeText(MainActivity.this, R.string.Settings, Toast.LENGTH_SHORT).show();
-				//TODO: link to settings
+                Intent intent = new Intent(MainActivity.this,SettingsActivity.class);
+                startActivity(intent);
 			}
 		});
 

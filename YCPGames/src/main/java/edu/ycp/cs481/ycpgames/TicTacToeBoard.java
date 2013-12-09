@@ -97,7 +97,7 @@ public class TicTacToeBoard extends Board {
 	 *
 	 * @return 0 for game still in progress, -1 if draw, otherwise player number of victor
 	 */
-	@Override
+
 	public int isGameOver() {
 		int player;
 		if ((playerOnePieces < 3) && (playerTwoPieces < 3)) {
