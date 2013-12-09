@@ -10,7 +10,6 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.Toast;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -144,6 +143,11 @@ public class CheckersDraw extends SurfaceView implements SurfaceHolder.Callback 
         return temp;
     }
 
+    public void mUpdateGrid(CheckersGridCell move){
+        game.makeMove(move.getArrX(),move.getArrY());
+        selected = false;
+    }
+
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         boolean retry = true;
@@ -175,7 +179,11 @@ public class CheckersDraw extends SurfaceView implements SurfaceHolder.Callback 
                         touchEvent = false;
                         break;
                     }
-
+                }else{
+                    final float x = event.getX();
+                    final float y = event.getY();
+                    selectedPiece = mGetNearestPiece((int)x,(int)y);
+                    mUpdateGrid(selectedPiece);
                 }
                 break;
             case MotionEvent.ACTION_UP:
