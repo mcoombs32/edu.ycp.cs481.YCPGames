@@ -19,11 +19,7 @@ public class CheckersGrid {
         gridNodes = new CheckersGridCell[gridSize[WIDTH]][gridSize[LENGTH]];
         for(int i = 0; i < gridSize[WIDTH];i++){
             for (int j = 0; j < gridSize[LENGTH]; j++) {
-                if(j == 0||j ==gridSize[LENGTH]){
-                    gridNodes[i][j] = null;
-                }else{
                     gridNodes[i][j] = new CheckersGridCell(cellLength, cellWidth, cellWidth * i, cellLength * j,i,j);
-                }
             }
         }
 

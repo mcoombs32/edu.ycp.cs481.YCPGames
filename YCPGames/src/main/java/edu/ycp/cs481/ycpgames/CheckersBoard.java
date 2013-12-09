@@ -116,7 +116,7 @@ public class CheckersBoard {
 
 			if((x!= 7) && (y != 0) && (grid[x+1][y-1].getPlayer() == CheckersVal.EMPTY)){
 				//check front diagonal right
-				validMoves.add(new int[]{x+1, y+1,0});
+				validMoves.add(new int[]{x+1, y-1,0});
 			}else if((x!= 7) && (y != 0) && (grid[x+1][y-1].getPlayer() == CheckersVal.PLAYER_ONE)){
 				//check if player can jump it
 				if((x!= 6) && (y != 1) && (grid[x+2][y-2].getPlayer() == CheckersVal.EMPTY)){
@@ -174,6 +174,9 @@ public class CheckersBoard {
 			jumpedPiece = grid[move[3]][move[4]];
 			grid[move[3]][move[4]] = new CheckersPiece(CheckersVal.EMPTY);
 		}
+        if(move[1] == 0 || move[1] == 7){
+            grid[move[0]][move[1]].promote();
+        }
 		return jumpedPiece;
 	}
 

@@ -41,7 +41,7 @@ public class CheckersPlayer {
 	public CheckersVal getPlayerNum() {
 		return playerNum;
 	}
-	public void findMove(Boolean isJump){
+	public void findMove(CheckersBoard b){
 		Log.d(TAG,"findMove not implemented here");
 	}
 	public int[] getSelectedPiece(){
