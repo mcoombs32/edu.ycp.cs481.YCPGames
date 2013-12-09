@@ -53,11 +53,9 @@ public class MainActivity extends Activity {
 		CheckersButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Log.d(TAG, "CheckersButton Pressed");
-				//When Checkers button is pressed:
-				//Placeholder "Toast" till Checkers is implemented
-				Toast.makeText(MainActivity.this, R.string.Checkers, Toast.LENGTH_SHORT).show();
-				//TODO: link to Checkers
+				Intent intent = new Intent(MainActivity.this, CheckersActivity.class);
+                startActivity(intent);
+
 			}
 		});
 		SettingsButton.setOnClickListener(new View.OnClickListener() {

@@ -48,10 +48,11 @@
         <activity
             android:name="edu.ycp.cs481.ycpgames.CheckersActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_checkers"
-            android:theme="@style/FullscreenTheme" >
+            android:label="@string/title_activity_dots"
+            android:screenOrientation="sensorPortrait"
+            android:theme="@style/NoActionBar" >
         </activity>
-        <activity android:name=".CheckersDraw" />
+
     </application>
 
 </manifest>

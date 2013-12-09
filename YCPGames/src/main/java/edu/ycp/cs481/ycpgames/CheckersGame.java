@@ -7,13 +7,19 @@ import java.util.List;
  * Created by brian on 11/18/13.
  */
 public class CheckersGame {
-	private List<int[]> validMoves = new ArrayList<int[]>();;
+	private List<int[]> validMoves = new ArrayList<int[]>();
 	private int selectedX = -1, selectedY = -1;
 	private CheckersPlayer playerOne = new CheckersPlayer(CheckersVal.PLAYER_ONE);
 	private CheckersPlayer playerTwo = new CheckersPlayer(CheckersVal.PLAYER_TWO);
-	private CheckersBoard board = new CheckersBoard();
+
+    public CheckersBoard getBoard() {
+        return board;
+    }
+
+    private CheckersBoard board = new CheckersBoard();
 	public CheckersGame(){
 		super();
+        reset();
 	}
 
 	/**

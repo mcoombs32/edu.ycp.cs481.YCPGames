@@ -1,7 +1,7 @@
 package edu.ycp.cs481.ycpgames;
 
 import android.content.Context;
-import android.content.SharedPreferences;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -16,6 +16,7 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.io.InputStream;
 
+
 /**
  * Created by michaelcoombs on 11/5/13.
  */
@@ -28,18 +29,16 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
     private DotsGame game;
     private Paint paintOne, paintTwo;
     private DotsGridCell start,end;
-
     private Toast invalidToast;
 
     public DotsDraw(Context context, int[] screen){
         super(context);
-
         getHolder().addCallback(this);
+
         game = new DotsGame();
-
-
         grid = new DotsGrid(screen);
         invalidToast = Toast.makeText(context,"Invalid move, please select another!",Toast.LENGTH_SHORT);
+
         InputStream is = context.getResources().openRawResource(R.drawable.dot);
         try {
             mBackground =  BitmapFactory.decodeStream(is);
@@ -47,6 +46,7 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         paintOne = new Paint();
         paintOne.setColor(Color.parseColor("#108642"));
         paintOne.setStyle(Paint.Style.FILL);
@@ -55,8 +55,10 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
         paintOne.setTypeface(Typeface.DEFAULT_BOLD);
         paintOne.setShadowLayer(1.2f,1,1,Color.GRAY);
         paintOne.setStrokeWidth(12);
+
         start = null;
         end = null;
+
         paintTwo = new Paint();
         paintTwo.setColor(Color.parseColor("#c0c0c0"));
         paintTwo.setAntiAlias(true);
@@ -67,17 +69,16 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
         paintTwo.setStrokeWidth(12);
     }
 
-
     @Override
     public void onDraw(Canvas canvas){
         canvas.drawRGB(255, 255, 255);
         Paint tempPaint = null;
         game.board.isGameOver();
-
+        paintTwo.setTextSize(48);
+        paintOne.setTextSize(48);
         float textWidth = paintTwo.measureText("Player 2: "+game.getPlayerTwoScore());
         canvas.drawText("Player 1: " + game.getPlayerOneScore(), 20, canvas.getHeight()-(grid.getCell(0,0).getLength()/2), paintOne);
         canvas.drawText("Player 2: "+game.getPlayerTwoScore(),canvas.getWidth()-(textWidth+20),canvas.getHeight()-(grid.getCell(0,0).getLength()/2),paintTwo);
-
 
         for(int i = 0; i < grid.getGridWidth()-1;i++){
             for (int j = 0; j < grid.getGridLength()-1; j++) {
@@ -113,6 +114,17 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
                        tempPaint = paintTwo;
                    }
                    canvas.drawLine(grid.getCell(i,j+1).getCenter()[0],grid.getCell(i,j+1).getCenter()[1], grid.getCell(i+1,j+1).getCenter()[0],grid.getCell(i+1,j+1).getCenter()[1],tempPaint);
+               }
+               if(game.board.grid[i][j].isNodeFilled() == GameVal.PLAYER_ONE){
+                   tempPaint = paintOne;
+                   tempPaint.setTextSize(100);
+                   canvas.drawText("1",center[0]+(grid.getCell(i,j).getWidth()/2),center[1]+(grid.getCell(i,j).getLength()/2),tempPaint);
+
+               }else if(game.board.grid[i][j].isNodeFilled() == GameVal.PLAYER_TWO){
+                   tempPaint = paintTwo;
+                   tempPaint.setTextSize(100);
+                   canvas.drawText("2",center[0]+(grid.getCell(i,j).getWidth()/2),center[1]+(grid.getCell(i,j).getLength()/2),tempPaint);
+
                }
             }
         }
@@ -168,11 +180,8 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
             } catch (InterruptedException e) {
 
             }
-
         }
     }
-
-
 
     @Override
     public boolean onTouchEvent(MotionEvent event){
@@ -241,43 +250,48 @@ public class DotsDraw extends SurfaceView implements SurfaceHolder.Callback {
             invalidate();
     }
 
+    class GameThread extends Thread{
+        private SurfaceHolder surfaceHolder;
+        private DotsDraw gameView;
+        private boolean run = false;
 
-class GameThread extends Thread{
-    private SurfaceHolder surfaceHolder;
-    private DotsDraw gameView;
-    private boolean run = false;
+        public GameThread(SurfaceHolder surfaceHolder, DotsDraw gameView) {
+            this.surfaceHolder = surfaceHolder;
+            this.gameView = gameView;
+        }
 
-    public GameThread(SurfaceHolder surfaceHolder, DotsDraw gameView) {
-        this.surfaceHolder = surfaceHolder;
-        this.gameView = gameView;
-    }
-
-    public void setRunning(boolean run) {
-        this.run = run;
-    }
+        public void setRunning(boolean run) {
+            this.run = run;
+        }
 
 
-    @Override
-    public void run() {
-        while (run) {
-            Canvas c = null;
-            try{
-                c = surfaceHolder.lockCanvas();
-                synchronized (surfaceHolder) {
-                    if(c!= null){
-                        gameView.onDraw(c);
+        @Override
+        public void run() {
+            while (run) {
+                Canvas c = null;
+                try{
+                    c = surfaceHolder.lockCanvas();
+                    synchronized (surfaceHolder) {
+                        if(c!= null){
+                            gameView.onDraw(c);
+                        }
+
                     }
-
+                }finally {
+                    if (c != null) {
+                        surfaceHolder.unlockCanvasAndPost(c);
+                    }
                 }
-            }finally {
-                if (c != null) {
-                    surfaceHolder.unlockCanvasAndPost(c);
+                if(game.board.isGameOver() != GameVal.IN_PROGRESS)
+                   setRunning(false);
+
                 }
             }
-        }
     }
+
+
 }
-}
+
 
 
 
