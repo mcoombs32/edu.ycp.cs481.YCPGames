@@ -1,5 +1,7 @@
 package edu.ycp.cs481.ycpgames;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +9,7 @@ import java.util.List;
  * Created by brian on 11/24/13.
  */
 public class CheckersBoard {
-	private static final String TAG = "YCPGamesBoard";
+	private static final String TAG = "YCPGamesCheckersBoard";
 	private CheckersPiece[][] grid = new CheckersPiece[8][8];
 	private int playerOnePieces, playerTwoPieces;
 
@@ -98,7 +100,7 @@ public class CheckersBoard {
 				}else if((x!= 7) && (y != 0) && (grid[x+1][y-1].getPlayer() == CheckersVal.PLAYER_TWO)){
 					//check if player can jump it
 					if((x!= 1) && (y != 1) && (grid[x+2][y-2].getPlayer() == CheckersVal.EMPTY)){
-						validMoves.add(new int[]{x+2,y-2,1});
+						validMoves.add(new int[]{x+2,y-2,1,x+1,y-1});
 					}
 				}
 			}
@@ -129,7 +131,7 @@ public class CheckersBoard {
 				if((x!= 0) && (y != 7) && (grid[x-1][y+1].getPlayer() == CheckersVal.EMPTY)){
 					//check back diagonal left
 					validMoves.add(new int[]{x-1, y+1,0,0,0});
-				}else if((x!= 0) && (y != 7) && (grid[x-1][y+1].getPlayer() == CheckersVal.PLAYER_TWO)){
+				}else if((x!= 0) && (y != 7) && (grid[x-1][y+1].getPlayer() == CheckersVal.PLAYER_ONE)){
 					//check if player can jump it
 					if((x!= 1) && (y != 6) && (grid[x-2][y+2].getPlayer() == CheckersVal.EMPTY)){
 						validMoves.add(new int[]{x-2,y+2,1,x-1,y+1});
@@ -138,15 +140,20 @@ public class CheckersBoard {
 
 				if((x!= 7) && (y != 0) && (grid[x+1][y+1].getPlayer() == CheckersVal.EMPTY)){
 					//check back diagonal right
-					validMoves.add(new int[]{x+1, y-1,0,0,0});
-				}else if((x!= 7) && (y != 7) && (grid[x+1][y+1].getPlayer() == CheckersVal.PLAYER_TWO)){
+					validMoves.add(new int[]{x+1, y+1,0,0,0});
+				}else if((x!= 7) && (y != 7) && (grid[x+1][y+1].getPlayer() == CheckersVal.PLAYER_ONE)){
 					//check if player can jump it
-					if((x!= 1) && (y != 6) && (grid[x+2][y+2].getPlayer() == CheckersVal.EMPTY)){
+					if((x!= 6) && (y != 6) && (grid[x+2][y+2].getPlayer() == CheckersVal.EMPTY)){
 						validMoves.add(new int[]{x+2,y+2,1,x+1,y+1});
 					}
 				}
 			}
 		}
+		/**
+		 * debug
+		for(int[] move : validMoves){
+			Log.d(TAG, "moves: " + move[0] + " " + move[1] + " " +  move[2] + " " + move[3] + " " + move[4]);
+		}*/
 		return validMoves;
 	}
 

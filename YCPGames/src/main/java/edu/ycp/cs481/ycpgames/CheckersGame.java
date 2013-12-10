@@ -9,6 +9,7 @@ import java.util.List;
  * Created by brian on 11/18/13.
  */
 public class CheckersGame {
+	private static final String TAG = "YCPGamesCheckersGame";
 	private List<int[]> validMoves = new ArrayList<int[]>();
 	private int selectedX = -1, selectedY = -1;
 	private CheckersPlayer playerOne = new CheckersPlayer(CheckersVal.PLAYER_ONE);
@@ -42,6 +43,13 @@ public class CheckersGame {
 			selectedX = x;
 			selectedY = y;
 			validMoves = board.getValidMoves(x,y);
+			Log.d(TAG, "selected piece: " + x + " " +y);
+			/**
+			 * debug
+			 *
+			for(int[] move : validMoves){
+				Log.d(TAG, "moves: " + move[0] + " " + move[1] + " " +  move[2] + " " + move[3] + " " + move[4]);
+			}*/
 			return true;
 		}else{
 			return false;
