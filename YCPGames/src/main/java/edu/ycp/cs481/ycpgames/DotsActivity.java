@@ -34,8 +34,8 @@ public class DotsActivity extends Activity {
         super.onCreate(savedInstanceState);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         Settings.getInstance().setSinglePlayer(sharedPref.getBoolean("pref_key_single_player",true));
-        Settings.getInstance().setGridHeight(Integer.parseInt(sharedPref.getString("pref_key_grid_height","5")));
-        Settings.getInstance().setGridWidth(Integer.parseInt(sharedPref.getString("pref_key_grid_width","5")));
+        Settings.getInstance().setGridHeight(Integer.parseInt(sharedPref.getString("pref_key_grid","5")));
+        Settings.getInstance().setGridWidth(Integer.parseInt(sharedPref.getString("pref_key_grid","5")));
         Settings.getInstance().setDifficulty(Integer.parseInt(sharedPref.getString("pref_key_difficulty", "0")));
         draw = new DotsDraw(this, screen);
         setContentView(draw);

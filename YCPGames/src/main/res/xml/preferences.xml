@@ -23,19 +23,11 @@
         android:title="@string/grid_size_pref">
         <ListPreference
             android:title="@string/grid_height_pref"
-            android:key="pref_key_grid_height"
+            android:key="pref_key_grid"
             android:defaultValue="5"
             android:entries="@array/grid_arr"
             android:entryValues="@array/grid_values"
             android:dialogTitle="@string/grid_height_dialog">
-            </ListPreference>
-        <ListPreference
-            android:title="@string/grid_width_pref"
-            android:key="pref_key_grid_width"
-            android:defaultValue="5"
-            android:entries="@array/grid_arr"
-            android:entryValues="@array/grid_values"
-            android:dialogTitle="@string/grid_width_dialog">
             </ListPreference>
         </PreferenceCategory>
 </PreferenceScreen>
